@@ -14,8 +14,10 @@ This widget features:
 - Beautiful Material design!
 - Ad-free
 
-## Screens
+## Prototype
 
+
+[http://htmlpreview.github.io/?https://github.com/abicelis/ChefBuddy/blob/master/prototype/html/index.html](http://htmlpreview.github.io/?https://github.com/abicelis/ChefBuddy/blob/master/prototype/html/index.html "Click here to view prototype")
 
 ## Code dependencies
 
