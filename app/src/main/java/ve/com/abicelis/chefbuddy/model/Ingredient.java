@@ -9,44 +9,44 @@ import ve.com.abicelis.chefbuddy.enums.Measurement;
  */
 
 public class Ingredient {
-    private String mAmount;
-    private Measurement mMeasurement;
-    private String mName;
+    private String amount;
+    private Measurement measurement;
+    private String name;
 
 //    public Ingredient(@NonNull String name) {
-//        mName = name;
+//        name = name;
 //    }
 
     public Ingredient(@NonNull String amount, @NonNull Measurement measurement, @NonNull String name) {
-        mAmount = amount;
-        mMeasurement = measurement;
-        mName = name;
+        this.amount = amount;
+        this.measurement = measurement;
+        this.name = name;
     }
 
 
 //    public void setAmount(@NonNull String amount, @NonNull Measurement measurement) {
-//        mAmount = amount;
-//        mMeasurement = measurement;
+//        amount = amount;
+//        measurement = measurement;
 //    }
 
 
     public String getAmount() {
-        return mAmount;
+        return amount;
     }
     public Measurement getMeasurement() {
-        return mMeasurement;
+        return measurement;
     }
     public String getName() {
-        return mName;
+        return name;
     }
 
 
 
     public String getAmountString() {
-        if (mMeasurement == null || mAmount == null)
+        if (measurement == null || amount == null)
             return "";
         else
-            return mAmount + " " + mMeasurement.getAbbreviation();
+            return amount + " " + measurement.getAbbreviation();
 
     }
 
