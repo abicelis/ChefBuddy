@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">ChefBuddy</string>
+
+
+
+
+    <!--Measurements enum-->
+    <string name="measurement_inch">Inch</string>
+    <string name="measurement_tablespoon">Tablespoon</string>
+    <string name="measurement_teaspoon">Teaspoon</string>
+    <string name="measurement_cup">Cup</string>
+    <string name="measurement_pint">Pint</string>
+    <string name="measurement_quart">Quart</string>
+    <string name="measurement_gallon">Gallon</string>
+    <string name="measurement_ounce">Ounce</string>
+    <string name="measurement_fluid_ounce">Fluid ounce</string>
+    <string name="measurement_centimeter">Centimeter</string>
+    <string name="measurement_meter">Meter</string>
+    <string name="measurement_cubic_centimeter">Cubic centimeter</string>
+    <string name="measurement_mililiter">Mililiter</string>
+    <string name="measurement_liter">Liter</string>
+    <string name="measurement_gram">Gram</string>
+    <string name="measurement_kilogram">Kilogram</string>
+
+    <string name="measurement_inch_abbr">in</string>
+    <string name="measurement_tablespoon_abbr">tbsp</string>
+    <string name="measurement_teaspoon_abbr">tsp</string>
+    <string name="measurement_cup_abbr">cp</string>
+    <string name="measurement_pint_abbr">pt</string>
+    <string name="measurement_quart_abbr">qt</string>
+    <string name="measurement_gallon_abbr">gal</string>
+    <string name="measurement_ounce_abbr">oz</string>
+    <string name="measurement_fluid_ounce_abbr">fl oz</string>
+    <string name="measurement_centimeter_abbr">cm</string>
+    <string name="measurement_meter_abbr">m</string>
+    <string name="measurement_cubic_centimeter_abbr">cc</string>
+    <string name="measurement_mililiter_abbr">ml</string>
+    <string name="measurement_liter_abbr">L</string>
+    <string name="measurement_gram_abbr">g</string>
+    <string name="measurement_kilogram_abbr">Kg</string>
+
+
 </resources>
