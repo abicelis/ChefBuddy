@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy;
+package ve.com.abicelis.chefbuddy.ui.main;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.lukedeighton.wheelview.WheelView;
 import com.lukedeighton.wheelview.adapter.WheelAdapter;
+
+import ve.com.abicelis.chefbuddy.R;
 
 public class MainActivity extends AppCompatActivity {
 
