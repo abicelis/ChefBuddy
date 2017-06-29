@@ -4,6 +4,13 @@
 
 
 
+    <!--PreparationTime enum-->
+    <string name="preparation_time_minute">minute</string>
+    <string name="preparation_time_minutes">minutes</string>
+    <string name="preparation_time_hour">hour</string>
+    <string name="preparation_time_hours">hours</string>
+
+
     <!--Measurements enum-->
     <string name="measurement_inch">Inch</string>
     <string name="measurement_tablespoon">Tablespoon</string>
