@@ -4,11 +4,11 @@
 
 
 
-    <!--PreparationTime enum-->
-    <string name="preparation_time_minute">minute</string>
-    <string name="preparation_time_minutes">minutes</string>
-    <string name="preparation_time_hour">hour</string>
-    <string name="preparation_time_hours">hours</string>
+    <!--PreparationTimeType enum-->
+    <string name="preparation_time_type_minute">minute</string>
+    <string name="preparation_time_type_minutes">minutes</string>
+    <string name="preparation_time_type_hour">hour</string>
+    <string name="preparation_time_type_hours">hours</string>
 
 
     <!--Measurements enum-->

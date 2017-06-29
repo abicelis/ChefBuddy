@@ -8,15 +8,15 @@ import ve.com.abicelis.chefbuddy.R;
  * Created by abicelis on 28/6/2017.
  */
 
-public enum PreparationTime {
-    MINUTE(               R.string.preparation_time_minute,              R.string.preparation_time_minutes),
-    HOUR(               R.string.preparation_time_hour,              R.string.preparation_time_hours),
+public enum PreparationTimeType {
+    MINUTE(  R.string.preparation_time_minute,  R.string.preparation_time_minutes),
+    HOUR(    R.string.preparation_time_hour,    R.string.preparation_time_hours),
     ;
 
     private @StringRes int friendlyNameSingular;
     private @StringRes int friendlyNamePlural;
 
-    PreparationTime(@StringRes int friendlyNameSingular, @StringRes int friendlyNamePlural){
+    PreparationTimeType(@StringRes int friendlyNameSingular, @StringRes int friendlyNamePlural){
         this.friendlyNameSingular = friendlyNameSingular;
         this.friendlyNamePlural = friendlyNamePlural;
     }
