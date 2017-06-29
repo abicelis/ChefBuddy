@@ -9,8 +9,8 @@ import ve.com.abicelis.chefbuddy.R;
  */
 
 public enum PreparationTimeType {
-    MINUTE(  R.string.preparation_time_minute,  R.string.preparation_time_minutes),
-    HOUR(    R.string.preparation_time_hour,    R.string.preparation_time_hours),
+    MINUTE(  R.string.preparation_time_type_minute,  R.string.preparation_time_type_minutes),
+    HOUR(    R.string.preparation_time_type_hour,    R.string.preparation_time_type_hours),
     ;
 
     private @StringRes int friendlyNameSingular;
