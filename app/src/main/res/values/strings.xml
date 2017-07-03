@@ -12,6 +12,7 @@
 
 
     <!--Measurements enum-->
+    <string name="measurement_none"></string>
     <string name="measurement_inch">Inch</string>
     <string name="measurement_tablespoon">Tablespoon</string>
     <string name="measurement_teaspoon">Teaspoon</string>
@@ -46,5 +47,9 @@
     <string name="measurement_gram_abbr">g</string>
     <string name="measurement_kilogram_abbr">Kg</string>
 
+
+
+    /*  File subdirectories  */
+    <string name="subdirectory_attachments_image" translatable="false">attachments/image</string>
 
 </resources>

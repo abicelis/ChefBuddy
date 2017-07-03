@@ -9,6 +9,7 @@ import ve.com.abicelis.chefbuddy.R;
  */
 
 public enum Measurement {
+    NONE(               R.string.measurement_none,              R.string.measurement_none),
     INCH(               R.string.measurement_inch,              R.string.measurement_inch_abbr),
     TABLESPOON(         R.string.measurement_tablespoon,        R.string.measurement_tablespoon_abbr),
     TEASPOON(           R.string.measurement_teaspoon,          R.string.measurement_teaspoon_abbr),
