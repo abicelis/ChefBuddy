@@ -4,6 +4,10 @@
 
 
 
+    <!--Message enum-->
+    <string name="message_home_activity_error_loading_recipes">Unexpected error loading recipe list</string>
+
+
     <!--PreparationTimeType enum-->
     <string name="preparation_time_type_minute">minute</string>
     <string name="preparation_time_type_minutes">minutes</string>
