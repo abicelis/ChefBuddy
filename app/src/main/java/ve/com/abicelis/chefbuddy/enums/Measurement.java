@@ -3,13 +3,14 @@ package ve.com.abicelis.chefbuddy.enums;
 import android.support.annotation.StringRes;
 
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 
 /**
  * Created by abicelis on 28/6/2017.
  */
 
 public enum Measurement {
-    NONE(               R.string.measurement_none,              R.string.measurement_none),
+    NONE(               R.string.measurement_none,                  R.string.measurement_none),
     INCH(               R.string.measurement_inch,              R.string.measurement_inch_abbr),
     TABLESPOON(         R.string.measurement_tablespoon,        R.string.measurement_tablespoon_abbr),
     TEASPOON(           R.string.measurement_teaspoon,          R.string.measurement_teaspoon_abbr),
@@ -39,11 +40,11 @@ public enum Measurement {
         this.abbreviation = abbreviation;
     }
 
-    public int getAbbreviation() {
-        return abbreviation;
+    public String getAbbreviation() {
+        return ChefBuddyApplication.getContext().getString(abbreviation);
     }
 
-    public int getFriendlyName() {
-        return friendlyName;
+    public String getFriendlyName() {
+        return ChefBuddyApplication.getContext().getString(friendlyName);
     }
 }
