@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.enums;
+package ve.com.abicelis.chefbuddy.model;
 
 import android.support.annotation.StringRes;
 
