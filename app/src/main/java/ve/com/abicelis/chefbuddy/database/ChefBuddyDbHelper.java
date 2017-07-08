@@ -95,6 +95,22 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
     private void insertMockData(SQLiteDatabase sqLiteDatabase) {
         String statement;
 
+        //Insert mock Ingredients
+        statement = "INSERT INTO " + ChefBuddyContract.IngredientTable.TABLE_NAME + " (" +
+                ChefBuddyContract.IngredientTable._ID + COMMA_SEP +
+                ChefBuddyContract.IngredientTable.COL_NAME_NAME.getName() +
+                ") VALUES " +
+                "(0, 'Mozarella Cheese')," +
+                "(1, 'Flour')," +
+                "(2, 'Oil')," +
+                "(3, 'Ham')," +
+                "(4, 'Chickpea')," +
+                "(5, 'Lemon')," +
+                "(6, 'Tahini')" +
+                ";";
+        sqLiteDatabase.execSQL(statement);
+
+
         //Insert mock Recipes
         statement = "INSERT INTO " + ChefBuddyContract.RecipeTable.TABLE_NAME + " (" +
                 ChefBuddyContract.RecipeTable._ID + COMMA_SEP +
@@ -110,6 +126,25 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ";";
         sqLiteDatabase.execSQL(statement);
 
+
+        //Insert mock Ingredients
+        statement = "INSERT INTO " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + " (" +
+                ChefBuddyContract.RecipeIngredientTable._ID + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getName() +
+                ") VALUES " +
+                "(0, 0, 0, '800', 'GRAM')," +
+                "(1, 0, 1, '2', 'CUP')," +
+                "(2, 0, 2, '1', 'TABLESPOON')," +
+                "(3, 0, 3, '250', 'GRAM')," +
+                "(4, 1, 4, '1', 'KILOGRAM')," +
+                "(5, 1, 5, '5', 'NONE')," +
+                "(6, 1, 6, '500', 'MILILITER')," +
+                "(7, 1, 2, '200', 'CUBIC_CENTIMITER')" +
+                ";";
+        sqLiteDatabase.execSQL(statement);
 
 
         //Mock dates for Daily Recipes
@@ -145,13 +180,13 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.DailyRecipeTable.COL_NAME_DAY.getName() + COMMA_SEP +
                 ChefBuddyContract.DailyRecipeTable.COL_NAME_RECIPE_FK.getName() +
                 ") VALUES " +
-                "(0, , " + today.get(Calendar.YEAR) + ", " + today.get(Calendar.MONTH) + ", " + today.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(1, , " + todayPlusOne.get(Calendar.YEAR) + ", " + todayPlusOne.get(Calendar.MONTH) + ", " + todayPlusOne.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(2, , " + todayPlusTwo.get(Calendar.YEAR) + ", " + todayPlusTwo.get(Calendar.MONTH) + ", " + todayPlusTwo.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(3, , " + todayPlusThree.get(Calendar.YEAR) + ", " + todayPlusThree.get(Calendar.MONTH) + ", " + todayPlusThree.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(4, , " + todayPlusFour.get(Calendar.YEAR) + ", " + todayPlusFour.get(Calendar.MONTH) + ", " + todayPlusFour.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(5, , " + todayPlusFive.get(Calendar.YEAR) + ", " + todayPlusFive.get(Calendar.MONTH) + ", " + todayPlusFive.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(5, , " + todayPlusSix.get(Calendar.YEAR) + ", " + todayPlusSix.get(Calendar.MONTH) + ", " + todayPlusSix.get(Calendar.DAY_OF_MONTH) + ", 0)" +
+                "(0, " + today.get(Calendar.YEAR) + ", " + today.get(Calendar.MONTH) + ", " + today.get(Calendar.DAY_OF_MONTH) + ", 0)," +
+                "(1, " + todayPlusOne.get(Calendar.YEAR) + ", " + todayPlusOne.get(Calendar.MONTH) + ", " + todayPlusOne.get(Calendar.DAY_OF_MONTH) + ", 1)," +
+                "(2, " + todayPlusTwo.get(Calendar.YEAR) + ", " + todayPlusTwo.get(Calendar.MONTH) + ", " + todayPlusTwo.get(Calendar.DAY_OF_MONTH) + ", 0)," +
+                "(3, " + todayPlusThree.get(Calendar.YEAR) + ", " + todayPlusThree.get(Calendar.MONTH) + ", " + todayPlusThree.get(Calendar.DAY_OF_MONTH) + ", 1)," +
+                "(4, " + todayPlusFour.get(Calendar.YEAR) + ", " + todayPlusFour.get(Calendar.MONTH) + ", " + todayPlusFour.get(Calendar.DAY_OF_MONTH) + ", 0)," +
+                "(5, " + todayPlusFive.get(Calendar.YEAR) + ", " + todayPlusFive.get(Calendar.MONTH) + ", " + todayPlusFive.get(Calendar.DAY_OF_MONTH) + ", 1)," +
+                "(6, " + todayPlusSix.get(Calendar.YEAR) + ", " + todayPlusSix.get(Calendar.MONTH) + ", " + todayPlusSix.get(Calendar.DAY_OF_MONTH) + ", 0)" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
@@ -159,6 +194,12 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
     private void createDatabase(SQLiteDatabase sqLiteDatabase) {
         String statement;
+
+        statement = "CREATE TABLE " + ChefBuddyContract.IngredientTable.TABLE_NAME + " (" +
+                ChefBuddyContract.IngredientTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.IngredientTable.COL_NAME_NAME.getName() + " " + ChefBuddyContract.IngredientTable.COL_NAME_NAME.getDataType() +
+                " ); " ;
+        sqLiteDatabase.execSQL(statement);
 
         statement = "CREATE TABLE " + ChefBuddyContract.RecipeTable.TABLE_NAME + " (" +
                 ChefBuddyContract.RecipeTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -170,6 +211,18 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getDataType() +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
+
+        statement = "CREATE TABLE " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + " (" +
+                ChefBuddyContract.RecipeIngredientTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getDataType() +
+                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable._ID + ") " + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getDataType() +
+                " REFERENCES " + ChefBuddyContract.IngredientTable.TABLE_NAME + "(" + ChefBuddyContract.IngredientTable._ID + ") " + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getDataType() +
+                " ); " ;
+        sqLiteDatabase.execSQL(statement);
+
 
         statement = "CREATE TABLE " + ChefBuddyContract.DailyRecipeTable.TABLE_NAME + " (" +
                 ChefBuddyContract.DailyRecipeTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -185,7 +238,13 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
     private void deleteDatabase(SQLiteDatabase sqLiteDatabase) {
         String statement ;
 
+        statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.IngredientTable.TABLE_NAME + "; ";
+        sqLiteDatabase.execSQL(statement);
+
         statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.DailyRecipeTable.TABLE_NAME + "; ";
+        sqLiteDatabase.execSQL(statement);
+
+        statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + "; ";
         sqLiteDatabase.execSQL(statement);
 
         statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.RecipeTable.TABLE_NAME + "; ";
