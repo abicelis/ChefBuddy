@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import ve.com.abicelis.chefbuddy.enums.PreparationTimeType;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
