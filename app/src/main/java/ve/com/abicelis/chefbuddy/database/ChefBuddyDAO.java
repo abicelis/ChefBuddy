@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
-import ve.com.abicelis.chefbuddy.enums.Measurement;
-import ve.com.abicelis.chefbuddy.enums.PreparationTimeType;
+import ve.com.abicelis.chefbuddy.model.Measurement;
+import ve.com.abicelis.chefbuddy.model.PreparationTimeType;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 
