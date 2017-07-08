@@ -11,6 +11,12 @@ final class ChefBuddyContract {
     // give it an empty constructor.
     ChefBuddyContract() { }
 
+    /* Ingredient Table  */
+    static abstract class IngredientTable implements BaseColumns {
+        static final String TABLE_NAME = "ingredient";
+        static final TableColumn COL_NAME_NAME = new TableColumn(DataType.TEXT, "name");
+    }
+
     /* Recipe Table  */
     static abstract class RecipeTable implements BaseColumns {
         static final String TABLE_NAME = "recipe";
@@ -21,6 +27,16 @@ final class ChefBuddyContract {
         static final TableColumn COL_NAME_PREPARATION_TIME_TYPE = new TableColumn(DataType.TEXT, "preparation_time_type");
         static final TableColumn COL_NAME_DIRECTIONS = new TableColumn(DataType.TEXT, "directions");
         static final TableColumn COL_NAME_FEATURED_IMAGE = new TableColumn(DataType.BLOB, "featured_image");
+    }
+
+    /* RecipeIngredient Table  */
+    static abstract class RecipeIngredientTable implements BaseColumns {
+        static final String TABLE_NAME = "recipe_ingredient";
+
+        static final TableColumn COL_NAME_RECIPE_FK = new TableColumn(DataType.TEXT, "fk_recipe");
+        static final TableColumn COL_NAME_INGREDIENT_FK = new TableColumn(DataType.TEXT, "fk_ingredient");
+        static final TableColumn COL_NAME_AMOUNT = new TableColumn(DataType.TEXT, "amount");
+        static final TableColumn COL_NAME_MEASUREMENT = new TableColumn(DataType.TEXT, "measurement");
     }
 
     /* Daily Recipe Table */
