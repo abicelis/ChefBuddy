@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.Locale;
 
-import ve.com.abicelis.chefbuddy.enums.Measurement;
-
 /**
  * Created by abicelis on 28/6/2017.
  */
@@ -61,6 +59,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "%1$s %2$s %3$s (ID=%4$d)", amount, measurement.getAbbreviation(), name, id);
+        return String.format(Locale.getDefault(), "%1$s%2$s %3$s (ID=%4$d)", amount, measurement.getAbbreviation(), name, id);
     }
 }
