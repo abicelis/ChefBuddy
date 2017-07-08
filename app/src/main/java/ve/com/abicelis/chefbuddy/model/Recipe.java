@@ -2,10 +2,13 @@ package ve.com.abicelis.chefbuddy.model;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.enums.PreparationTimeType;
+import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
  * Created by abicelis on 28/6/2017.
@@ -17,23 +20,29 @@ public class Recipe {
     private int servings;
     private String preparationTime;
     private PreparationTimeType preparationTimeType;
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
     private String directions;
-    private List<String> images;
-    private Bitmap featuredImage;
-    // TODO: 28/6/2017 List of images?
+
+    private byte[] featuredImageBytes;
+    private Bitmap featuredImage = null;
+
+    private List<String> pathsOfImages;
+    private List<Bitmap> images = new ArrayList<>();
+
 
 
     public Recipe() {}
 
-    public Recipe(int id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType,@NonNull List<Ingredient> ingredients, @NonNull String directions) {
+    public Recipe(int id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes) {
         this.id = id;
         this.name = name;
         this.servings = servings;
         this.preparationTime = preparationTime;
         this.preparationTimeType = preparationTimeType;
-        this.ingredients = ingredients;
         this.directions = directions;
+
+        this.featuredImageBytes = featuredImageBytes;
+        this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
     }
 
 
@@ -59,6 +68,21 @@ public class Recipe {
         return directions;
     }
 
+    public Bitmap getFeaturedImage() {
+        return featuredImage;
+    }
+    public byte[] getFeaturedImageBytes() {
+        return featuredImageBytes;
+    }
+
+    public List<String> getPathsOfImages() {
+        return pathsOfImages;
+    }
+    public List<Bitmap> getImages() {
+        return images;
+    }
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -79,6 +103,22 @@ public class Recipe {
     }
     public void setDirections(String directions) {
         this.directions = directions;
+    }
+
+    public void setFeaturedImageBytes(byte[] featuredImageBytes) {
+        this.featuredImageBytes = featuredImageBytes;
+        this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
+    }
+
+
+    @Override
+    public String toString() {
+        return  "ID=" + id + "\r\n" +
+                " name=" + name + "\r\n" +
+                " servings=" + servings + "\r\n" +
+                " preparation=" + preparationTime + (preparationTimeType != null ? preparationTimeType.getFriendlyName(preparationTime) : "") + "\r\n" +
+                " ingredients=" + TextUtils.join(", ", ingredients) + "\r\n" +
+                " directions=" + directions;
     }
 
 }

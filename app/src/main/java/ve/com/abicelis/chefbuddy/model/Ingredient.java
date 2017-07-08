@@ -2,6 +2,8 @@ package ve.com.abicelis.chefbuddy.model;
 
 import android.support.annotation.NonNull;
 
+import java.util.Locale;
+
 import ve.com.abicelis.chefbuddy.enums.Measurement;
 
 /**
@@ -9,6 +11,8 @@ import ve.com.abicelis.chefbuddy.enums.Measurement;
  */
 
 public class Ingredient {
+
+    private int id;
     private String amount;
     private Measurement measurement;
     private String name;
@@ -17,7 +21,8 @@ public class Ingredient {
 //        name = name;
 //    }
 
-    public Ingredient(@NonNull String amount, @NonNull Measurement measurement, @NonNull String name) {
+    public Ingredient(int id, @NonNull String amount, @NonNull Measurement measurement, @NonNull String name) {
+        this.id = id;
         this.amount = amount;
         this.measurement = measurement;
         this.name = name;
@@ -30,6 +35,9 @@ public class Ingredient {
 //    }
 
 
+    public int getId() {
+        return id;
+    }
     public String getAmount() {
         return amount;
     }
@@ -50,4 +58,9 @@ public class Ingredient {
 
     }
 
+
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(), "%1$s %2$s %3$s (ID=%4$d)", amount, measurement.getAbbreviation(), name, id);
+    }
 }
