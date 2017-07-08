@@ -115,7 +115,7 @@ public class Recipe {
         return  "ID=" + id + "\r\n" +
                 " name=" + name + "\r\n" +
                 " servings=" + servings + "\r\n" +
-                " preparation=" + preparationTime + (preparationTimeType != null ? preparationTimeType.getFriendlyName(preparationTime) : "") + "\r\n" +
+                " preparation=" + preparationTime + " " + (preparationTimeType != null ? preparationTimeType.getFriendlyName(preparationTime) : "") + "\r\n" +
                 " ingredients=" + TextUtils.join(", ", ingredients) + "\r\n" +
                 " directions=" + directions;
     }
