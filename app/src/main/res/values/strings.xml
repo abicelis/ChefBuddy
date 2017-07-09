@@ -3,6 +3,16 @@
 
 
 
+    <!--Home activity-->
+    <string name="activity_home_toolbar_title">ChefBuddy</string>
+
+    <string name="activity_home_tab_recipe_title">Recipes</string>
+    <string name="activity_home_tab_spin_wheel_title">Spin wheel</string>
+    <string name="activity_home_tab_history_title">History</string>
+
+
+
+
 
     <!--Message enum-->
     <string name="message_home_activity_error_loading_recipes">Unexpected error loading recipe list</string>
