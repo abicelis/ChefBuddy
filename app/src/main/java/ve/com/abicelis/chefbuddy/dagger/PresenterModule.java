@@ -1,7 +1,5 @@
 package ve.com.abicelis.chefbuddy.dagger;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -9,8 +7,8 @@ import dagger.Provides;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.ui.home.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.HomePresenterImpl;
-import ve.com.abicelis.chefbuddy.ui.home.fragments.RecipeListPresenter;
-import ve.com.abicelis.chefbuddy.ui.home.fragments.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListPresenter;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListPresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.

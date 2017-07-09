@@ -20,9 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
-import ve.com.abicelis.chefbuddy.ui.home.fragments.HistoryFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragments.RecipeListFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragments.SpinWheelFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.HistoryFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.SpinWheelFragment;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -69,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         getSupportActionBar().setTitle(R.string.activity_home_toolbar_title);
 
         setupViewPagerAndTabLayout();
+
     }
 
     @Override

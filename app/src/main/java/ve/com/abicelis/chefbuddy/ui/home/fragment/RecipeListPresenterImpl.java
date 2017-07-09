@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragments;
+package ve.com.abicelis.chefbuddy.ui.home.fragment;
 
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
