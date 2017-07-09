@@ -11,5 +11,6 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 
 public interface RecipeListView {
     void showRecipes(List<Recipe> recipes);
+    void showLoading();
     void showErrorMessage(Message message);
 }

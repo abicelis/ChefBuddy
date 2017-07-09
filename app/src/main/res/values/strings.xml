@@ -16,6 +16,11 @@
 
 
 
+    <!--Recipe List Fragment-->
+    <string name="fragment_recipe_list_no_items">No recipes here</string>
+
+
+
 
 
     <!--Message enum-->

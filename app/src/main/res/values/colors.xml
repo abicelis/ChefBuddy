@@ -10,4 +10,8 @@
     <color name="divider">#BDBDBD</color>
 
     <color name="recycler_background">#EEEEEE</color>
+
+    <color name="swipe_refresh_green">#7cb342</color>
+    <color name="swipe_refresh_red">#e53935</color>
+    <color name="swipe_refresh_yellow">#fdd835</color>
 </resources>

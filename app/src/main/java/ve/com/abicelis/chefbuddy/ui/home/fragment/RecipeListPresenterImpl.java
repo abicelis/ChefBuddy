@@ -1,5 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.home.fragment;
 
+import android.os.Handler;
+
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
@@ -29,10 +31,18 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
 
     @Override
     public void getRecipes() {
-        try {
-            mView.showRecipes(mDao.getRecipes());
-        } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES);
-        }
+        mView.showLoading();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mView.showRecipes(mDao.getRecipes());
+                } catch (CouldNotGetDataException e) {
+                    mView.showErrorMessage(Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES);
+                }
+            }
+        }, 1000);
+
+
     }
 }
