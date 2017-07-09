@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
-import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.home.fragments.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home.fragments.RecipeListFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragments.SpinWheelFragment;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -44,6 +46,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private HomeViewPagerAdapter mHomeViewPagerAdapter;
     private RecipeListFragment mRecipeListFragment;
+    private SpinWheelFragment mSpinWheelFragment;
+    private HistoryFragment mHistoryFragment;
 
     //DATA
     private List<String> titleList = new ArrayList<>();
@@ -73,6 +77,30 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         presenter.detachView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_home_about:
+                Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_home_settings:
+                Toast.makeText(this, "Settings screen under construction", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_home_search:
+                Toast.makeText(this, "Search under construction", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupViewPagerAndTabLayout() {
 
         //Clear lists
@@ -87,8 +115,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         //Populate fragment list
         mRecipeListFragment = new RecipeListFragment();
         fragmentList.add(mRecipeListFragment);
-        fragmentList.add(new RecipeListFragment());
-        fragmentList.add(new RecipeListFragment());
+        mSpinWheelFragment = new SpinWheelFragment();
+        fragmentList.add(mSpinWheelFragment);
+        mHistoryFragment = new HistoryFragment();
+        fragmentList.add(mHistoryFragment);
 
 
         //Setup adapter, viewpager and tabLayout

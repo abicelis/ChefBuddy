@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,7 +14,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
@@ -39,6 +40,7 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
 
         presenter.attachView(this);
@@ -59,6 +61,16 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
         super.onDestroy();
         presenter.detachView();
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //Show search menu item
+        menu.findItem(R.id.menu_home_search).setVisible(true);
+    }
+
+    /*
+     * RecipeListView interface
+     */
 
     @Override
     public void showRecipes(List<Recipe> recipes) {
