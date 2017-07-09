@@ -63,6 +63,20 @@ public class Recipe {
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
+    public String getSimpleIngredientsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Ingredient i: ingredients) {
+            sb.append(i.getName());
+            sb.append(", ");
+        }
+
+        //Remove last ", "
+        if(sb.length() > 0)
+            sb.setLength(sb.length() - 2);
+
+        return sb.toString();
+    }
+
     public String getDirections() {
         return directions;
     }
