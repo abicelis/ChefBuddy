@@ -10,6 +10,10 @@
     <string name="activity_home_tab_spin_wheel_title">Spin wheel</string>
     <string name="activity_home_tab_history_title">History</string>
 
+    <string name="activity_home_menu_search">Search</string>
+    <string name="activity_home_menu_settings">Settings</string>
+    <string name="activity_home_menu_about">About</string>
+
 
 
 
