@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">ChefBuddy</string>
+    <string name="app_name">Chef Buddy</string>
 
 
 
     <!--Home activity-->
-    <string name="activity_home_toolbar_title">ChefBuddy</string>
 
     <string name="activity_home_tab_recipe_title">Recipes</string>
     <string name="activity_home_tab_spin_wheel_title">Spin wheel</string>
