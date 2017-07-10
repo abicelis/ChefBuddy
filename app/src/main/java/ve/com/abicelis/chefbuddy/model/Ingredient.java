@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class Ingredient {
 
-    private int id;
+    private long id;
     private String name;
 
     /*
@@ -24,20 +24,23 @@ public class Ingredient {
     /*
      * When fetching ingredient from DB
      */
-    public Ingredient(int id, @NonNull String name) {
+    public Ingredient(long id, @NonNull String name) {
         this.id = id;
         this.name = name;
     }
 
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String getName() {
         return name;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

@@ -14,7 +14,7 @@ import ve.com.abicelis.chefbuddy.util.ImageUtil;
  */
 
 public class Recipe {
-    private int id;
+    private long id;
     private String name;
     private int servings;
     private String preparationTime;
@@ -32,7 +32,7 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(int id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes) {
+    public Recipe(long id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes) {
         this.id = id;
         this.name = name;
         this.servings = servings;
@@ -45,7 +45,7 @@ public class Recipe {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String getName() {
@@ -96,7 +96,7 @@ public class Recipe {
     }
 
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public void setName(String name) {

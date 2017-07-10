@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class RecipeIngredient {
 
-    private int id;
+    private long id;
     private String amount;
     private Measurement measurement;
     private Ingredient ingredient;
@@ -28,7 +28,7 @@ public class RecipeIngredient {
     /*
      * When fetching ingredient from DB
      */
-    public RecipeIngredient(int id, @NonNull String amount, @NonNull Measurement measurement, @NonNull Ingredient ingredient) {
+    public RecipeIngredient(long id, @NonNull String amount, @NonNull Measurement measurement, @NonNull Ingredient ingredient) {
         this.id = id;
         this.amount = amount;
         this.measurement = measurement;
@@ -36,7 +36,7 @@ public class RecipeIngredient {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String getAmount() {
