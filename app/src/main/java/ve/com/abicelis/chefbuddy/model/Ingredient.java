@@ -5,60 +5,42 @@ import android.support.annotation.NonNull;
 import java.util.Locale;
 
 /**
- * Created by abicelis on 28/6/2017.
+ * Created by abicelis on 10/7/2017.
  */
 
 public class Ingredient {
 
     private int id;
-    private String amount;
-    private Measurement measurement;
     private String name;
 
-//    public Ingredient(@NonNull String name) {
-//        name = name;
-//    }
+    /*
+     * When creating a new ingredient, no ID
+     */
+    public Ingredient(@NonNull String name) {
+        this.id = -1;
+        this.name = name;
+    }
 
-    public Ingredient(int id, @NonNull String amount, @NonNull Measurement measurement, @NonNull String name) {
+    /*
+     * When fetching ingredient from DB
+     */
+    public Ingredient(int id, @NonNull String name) {
         this.id = id;
-        this.amount = amount;
-        this.measurement = measurement;
         this.name = name;
     }
 
 
-//    public void setAmount(@NonNull String amount, @NonNull Measurement measurement) {
-//        amount = amount;
-//        measurement = measurement;
-//    }
-
 
     public int getId() {
         return id;
-    }
-    public String getAmount() {
-        return amount;
-    }
-    public Measurement getMeasurement() {
-        return measurement;
     }
     public String getName() {
         return name;
     }
 
 
-
-    public String getAmountString() {
-        if (measurement == null || amount == null)
-            return "";
-        else
-            return amount + " " + measurement.getAbbreviation();
-
-    }
-
-
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "%1$s%2$s %3$s (ID=%4$d)", amount, measurement.getAbbreviation(), name, id);
+        return String.format(Locale.getDefault(), "%1$s (ID=%2$d)", name, id);
     }
 }
