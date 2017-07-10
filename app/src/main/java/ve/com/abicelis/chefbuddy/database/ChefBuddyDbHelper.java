@@ -97,8 +97,8 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
         //Insert mock Ingredients
         statement = "INSERT INTO " + ChefBuddyContract.IngredientTable.TABLE_NAME + " (" +
-                ChefBuddyContract.IngredientTable._ID + COMMA_SEP +
-                ChefBuddyContract.IngredientTable.COL_NAME_NAME.getName() +
+                ChefBuddyContract.IngredientTable.COLUMN_ID.getName() + COMMA_SEP +
+                ChefBuddyContract.IngredientTable.COLUMN_NAME.getName() +
                 ") VALUES " +
                 "(0, 'Mozarella Cheese')," +
                 "(1, 'Flour')," +
@@ -113,13 +113,13 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
         //Insert mock Recipes
         statement = "INSERT INTO " + ChefBuddyContract.RecipeTable.TABLE_NAME + " (" +
-                ChefBuddyContract.RecipeTable._ID + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_NAME.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_SERVINGS.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME_TYPE.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_DIRECTIONS.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getName() +
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_NAME.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() +
                 ") VALUES " +
                 "(0, 'Pizza Gloria', 24, '3', 'HOUR', 'Preheat oven and a baking sheet to 220C/fan 200C. Mix strong bread flour, salt and fast-action yeast together in a large bowl. Quickly stir in lukewarm water and olive oil and bring together to a rough dough.', '')," +
                 "(1, 'Hummus', 99, '90', 'MINUTE', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '')" +
@@ -129,11 +129,11 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
         //Insert mock Ingredients
         statement = "INSERT INTO " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + " (" +
-                ChefBuddyContract.RecipeIngredientTable._ID + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getName() +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_ID.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName() +
                 ") VALUES " +
                 "(0, 0, 0, '800', 'GRAM')," +
                 "(1, 0, 1, '2', 'CUP')," +
@@ -174,11 +174,11 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
         //Insert mock Daily Recipes
         statement = "INSERT INTO " + ChefBuddyContract.DailyRecipeTable.TABLE_NAME + " (" +
-                ChefBuddyContract.DailyRecipeTable._ID + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_YEAR.getName() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_MONTH.getName() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_DAY.getName() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_RECIPE_FK.getName() +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_ID.getName() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName() +
                 ") VALUES " +
                 "(0, " + today.get(Calendar.YEAR) + ", " + today.get(Calendar.MONTH) + ", " + today.get(Calendar.DAY_OF_MONTH) + ", 0)," +
                 "(1, " + todayPlusOne.get(Calendar.YEAR) + ", " + todayPlusOne.get(Calendar.MONTH) + ", " + todayPlusOne.get(Calendar.DAY_OF_MONTH) + ", 1)," +
@@ -196,41 +196,41 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
         String statement;
 
         statement = "CREATE TABLE " + ChefBuddyContract.IngredientTable.TABLE_NAME + " (" +
-                ChefBuddyContract.IngredientTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ChefBuddyContract.IngredientTable.COL_NAME_NAME.getName() + " " + ChefBuddyContract.IngredientTable.COL_NAME_NAME.getDataType() +
+                ChefBuddyContract.IngredientTable.COLUMN_ID.getName() + " " + ChefBuddyContract.IngredientTable.COLUMN_ID.getDataType() + " PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.IngredientTable.COLUMN_NAME.getName() + " " + ChefBuddyContract.IngredientTable.COLUMN_NAME.getDataType() +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
 
         statement = "CREATE TABLE " + ChefBuddyContract.RecipeTable.TABLE_NAME + " (" +
-                ChefBuddyContract.RecipeTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ChefBuddyContract.RecipeTable.COL_NAME_NAME.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_NAME.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_SERVINGS.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_SERVINGS.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME_TYPE.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME_TYPE.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_DIRECTIONS.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_DIRECTIONS.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getName() + " " + ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getDataType() +
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_ID.getDataType() + " PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.RecipeTable.COLUMN_NAME.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_NAME.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getDataType() +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
 
         statement = "CREATE TABLE " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + " (" +
-                ChefBuddyContract.RecipeIngredientTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getDataType() +
-                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable._ID + ") " + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_INGREDIENT_FK.getDataType() +
-                " REFERENCES " + ChefBuddyContract.IngredientTable.TABLE_NAME + "(" + ChefBuddyContract.IngredientTable._ID + ") " + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getDataType() +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_ID.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COLUMN_ID.getDataType() + " PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getDataType() +
+                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + ") " + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getDataType() +
+                " REFERENCES " + ChefBuddyContract.IngredientTable.TABLE_NAME + "(" + ChefBuddyContract.IngredientTable.COLUMN_ID.getName() + ") " + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName() + " " + ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getDataType() +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
 
 
         statement = "CREATE TABLE " + ChefBuddyContract.DailyRecipeTable.TABLE_NAME + " (" +
-                ChefBuddyContract.DailyRecipeTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_YEAR.getName() + " " + ChefBuddyContract.DailyRecipeTable.COL_NAME_YEAR.getDataType() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_MONTH.getName() + " " + ChefBuddyContract.DailyRecipeTable.COL_NAME_MONTH.getDataType() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_DAY.getName() + " " + ChefBuddyContract.DailyRecipeTable.COL_NAME_DAY.getDataType() + COMMA_SEP +
-                ChefBuddyContract.DailyRecipeTable.COL_NAME_RECIPE_FK.getName() + " " + ChefBuddyContract.DailyRecipeTable.COL_NAME_RECIPE_FK.getDataType() +
-                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable._ID + ") " +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_ID.getName() + " " + ChefBuddyContract.DailyRecipeTable.COLUMN_ID.getDataType() + " PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName() + " " + ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getDataType() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName() + " " + ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getDataType() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName() + " " + ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getDataType() + COMMA_SEP +
+                ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName() + " " + ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getDataType() +
+                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + ") " +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
     }
