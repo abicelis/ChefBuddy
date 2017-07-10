@@ -19,7 +19,7 @@ public class Recipe {
     private int servings;
     private String preparationTime;
     private PreparationTimeType preparationTimeType;
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
 
     private byte[] featuredImageBytes;
@@ -60,13 +60,13 @@ public class Recipe {
     public PreparationTimeType getPreparationTimeType() {
         return preparationTimeType;
     }
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
     public String getSimpleIngredientsString() {
         StringBuilder sb = new StringBuilder();
-        for (Ingredient i: ingredients) {
-            sb.append(i.getName());
+        for (RecipeIngredient i: recipeIngredients) {
+            sb.append(i.getIngredient().getName());
             sb.append(", ");
         }
 
@@ -111,8 +111,8 @@ public class Recipe {
     public void setPreparationTimeType(PreparationTimeType preparationTimeType) {
         this.preparationTimeType = preparationTimeType;
     }
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
     public void setDirections(String directions) {
         this.directions = directions;
@@ -130,7 +130,7 @@ public class Recipe {
                 " name=" + name + "\r\n" +
                 " servings=" + servings + "\r\n" +
                 " preparation=" + preparationTime + " " + (preparationTimeType != null ? preparationTimeType.getFriendlyName(preparationTime) : "") + "\r\n" +
-                " ingredients=" + TextUtils.join(", ", ingredients) + "\r\n" +
+                " recipeIngredients=" + TextUtils.join(", ", recipeIngredients) + "\r\n" +
                 " directions=" + directions;
     }
 
