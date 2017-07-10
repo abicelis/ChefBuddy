@@ -68,7 +68,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         //Setup toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_home_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.activity_home_toolbar_title);
+        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setLogo(R.drawable.ic_toolbar_home);
 
         setupViewPagerAndTabLayout();
 
