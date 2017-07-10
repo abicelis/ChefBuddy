@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment;
+package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +24,8 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -112,6 +114,7 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
         mSwipeRefreshLayout.setRefreshing(false);
 
         mRecipeListAdapter.getItems().clear();
+        mRecipeListAdapter.getItems().addAll(recipes);
         mRecipeListAdapter.getItems().addAll(recipes);
         mRecipeListAdapter.notifyDataSetChanged();
 

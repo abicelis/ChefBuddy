@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home;
+package ve.com.abicelis.chefbuddy.ui.home.view;
 
 
 /**

@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment;
+package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view;
 
 import java.util.List;
 

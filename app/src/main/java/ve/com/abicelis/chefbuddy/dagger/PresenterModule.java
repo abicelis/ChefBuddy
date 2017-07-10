@@ -5,10 +5,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
-import ve.com.abicelis.chefbuddy.ui.home.HomePresenter;
-import ve.com.abicelis.chefbuddy.ui.home.HomePresenterImpl;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListPresenter;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
+import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.

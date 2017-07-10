@@ -4,9 +4,9 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
-import ve.com.abicelis.chefbuddy.ui.home.HomePresenterImpl;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
 
 /**

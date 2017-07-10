@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment;
+package ve.com.abicelis.chefbuddy.ui.home.fragment.history;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +12,7 @@ import ve.com.abicelis.chefbuddy.R;
  * Created by abicelis on 9/7/2017.
  */
 
-public class SpinWheelFragment extends Fragment {
-
+public class HistoryFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

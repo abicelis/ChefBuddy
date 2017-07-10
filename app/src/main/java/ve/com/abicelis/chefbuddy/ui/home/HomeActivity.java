@@ -20,9 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.HistoryFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.RecipeListFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.SpinWheelFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.history.HistoryFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.spinWheel.SpinWheelFragment;
+import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
+import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
 
 /**
  * Created by abicelis on 8/7/2017.

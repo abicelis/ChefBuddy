@@ -1,10 +1,11 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment;
+package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter;
 
 import android.os.Handler;
 
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
+import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
 
 /**
  * Created by abicelis on 8/7/2017.

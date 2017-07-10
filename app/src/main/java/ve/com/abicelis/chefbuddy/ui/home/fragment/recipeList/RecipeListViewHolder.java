@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment;
+package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -54,7 +54,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         mCurrent = current;
         mPosition = position;
 
-        mImage.setImageBitmap(mCurrent.getFeaturedImage());
+        //mImage.setImageBitmap(mCurrent.getFeaturedImage());
         mName.setText(mCurrent.getName());
         mIngredients.setText(mCurrent.getSimpleIngredientsString());
     }
