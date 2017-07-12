@@ -106,7 +106,16 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 "(3, 'Ham')," +
                 "(4, 'Chickpea')," +
                 "(5, 'Lemon')," +
-                "(6, 'Tahini')" +
+                "(6, 'Tahini')," +
+                "(7, 'Bread')," +
+                "(8, 'Ketchup')," +
+                "(9, 'Meat')," +
+                "(10, 'Lettuce')," +
+                "(11, 'Croutons')," +
+                "(12, 'Chicken')," +
+                "(13, 'Pasta')," +
+                "(14, 'Bacon')," +
+                "(15, 'Garlic')" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
@@ -122,7 +131,10 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() +
                 ") VALUES " +
                 "(0, 'Pizza Gloria', 24, '3', 'HOUR', 'Preheat oven and a baking sheet to 220C/fan 200C. Mix strong bread flour, salt and fast-action yeast together in a large bowl. Quickly stir in lukewarm water and olive oil and bring together to a rough dough.', '')," +
-                "(1, 'Hummus', 99, '90', 'MINUTE', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '')" +
+                "(1, 'Hummus', 99, '90', 'MINUTE', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '')," +
+                "(2, 'Burgers', 3, '2', 'HOUR', '1 Preheat grill for high heat. 2 In a large bowl, mix the ground beef, egg, bread crumbs, evaporated milk, Worcestershire sauce, cayenne pepper, and garlic using your hands. Form the mixture into 8 hamburger patties. 3 Lightly oil the grill grate. Grill patties 5 minutes per side, or until well done.', '')," +
+                "(3, 'Caesar Salad', 1, '30', 'MINUTE', 'Mince 3 cloves of garlic, and combine in a small bowl with mayonnaise, anchovies, 2 tablespoons of the Parmesan cheese, Worcestershire sauce, mustard, and lemon juice. Season to taste with salt and black pepper. Heat oil in a large skillet over medium heat. Place lettuce in a large bowl.', '')," +
+                "(4, 'Carbonara Pasta', 2, '50', 'MINUTE', '1 Heat pasta water. 2 Saute pancetta/bacon and garlic. 3 Beat eggs and half of the cheese. 4 Cook pasta. 5 Toss pasta with pancetta/bacon. 6 Add the beaten egg mixture', '')" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
@@ -142,7 +154,16 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 "(4, 1, 4, '1', 'KILOGRAM')," +
                 "(5, 1, 5, '5', 'NONE')," +
                 "(6, 1, 6, '500', 'MILILITER')," +
-                "(7, 1, 2, '200', 'CUBIC_CENTIMITER')" +
+                "(7, 1, 2, '200', 'CUBIC_CENTIMITER')," +
+                "(8, 2, 7, '4', 'NONE')," +
+                "(9, 2, 8, '', 'NONE')," +
+                "(10, 2, 9, '1', 'KILOGRAM')," +
+                "(11, 3, 10, '200', 'CUBIC_CENTIMITER')," +
+                "(12, 3, 11, '200', 'CUBIC_CENTIMITER')," +
+                "(13, 3, 12, '200', 'CUBIC_CENTIMITER')," +
+                "(14, 4, 13, '200', 'CUBIC_CENTIMITER')," +
+                "(15, 4, 14, '200', 'CUBIC_CENTIMITER')," +
+                "(16, 4, 15, '200', 'CUBIC_CENTIMITER')" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
