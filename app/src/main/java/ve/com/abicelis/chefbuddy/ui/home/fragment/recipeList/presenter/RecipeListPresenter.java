@@ -1,5 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter;
 
+import android.support.annotation.NonNull;
+
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
 
 /**
@@ -11,4 +13,6 @@ public interface RecipeListPresenter {
     void detachView();
 
     void getRecipes();
+    void getFilteredRecipes(@NonNull String query);
+    void cancelFilteredRecipes();
 }

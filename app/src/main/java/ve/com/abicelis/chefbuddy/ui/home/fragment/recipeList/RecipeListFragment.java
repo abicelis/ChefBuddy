@@ -106,15 +106,31 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
 
 
     /*
+     * Called from searchView in HomeActivity
+     */
+    public void filterRecipes(String query) {
+        presenter.getFilteredRecipes(query);
+    }
+
+    public void cancelFilterRecipes() {
+        presenter.cancelFilteredRecipes();
+    }
+
+
+    /*
      * RecipeListView interface
      */
+
+    @Override
+    public void showLoading() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
 
     @Override
     public void showRecipes(List<Recipe> recipes) {
         mSwipeRefreshLayout.setRefreshing(false);
 
         mRecipeListAdapter.getItems().clear();
-        mRecipeListAdapter.getItems().addAll(recipes);
         mRecipeListAdapter.getItems().addAll(recipes);
         mRecipeListAdapter.notifyDataSetChanged();
 
@@ -126,11 +142,6 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
             mRecyclerView.setVisibility(View.VISIBLE);
         }
 
-    }
-
-    @Override
-    public void showLoading() {
-        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
