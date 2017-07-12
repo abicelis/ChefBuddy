@@ -1,15 +1,19 @@
 package ve.com.abicelis.chefbuddy.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotDeleteDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
+import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotInsertDataException;
+import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.PreparationTimeType;
-import ve.com.abicelis.chefbuddy.model.Ingredient;
+import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 
 
@@ -36,7 +40,30 @@ public class ChefBuddyDAO {
         try {
             while(cursor.moveToNext()) {
                 Recipe recipe = getRecipeFromCursor(cursor);
-                recipe.setIngredients(getIngredientsOfRecipe(recipe.getId()));
+                recipe.setRecipeIngredients(getRecipeIngredientsOfRecipe(recipe.getId()));
+                // TODO: 7/7/2017 Add images!
+
+                recipes.add(recipe);
+            }
+        } finally {
+            cursor.close();
+        }
+        return recipes;
+    }
+
+
+    /**
+     * Returns the List of Recipes stored in the database without the
+     */
+    public List<Recipe> getFilteredRecipes(String query) throws CouldNotGetDataException {
+        List<Recipe> recipes = new ArrayList<>();
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(ChefBuddyContract.RecipeTable.TABLE_NAME, null, ChefBuddyContract.RecipeTable.COLUMN_NAME.getName() + " LIKE ?", new String[]{"%"+query+"%"}, null, null, null);
+
+        try {
+            while(cursor.moveToNext()) {
+                Recipe recipe = getRecipeFromCursor(cursor);
+                recipe.setRecipeIngredients(getRecipeIngredientsOfRecipe(recipe.getId()));
                 // TODO: 7/7/2017 Add images!
 
                 recipes.add(recipe);
@@ -53,17 +80,43 @@ public class ChefBuddyDAO {
      * @param recipeId The ID of the recipe
      * @return A List of ingredients
      */
-    public List<Ingredient> getIngredientsOfRecipe(int recipeId) throws CouldNotGetDataException {
-        List<Ingredient> ingredients = new ArrayList<>();
+    public List<RecipeIngredient> getRecipeIngredientsOfRecipe(long recipeId) throws CouldNotGetDataException {
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
 
         String tables = String.format("%1$s INNER JOIN %2$s ON %1$s.%3$s = %2$s.%4$s",
                 ChefBuddyContract.RecipeIngredientTable.TABLE_NAME,
                 ChefBuddyContract.IngredientTable.TABLE_NAME,
-                ChefBuddyContract.RecipeIngredientTable._ID,
-                ChefBuddyContract.IngredientTable._ID);
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName(),
+                ChefBuddyContract.IngredientTable.COLUMN_ID.getName());
 
-        Cursor cursor = db.query(tables, null, ChefBuddyContract.RecipeIngredientTable.COL_NAME_RECIPE_FK.getName()+"=?", new String[]{String.valueOf(recipeId)}, null, null, null);
+        String[] selectionArgs = new String[]{String.valueOf(recipeId)};
+        Cursor cursor = db.query(tables, null, ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName()+"=?", selectionArgs, null, null, null);
+
+        try {
+            while (cursor.moveToNext()) {
+                RecipeIngredient recipeIngredient = getRecipeIngredientFromCursor(cursor);
+                recipeIngredients.add(recipeIngredient);
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return recipeIngredients;
+    }
+
+
+
+    /**
+     * Returns a full list of ingredients
+     * @return A List of ingredients
+     */
+    public List<Ingredient> getIngredients() throws CouldNotGetDataException {
+        List<Ingredient> ingredients = new ArrayList<>();
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+
+        Cursor cursor = db.query(ChefBuddyContract.IngredientTable.TABLE_NAME, null, null, null, null, null, null);
 
         try {
             while (cursor.moveToNext()) {
@@ -76,6 +129,156 @@ public class ChefBuddyDAO {
 
         return ingredients;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Insert data into database */
+
+    /**
+     * Inserts a new recipe into the database.
+     * Will also populate ingredients table if recipe has new ingredients,
+     * and also insert the recipeIngredients of the recipe.
+     * @param recipe The recipe to be inserted
+     */
+    public long insertRecipe(Recipe recipe) throws CouldNotInsertDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        ContentValues values = getValuesForRecipe(recipe);
+
+        long newRowId;
+        newRowId = db.insert(ChefBuddyContract.RecipeTable.TABLE_NAME, null, values);
+
+        if (newRowId != -1) { //Recipe inserted successfully, Insert ingredients
+            insertRecipeIngredientsOfRecipe(newRowId, recipe.getRecipeIngredients());
+        } else
+            throw new CouldNotInsertDataException("There was a problem inserting the Recipe: " + recipe.toString());
+
+        db.close();
+        return newRowId;
+    }
+
+
+    /**
+     * Inserts a list of recipeIngredients associated to a recipe.
+     * @param recipeId The id of the recipe associated to the recipeIngredients
+     * @param recipeIngredients The list of recipeIngredients to be inserted
+     */
+    public long[] insertRecipeIngredientsOfRecipe(long recipeId, List<RecipeIngredient> recipeIngredients) throws CouldNotInsertDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        //Insert new ingredients, update their IDS
+        for (RecipeIngredient ri : recipeIngredients) {
+
+            if(ri.getIngredient().getId() == -1)
+                ri.getIngredient().setId(insertIngredient(ri.getIngredient()));
+        }
+
+        //Insert RecipeIngredients
+        long[] newRowIds = new long[recipeIngredients.size()];
+
+
+        for (int i = 0; i < recipeIngredients.size(); i++) {
+            ContentValues values = getValuesForRecipeIngredient(recipeId, recipeIngredients.get(i));
+            newRowIds[i] = db.insert(ChefBuddyContract.RecipeIngredientTable.TABLE_NAME, null, values);
+
+            if (newRowIds[i] == -1)
+                throw new CouldNotInsertDataException("There was a problem inserting the RecipeIngredient: " + recipeIngredients.toString());
+        }
+
+        db.close();
+        return newRowIds;
+    }
+
+
+//    /**
+//     * Inserts a list of ingredients.
+//     * @param ingredients The list of ingredients to be inserted
+//     */
+//    public long[] insertIngredients(List<Ingredient> ingredients) throws CouldNotInsertDataException {
+//        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+//
+//        long[] newRowIds = new long[ingredients.size()];
+//
+//        for (int i = 0; i < ingredients.size(); i++) {
+//            ContentValues values = getValuesForIngredient(ingredients.get(i));
+//            newRowIds[i] = db.insert(ChefBuddyContract.IngredientTable.TABLE_NAME, null, values);
+//
+//            if (newRowIds[i] == -1)
+//                throw new CouldNotInsertDataException("There was a problem inserting the Ingredient: " + ingredients.toString());
+//        }
+//
+//        db.close();
+//        return newRowIds;
+//    }
+
+    /**
+     * Inserts an ingredient.
+     * @param ingredient The ingredient to be inserted
+     */
+    public long insertIngredient(Ingredient ingredient) throws CouldNotInsertDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        long newRowId;
+
+        ContentValues values = getValuesForIngredient(ingredient);
+        newRowId = db.insert(ChefBuddyContract.IngredientTable.TABLE_NAME, null, values);
+
+        if (newRowId == -1)
+            throw new CouldNotInsertDataException("There was a problem inserting the Ingredient: " + ingredient.toString());
+
+
+        db.close();
+        return newRowId;
+    }
+
+
+
+
+
+
+
+
+    /* Delete data from database */
+
+    /**
+     * Deletes a single Recipe, given its ID, also deletes its RecipeIngredients
+     * @param recipeId The ID of the recipe to delete
+     */
+    public boolean deleteRecipe(long recipeId) throws CouldNotDeleteDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        deleteRecipeIngredientsFromRecipe(recipeId);
+
+        return db.delete(ChefBuddyContract.RecipeTable.TABLE_NAME,
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + " =?",
+                new String[]{String.valueOf(recipeId)}) > 0;
+    }
+
+    /**
+     * Deletes a list of RecipeIngredients associated to a recipe
+     * @param recipeId The ID of the recipe fk
+     */
+    public boolean deleteRecipeIngredientsFromRecipe(long recipeId) throws CouldNotDeleteDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        return db.delete(ChefBuddyContract.RecipeIngredientTable.TABLE_NAME,
+                ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName() + " =?",
+                new String[]{String.valueOf(recipeId)}) > 0;
+    }
+
+
 
 
 //
@@ -938,6 +1141,52 @@ public class ChefBuddyDAO {
 //
 //
 //
+
+
+
+
+
+    /* Model to ContentValues */
+
+    private ContentValues getValuesForRecipe(Recipe recipe) {
+        ContentValues values = new ContentValues();
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName(), recipe.getName());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName(), recipe.getPreparationTime());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName(), recipe.getPreparationTimeType().name());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName(), recipe.getFeaturedImageBytes());
+        return values;
+    }
+
+    private ContentValues getValuesForRecipeIngredient(long recipeId, RecipeIngredient recipeIngredient) {
+        ContentValues values = new ContentValues();
+        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName(), recipeId);
+        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName(), recipeIngredient.getId());
+        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName(), recipeIngredient.getAmount());
+        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName(), recipeIngredient.getMeasurement().name());
+        return values;
+    }
+
+    private ContentValues getValuesForIngredient(Ingredient ingredient) {
+        ContentValues values = new ContentValues();
+        values.put(ChefBuddyContract.IngredientTable.COLUMN_ID.getName(), ingredient.getId());
+        values.put(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName(), ingredient.getName());
+        return values;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //
 //
@@ -1051,41 +1300,53 @@ public class ChefBuddyDAO {
     /* Cursor to Model */
 
     private Recipe getRecipeFromCursor(Cursor cursor) {
-        int id = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable._ID));
-        String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_NAME.getName()));
-        int servings = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_SERVINGS.getName()));
-        String preparationTime = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME.getName()));
+        long id = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_ID.getName()));
+        String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName()));
+        int servings = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName()));
+        String preparationTime = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName()));
 
         PreparationTimeType preparationTimeType;
         try {
-            preparationTimeType = PreparationTimeType.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_PREPARATION_TIME_TYPE.getName())));
+            preparationTimeType = PreparationTimeType.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName())));
         } catch (IllegalArgumentException e) {
             preparationTimeType = null;
         }
 
-        String directions = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_DIRECTIONS.getName()));
-        byte[] featuredImage = cursor.getBlob(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COL_NAME_FEATURED_IMAGE.getName()));
+        String directions = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName()));
+        byte[] featuredImage = cursor.getBlob(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName()));
 
         return new Recipe(id, name, servings, preparationTime, preparationTimeType, directions, featuredImage);
     }
 
 
-    private Ingredient getIngredientFromCursor(Cursor cursor) {
-        int id = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable._ID));
-        String amount = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable.COL_NAME_AMOUNT.getName()));
+    private RecipeIngredient getRecipeIngredientFromCursor(Cursor cursor) {
 
-        Measurement measurement;
+        /* Ingredient fields */
+        long ingredientId = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COLUMN_ID.getName()));
+        String ingredientName = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName()));
+
+        /* RecipeIngredient fields */
+        long recipeIngredientId = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable.COLUMN_ID.getName()));
+        String recipeIngredientAmount = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName()));
+
+        Measurement recipeIngredientMeasurement;
         try {
-            measurement = Measurement.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable.COL_NAME_MEASUREMENT.getName())));
+            recipeIngredientMeasurement = Measurement.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName())));
         } catch (IllegalArgumentException e) {
-            measurement = Measurement.NONE;
+            recipeIngredientMeasurement = Measurement.NONE;
         }
 
-        String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COL_NAME_NAME.getName()));
-
-        return new Ingredient(id, amount, measurement, name);
+        return new RecipeIngredient(recipeIngredientId, recipeIngredientAmount, recipeIngredientMeasurement, new Ingredient(ingredientId, ingredientName));
     }
 
+
+    private Ingredient getIngredientFromCursor(Cursor cursor) {
+
+        long ingredientId = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COLUMN_ID.getName()));
+        String ingredientName = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName()));
+
+        return new Ingredient(ingredientId, ingredientName);
+    }
 
 
 //
