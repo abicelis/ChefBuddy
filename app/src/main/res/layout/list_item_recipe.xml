@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="4dp"
-            android:src="@drawable/pizza_hdr"
             android:scaleType="centerCrop"
             />
 
