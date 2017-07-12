@@ -36,6 +36,7 @@ dependencies {
 
     //Extra
     compile 'com.github.lukedeighton:wheelview:0.4.1'
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
     //Support
     compile 'com.android.support:appcompat-v7:25.3.1'
