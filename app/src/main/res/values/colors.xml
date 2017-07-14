@@ -10,6 +10,7 @@
     <color name="divider">#BDBDBD</color>
 
     <color name="recycler_background">#EEEEEE</color>
+    <color name="transparent_background">#88000000</color>
 
 
 
