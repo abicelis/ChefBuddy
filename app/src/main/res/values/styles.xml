@@ -23,6 +23,19 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
+    <style name="AppTheme.TextViewTitle"  >
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:layout_marginLeft">24dp</item>
+    </style>
+
+    <style name="AppTheme.CardViewContent" parent="CardView" >
+        <item name="android:layout_margin">8dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">6dp</item>
+    </style>
+
+
     <!-- Style for searchView on HomeActivity -->
     <style name="MaterialSearchViewStyle">
         <!-- Hint for edit text -->
