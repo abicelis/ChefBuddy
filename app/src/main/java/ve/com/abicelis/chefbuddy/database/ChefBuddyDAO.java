@@ -51,6 +51,31 @@ public class ChefBuddyDAO {
         return recipes;
     }
 
+    /**
+     * Returns a single Recipe stored in the database
+     * @param recipeId the ID of the recipe
+     */
+    public Recipe getRecipe(long recipeId) throws CouldNotGetDataException {
+        Recipe recipe;
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(ChefBuddyContract.RecipeTable.TABLE_NAME, null, ChefBuddyContract.RecipeTable.COLUMN_ID.getName()+"=?", new String[] {String.valueOf(recipeId)}, null, null, null);
+
+        try {
+
+            if(cursor.getCount() == 0)
+                throw new CouldNotGetDataException("Recipe not found. ID="+ recipeId);
+
+            cursor.moveToNext();
+            recipe = getRecipeFromCursor(cursor);
+            recipe.setRecipeIngredients(getRecipeIngredientsOfRecipe(recipe.getId()));
+            // TODO: 7/7/2017 Add images!
+
+        } finally {
+            cursor.close();
+        }
+        return recipe;
+    }
+
 
     /**
      * Returns the List of Recipes stored in the database without the
