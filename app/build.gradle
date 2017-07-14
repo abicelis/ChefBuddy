@@ -34,9 +34,15 @@ dependencies {
     compile "com.jakewharton:butterknife:8.0.1"
     apt "com.jakewharton:butterknife-compiler:8.0.1"
 
+    //Transitions
+    compile 'com.andkulikov:transitionseverywhere:1.7.0'
+
+
     //Extra
     compile 'com.github.lukedeighton:wheelview:0.4.1'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
 
     //Support
     compile 'com.android.support:appcompat-v7:25.3.1'
