@@ -3,102 +3,60 @@ package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
+import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
  * Created by abicelis on 13/7/2017.
  */
 
-public class RecipeDetailActivity extends AppCompatActivity
+public class RecipeDetailActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, RecipeDetailView {
 
-//    @BindView(R.id.activity_recipe_detail_check)
-//    FloatingActionButton mFabCheck;
-//
-//    @BindView(R.id.activity_recipe_detail_share)
-//    FloatingActionButton mFabShare;
-//
-//    @BindView(R.id.activity_recipe_detail_header_text)
-//    TextView mHeaderText;
-//
-//    @BindView(R.id.activity_recipe_detail_appbar)
-//    AppBarLayout mAppBarLayout;
-//
-//    @BindView(R.id.activity_recipe_detail_toolbar)
-//    Toolbar mToolbar;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-        // @Override
-        //  protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //      super.onCreate(savedInstanceState);
-        //      setContentView(R.layout.activity_recipe_detail_2);
-        //      ButterKnife.bind(this);
-//        setSupportActionBar(mToolbar);
-//
-//
-//        // TODO: 13/7/2017 Actually, send the extra to the presenter and let it tell view to display recipe or show error...
-//        if(getIntent().hasExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID)) {
-//            long recipeId = getIntent().getLongExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, -1);
-//            mHeaderText.setText("ID of recipe=" + String.valueOf(recipeId));
-//
-//        } else {
-//            //TODO: Error
-//            mHeaderText.setText("Error");
-//
-//        }
-//
-//        mAppBarLayout.addOnOffsetChangedListener(this);
-
-
-
-        //}
-
-        //private void setupToolbar() {
-
-        //Setup toolbar
-//        getSupportActionBar().setTitle("Recipe name");
-//        mToolbar.inflateMenu(R.menu.menu_recipe_detail);
-//
-//        getSupportActionBar().setLogo(R.drawable.ic_toolbar_home);
-
-
-
-
-
-
-        implements AppBarLayout.OnOffsetChangedListener {
-
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.1f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
-
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
+    @Inject
+    RecipeDetailPresenter recipeDetailPresenter;
 
-
-    @BindView(R.id.activity_recipe_detail_appbar)
-    AppBarLayout mAppBarLayout;
 
     @BindView(R.id.activity_recipe_detail_coordinator)
     CoordinatorLayout mCoordinatorLayout;
 
-    /* Big round CircleImageView */
-    @BindView(R.id.activity_recipe_detail_circle_image)
-    CircleImageView mImage;
+    @BindView(R.id.activity_recipe_detail_appbar)
+    AppBarLayout mAppBarLayout;
 
 
+    /* Appbar FrameLayout header */
+    @BindView(R.id.activity_recipe_detail_header_image)
+    ImageView mTitleImage;
 
     @BindView(R.id.activity_recipe_detail_header_recipe_linearlayout)
     LinearLayout mTitleContainer;
@@ -110,8 +68,8 @@ public class RecipeDetailActivity extends AppCompatActivity
     TextView mTitleDetail;
 
 
-
-    @BindView(R.id.activity_recipe_detail_toolbar)
+    /* Top Toolbar */
+    @BindView(R.id.activity_recipe_detail_toolbar_top)
     Toolbar mToolbar;
 
     @BindView(R.id.activity_recipe_detail_toolbar_container)
@@ -120,49 +78,84 @@ public class RecipeDetailActivity extends AppCompatActivity
     @BindView(R.id.activity_recipe_detail_toolbar_title)
     TextView mToolbarTitle;
 
-    @BindView(R.id.activity_recipe_detail_toolbar_logo)
-    CircleImageView mToolbarLogo;
+//    @BindView(R.id.activity_recipe_detail_toolbar_logo)
+//    CircleImageView mToolbarLogo;
+
+
+    /* Floating "bottom" Toolbar */
+    @BindView(R.id.activity_recipe_detail_toolbar_bottom)
+    Toolbar mToolbarBottom;
+
+
+    /* Big round CircleImageView */
+    @BindView(R.id.activity_recipe_detail_circle_image)
+    CircleImageView mImage;
+
+
+    /* Share FAB */
+    @BindView(R.id.activity_recipe_detail_fab_share)
+    FloatingActionButton mFabShare;
+
+
+    /* NestedScrollView bottom content */
+    // TODO: 14/7/2017 Missing images recyclerview.. also ingredients recyclerview
+    @BindView(R.id.activity_recipe_detail_ingredients)
+    TextView mIngredients;
+
+    @BindView(R.id.activity_recipe_detail_preparation)
+    TextView mPreparation;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_detail_2);
+        setContentView(R.layout.activity_recipe_detail);
         ButterKnife.bind(this);
+
+        initViews();
+
+        //Init Presenter
+        ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
+        recipeDetailPresenter.attachView(this);
+
+        //Handle incoming Intent
+        if(getIntent().hasExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID)) {
+            long recipeId = getIntent().getLongExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, -1);
+            recipeDetailPresenter.getRecipe(recipeId);
+        } else
+            showErrorMessage(Message.RECIPE_DETAIL_ACTIVITY_ERROR_LOADING_RECIPE);
+
+    }
+
+    private void initViews() {
+
+        //Hide upper toolbar (toolbarContainer)
+        startAlphaAnimation(mToolbar, 0, View.INVISIBLE);
 
         //Hook into appbar movement to hide/show views
         mAppBarLayout.addOnOffsetChangedListener(this);
 
-        //Setup toolbar
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("");
+        //Setup FAB onClick()
+        mFabShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_share, SnackbarUtil.SnackbarDuration.SHORT, null);
+            }
+        });
 
-        //Hide toolbar logo and title (toolbarContainer)
-        startAlphaAnimation(mToolbarContainer, 0, View.INVISIBLE);
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbar.inflateMenu(R.menu.menu_recipe_detail);
+        mToolbar.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
+        mToolbar.setNavigationOnClickListener(new NavigationBackListener());
+
+        mToolbarBottom.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbarBottom.inflateMenu(R.menu.menu_recipe_detail);
+        mToolbarBottom.getMenu().findItem(R.id.menu_recipe_detail_share).setVisible(false);   //Hide Share option
+        mToolbarBottom.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
+        mToolbarBottom.setNavigationOnClickListener(new NavigationBackListener());
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_recipe_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.menu_recipe_detail_edit:
-                SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.NOTICE, R.string.activity_recipe_detail_edit, SnackbarUtil.SnackbarDuration.SHORT, null);
-                break;
-            case R.id.menu_recipe_detail_delete:
-                SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, R.string.activity_recipe_detail_delete, SnackbarUtil.SnackbarDuration.SHORT, null);
-                break;
-        }
-        return true;
-    }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
@@ -176,15 +169,15 @@ public class RecipeDetailActivity extends AppCompatActivity
     private void handleToolbarContainerVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
-                startAlphaAnimation(mToolbarContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+            if (!mIsTheTitleVisible) {
+                startAlphaAnimation(mToolbar, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
 
         } else {
 
             if (mIsTheTitleVisible) {
-                startAlphaAnimation(mToolbarContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                startAlphaAnimation(mToolbar, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleVisible = false;
             }
         }
@@ -192,7 +185,8 @@ public class RecipeDetailActivity extends AppCompatActivity
 
     private void handleAlphaOnTitleAndCircularImage(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mToolbarBottom, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 startAlphaAnimation(mImage, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
@@ -201,6 +195,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         } else {
 
             if (!mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mToolbarBottom, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 startAlphaAnimation(mImage, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleContainerVisible = true;
@@ -208,7 +203,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);
@@ -216,5 +211,64 @@ public class RecipeDetailActivity extends AppCompatActivity
         alphaAnimation.setDuration(duration);
         alphaAnimation.setFillAfter(true);
         v.startAnimation(alphaAnimation);
+    }
+
+
+
+//    <string name="activity_recipe_detail_title_detail_format">%1$d Servings | Preparation %2$d %3$s</string>
+
+    /*
+    *   RecipeDetailView interface implementation
+    */
+    @Override
+    public void showRecipe(Recipe recipe) {
+        mToolbarTitle.setText(recipe.getName());
+        //mToolbarLogo.setImageBitmap(recipe.getFeaturedImage());
+
+        mTitleImage.setImageBitmap(recipe.getFeaturedImage());
+        mImage.setImageBitmap(recipe.getFeaturedImage());
+
+        mTitleTitle.setText(recipe.getName());
+        mTitleDetail.setText(String.format(Locale.getDefault(),
+                getResources().getString(R.string.activity_recipe_detail_title_detail_format),
+                recipe.getServings(),
+                recipe.getPreparationTime(),
+                recipe.getPreparationTimeType().getFriendlyName(recipe.getPreparationTime())));
+
+        mIngredients.setText(recipe.getSimpleIngredientsString());
+        mPreparation.setText(recipe.getDirections());
+    }
+
+    @Override
+    public void showErrorMessage(Message message) {
+        SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
+    }
+
+
+    private class ToolbarMenuItemClickListener implements Toolbar.OnMenuItemClickListener {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.menu_recipe_detail_edit:
+                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.NOTICE, R.string.activity_recipe_detail_edit, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    break;
+                case R.id.menu_recipe_detail_delete:
+                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, R.string.activity_recipe_detail_delete, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    break;
+                case R.id.menu_recipe_detail_share:
+                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_share, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    break;
+
+            }
+            return true;
+        }
+    }
+    private class NavigationBackListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
     }
 }

@@ -1,121 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recipe_detail_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.recipeDetail.RecipeDetailActivity"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/activity_recipe_detail_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:background="@color/primary">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true"
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/activity_recipe_detail_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/primary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            >
+
+
+
             <ImageView
-                android:id="@+id/expandedImage"
+                android:id="@+id/activity_recipe_detail_header_image"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/hummus"
                 android:tint="#11000000"
-                android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9"
                 />
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_recipe_detail_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            android:title=""
-            >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+            <FrameLayout
+                android:id="@+id/activity_recipe_detail_header_framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@color/primary"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.3"
                 >
 
-                <TextView
-                    android:id="@+id/activity_recipe_detail_toolbar_title"
+                <LinearLayout
+                    android:id="@+id/activity_recipe_detail_header_recipe_linearlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/activity_recipe_detail_header_recipe_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="bottom|center"
+                        android:text="Hummus"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/activity_recipe_detail_header_recipe_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:text="2 servings and no calories!"
+                        android:textColor="@android:color/white"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/activity_recipe_detail_toolbar_top"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:theme="@style/ToolbarTheme"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                >
+
+                <LinearLayout
+                    android:id="@+id/activity_recipe_detail_toolbar_container"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:gravity="center_vertical"
-                    android:text="Recipe Name"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    />
+                    android:orientation="horizontal"
+                    >
 
-            </LinearLayout>
+                    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                        <!--android:id="@+id/activity_recipe_detail_toolbar_logo"-->
+                        <!--android:layout_width="32dp"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:src="@drawable/hummus"-->
+                        <!--app:civ_border_width="2dp"-->
+                        <!--app:civ_border_color="#FF000000"-->
+                        <!--app:layout_anchor="@id/activity_recipe_detail_toolbar_top"-->
+                        <!--app:layout_anchorGravity="center|top"-->
+                        <!--android:visibility="gone"-->
+                        <!--/>-->
 
-        </android.support.v7.widget.Toolbar>
+                    <TextView
+                        android:id="@+id/activity_recipe_detail_toolbar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Hummus"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        />
+
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none"
+        android:background="@color/recycler_background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/scrollView2">
+        >
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/activity_recipe_detail_header_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="PLACEHOLDER TEXT"
-                android:layout_gravity="center"
-                android:textColor="@color/primary_light"
-                android:textSize="20sp"
-                android:gravity="center"
-                />
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+
+
+            <!-- INGREDIENTS -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/lorem_ipsum" />
+                android:text="@string/activity_recipe_detail_title_ingredients"
+                style="@style/AppTheme.TextViewTitle"
+                />
+
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/activity_recipe_detail_ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8dp"
+                    android:textSize="18sp"
+                    />
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+
+
+
+
+            <!-- PREPARATION -->
+            <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_recipe_detail_title_preparation"
+                />
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/activity_recipe_detail_preparation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+
+
+
+
+            <!-- IMAGES -->
+            <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_recipe_detail_title_images"
+                />
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TODO: images recyclerview"
+                    />
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
         </LinearLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_recipe_detail_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/ic_fab_share"
-        app:fabSize="normal"
-        app:layout_anchor="@+id/activity_recipe_detail_collapsing_toolbar"
-        app:layout_anchorGravity="bottom|right" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_recipe_detail_toolbar_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:translationY="28dp"
+        app:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:layout_anchor="@id/activity_recipe_detail_header_framelayout"
+        app:layout_anchorGravity="top"
+        app:title=""
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_recipe_detail_circle_image"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:paddingBottom="20dp"
+        android:src="@drawable/hummus"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        app:layout_anchor="@id/activity_recipe_detail_header_framelayout"
+        app:layout_anchorGravity="center|top"
+        />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_recipe_detail_check"
+        android:id="@+id/activity_recipe_detail_fab_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:src="@drawable/ic_fab_check"
-        app:fabSize="normal"
-        app:layout_anchor="@+id/activity_recipe_detail_collapsing_toolbar"
-        app:layout_anchorGravity="bottom|right" />
-
+        android:layout_margin="32dp" app:fabSize="normal"
+        app:layout_anchor="@id/activity_recipe_detail_appbar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_fab_share" />
 
 </android.support.design.widget.CoordinatorLayout>
