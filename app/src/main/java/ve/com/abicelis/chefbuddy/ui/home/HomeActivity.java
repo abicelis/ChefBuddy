@@ -57,6 +57,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @BindView(R.id.activity_home_appbar)
     AppBarLayout mAppBarLayout;
 
+    @BindView(R.id.activity_home_toolbar)
+    Toolbar mToolbar;
+
     private HomeViewPagerAdapter mHomeViewPagerAdapter;
     private RecipeListFragment mRecipeListFragment;
     private SpinWheelFragment mSpinWheelFragment;
@@ -77,8 +80,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         presenter.attachView(this);
 
         //Setup toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_home_toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setLogo(R.drawable.ic_toolbar_home);
 
