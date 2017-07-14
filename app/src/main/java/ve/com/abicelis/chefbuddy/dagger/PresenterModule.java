@@ -9,6 +9,8 @@ import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.
@@ -27,6 +29,12 @@ public class PresenterModule {
     @Singleton
     RecipeListPresenter provideRecipeListPresenter(ChefBuddyDAO dao) {
         return new RecipeListPresenterImpl(dao);
+    }
+
+    @Provides
+    @Singleton
+    RecipeDetailPresenter provideRecipeDetailPresenter(ChefBuddyDAO dao){
+        return new RecipeDetailPresenterImpl(dao);
     }
 
 }

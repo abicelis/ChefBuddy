@@ -8,6 +8,8 @@ import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.
@@ -23,5 +25,8 @@ public interface AppComponent {
 
     void inject(RecipeListFragment target);
     void inject(RecipeListPresenterImpl target);
+
+    void inject(RecipeDetailActivity target);
+    void inject(RecipeDetailPresenterImpl target);
 
 }
