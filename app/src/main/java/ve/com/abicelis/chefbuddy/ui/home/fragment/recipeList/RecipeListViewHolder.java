@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 
 /**
  * Created by abicelis on 9/7/2017.
@@ -69,6 +73,11 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         switch (id) {
             case R.id.list_item_recipe_container:
                 Toast.makeText(v.getContext(), "Container clicked pos=" + mPosition, Toast.LENGTH_SHORT).show();
+
+                Intent viewRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
+                mActivity.startActivity(viewRecipeDetailIntent);
+                break;
         }
     }
 }
