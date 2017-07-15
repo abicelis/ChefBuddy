@@ -8,7 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
 
 /**
  * Created by abicelis on 3/7/2017.
@@ -49,8 +50,8 @@ public class FileUtil {
         }
     }
 
-    public static File getImageAttachmentDir(Activity activity) {
-        return new File(activity.getExternalFilesDir(null), activity.getResources().getString(R.string.subdirectory_attachments_image));
+    public static File getImageFilesDir() {
+        return new File(ChefBuddyApplication.getContext().getExternalFilesDir(null), Constants.IMAGE_FILES_DIR);
     }
 
     public static void createDirIfNotExists(File directory) throws IOException, SecurityException  {
@@ -75,7 +76,7 @@ public class FileUtil {
 
     public static void deleteImageAttachment(Activity activity, String filename) {
         if(filename != null && !filename.isEmpty()) { //Delete file
-            File file = new File(FileUtil.getImageAttachmentDir(activity), filename);
+            File file = new File(FileUtil.getImageFilesDir(), filename);
             file.delete();
         }
     }
