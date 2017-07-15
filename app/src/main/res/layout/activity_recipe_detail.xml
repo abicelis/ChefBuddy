@@ -32,6 +32,7 @@
                 android:id="@+id/activity_recipe_detail_header_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:paddingBottom="100dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/hummus"
                 android:tint="#11000000"
