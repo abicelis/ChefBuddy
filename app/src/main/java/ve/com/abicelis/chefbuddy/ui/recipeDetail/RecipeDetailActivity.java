@@ -215,8 +215,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
 
 
-//    <string name="activity_recipe_detail_title_detail_format">%1$d Servings | Preparation %2$d %3$s</string>
-
     /*
     *   RecipeDetailView interface implementation
     */
