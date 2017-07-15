@@ -99,7 +99,4 @@
 
 
 
-    /*  File subdirectories  */
-    <string name="subdirectory_attachments_image" translatable="false">attachments/image</string>
-
 </resources>
