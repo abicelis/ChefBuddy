@@ -27,11 +27,13 @@ public class ImageUtil {
     }
 
     /**
-     * Returns a bitmap of the image at the specified path
-     * @param path The path to the image
+     * Returns a bitmap of the image given its directory and its filename
+     * @param directory The directory where to look the image for
+     * @param filename The name of the image file
      */
-    public static Bitmap getBitmap(String path) {
-        return BitmapFactory.decodeFile(path);
+    public static Bitmap getBitmap(File directory, String filename) {
+        File imageFile = new File(directory, filename);
+        return BitmapFactory.decodeFile(imageFile.getAbsolutePath());
     }
 
     /**

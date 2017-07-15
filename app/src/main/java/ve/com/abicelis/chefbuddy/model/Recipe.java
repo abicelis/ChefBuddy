@@ -3,10 +3,12 @@ package ve.com.abicelis.chefbuddy.model;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
@@ -25,14 +27,13 @@ public class Recipe {
     private byte[] featuredImageBytes;
     private Bitmap featuredImage = null;
 
-    private List<String> pathsOfImages;
-    private List<Bitmap> images = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
 
 
 
     public Recipe() {}
 
-    public Recipe(long id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes) {
+    public Recipe(long id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
         this.id = id;
         this.name = name;
         this.servings = servings;
@@ -42,8 +43,19 @@ public class Recipe {
 
         this.featuredImageBytes = featuredImageBytes;
         this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
+
+        if(imageFilenames != null && !imageFilenames.isEmpty()) {
+            for( String filename : imageFilenames.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
+                if(!filename.isEmpty())
+                    images.add(new Image(filename, preloadImages));
+            }
+        }
     }
 
+    public void reloadImages() {
+        for (Image i : images)
+            i.loadImage();
+    }
 
     public long getId() {
         return id;
@@ -88,11 +100,20 @@ public class Recipe {
         return featuredImageBytes;
     }
 
-    public List<String> getPathsOfImages() {
-        return pathsOfImages;
-    }
-    public List<Bitmap> getImages() {
+    public List<Image> getImages() {
         return images;
+    }
+    public String getImageFilenames() {
+        StringBuilder sb = new StringBuilder();
+        for (Image i : images) {
+            sb.append(i.getFilename());
+            sb.append(Constants.IMAGE_FILENAMES_SEPARATOR);
+        }
+
+        if(sb.length() > 0)
+            sb.setLength(sb.length() - 1);  //Remove last separator
+
+        return sb.toString();
     }
 
 
