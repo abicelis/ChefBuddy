@@ -1181,6 +1181,7 @@ public class ChefBuddyDAO {
         values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName(), recipe.getPreparationTimeType().name());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName(), recipe.getFeaturedImageBytes());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName(), recipe.getImageFilenames());
         return values;
     }
 
@@ -1339,8 +1340,9 @@ public class ChefBuddyDAO {
 
         String directions = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName()));
         byte[] featuredImage = cursor.getBlob(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName()));
+        String imageFilenames = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName()));
 
-        return new Recipe(id, name, servings, preparationTime, preparationTimeType, directions, featuredImage);
+        return new Recipe(id, name, servings, preparationTime, preparationTimeType, directions, featuredImage, imageFilenames, false);
     }
 
 

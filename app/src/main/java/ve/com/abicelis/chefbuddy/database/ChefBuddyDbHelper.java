@@ -128,13 +128,14 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName() + COMMA_SEP +
                 ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName() + COMMA_SEP +
                 ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() +
+                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName() +
                 ") VALUES " +
-                "(0, 'Pizza Gloria', 24, '3', 'HOUR', 'Preheat oven and a baking sheet to 220C/fan 200C. Mix strong bread flour, salt and fast-action yeast together in a large bowl. Quickly stir in lukewarm water and olive oil and bring together to a rough dough.', '')," +
-                "(1, 'Hummus', 99, '90', 'MINUTE', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '')," +
-                "(2, 'Burgers', 3, '2', 'HOUR', '1 Preheat grill for high heat. 2 In a large bowl, mix the ground beef, egg, bread crumbs, evaporated milk, Worcestershire sauce, cayenne pepper, and garlic using your hands. Form the mixture into 8 hamburger patties. 3 Lightly oil the grill grate. Grill patties 5 minutes per side, or until well done.', '')," +
-                "(3, 'Caesar Salad', 1, '30', 'MINUTE', 'Mince 3 cloves of garlic, and combine in a small bowl with mayonnaise, anchovies, 2 tablespoons of the Parmesan cheese, Worcestershire sauce, mustard, and lemon juice. Season to taste with salt and black pepper. Heat oil in a large skillet over medium heat. Place lettuce in a large bowl.', '')," +
-                "(4, 'Carbonara Pasta', 2, '50', 'MINUTE', '1 Heat pasta water. 2 Saute pancetta/bacon and garlic. 3 Beat eggs and half of the cheese. 4 Cook pasta. 5 Toss pasta with pancetta/bacon. 6 Add the beaten egg mixture', '')" +
+                "(0, 'Pizza Gloria', 24, '3', 'HOUR', 'Preheat oven and a baking sheet to 220C/fan 200C. Mix strong bread flour, salt and fast-action yeast together in a large bowl. Quickly stir in lukewarm water and olive oil and bring together to a rough dough.', '', '123.jpg')," +
+                "(1, 'Hummus', 99, '90', 'MINUTE', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '', '1234.jpg|poop.jpg')," +
+                "(2, 'Burgers', 3, '2', 'HOUR', '1 Preheat grill for high heat. 2 In a large bowl, mix the ground beef, egg, bread crumbs, evaporated milk, Worcestershire sauce, cayenne pepper, and garlic using your hands. Form the mixture into 8 hamburger patties. 3 Lightly oil the grill grate. Grill patties 5 minutes per side, or until well done.', '', '|')," +
+                "(3, 'Caesar Salad', 1, '30', 'MINUTE', 'Mince 3 cloves of garlic, and combine in a small bowl with mayonnaise, anchovies, 2 tablespoons of the Parmesan cheese, Worcestershire sauce, mustard, and lemon juice. Season to taste with salt and black pepper. Heat oil in a large skillet over medium heat. Place lettuce in a large bowl.', '', '123.jpg|')," +
+                "(4, 'Carbonara Pasta', 2, '50', 'MINUTE', '1 Heat pasta water. 2 Saute pancetta/bacon and garlic. 3 Beat eggs and half of the cheese. 4 Cook pasta. 5 Toss pasta with pancetta/bacon. 6 Add the beaten egg mixture', '', '|123.jpg')" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
@@ -229,7 +230,8 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getDataType() + COMMA_SEP +
                 ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getDataType() + COMMA_SEP +
                 ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getDataType() + COMMA_SEP +
-                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getDataType() +
+                ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getDataType() + COMMA_SEP +
+                ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName() + " " + ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getDataType() +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
 
