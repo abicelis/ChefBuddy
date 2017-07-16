@@ -1,9 +1,11 @@
 package ve.com.abicelis.chefbuddy.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -26,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.history.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.spinWheel.SpinWheelFragment;
@@ -40,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
 
     //CONST
     private static final String TAG = HomeActivity.class.getSimpleName();
+    private static final int RECIPE_TAB_POSITION = 0;
 
     //DATA
     @Inject
@@ -60,6 +64,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
 
     @BindView(R.id.activity_home_toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.activity_home_fab_add_recipe)
+    FloatingActionButton mFabAdd;
+
 
     private HomeViewPagerAdapter mHomeViewPagerAdapter;
     private RecipeListFragment mRecipeListFragment;
@@ -87,7 +95,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
 
         setupViewPagerAndTabLayout();
         setupSearchView();
+        setupFab();
     }
+
 
     private void setupViewPagerAndTabLayout() {
 
@@ -115,16 +125,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         mViewpager.setCurrentItem(0);     //Start at page 1
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                //If scrolling out of page one, close search
-                if(position == 0 && mSearchView.isSearchOpen()) {
-                    mSearchView.closeSearch();
-                }
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
-            public void onPageSelected(int position) {}
+            public void onPageSelected(int position) {
+                if (position != 0 && mSearchView.isSearchOpen())
+                    mSearchView.closeSearch();
+
+                if(position == RECIPE_TAB_POSITION)
+                    mFabAdd.show();
+                else
+                    mFabAdd.hide();
+            }
 
             @Override
             public void onPageScrollStateChanged(int state) {}
@@ -174,6 +186,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         });
     }
 
+    private void setupFab() {
+        mFabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addRecipeIntent = new Intent(HomeActivity.this, AddEditRecipeActivity.class);
+                startActivity(addRecipeIntent);
+            }
+        });
+    }
 
 
 //    @Override
