@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -35,7 +36,7 @@ import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
  * Created by abicelis on 8/7/2017.
  */
 
-public class HomeActivity extends AppCompatActivity implements HomeView {
+public class HomeActivity extends AppCompatActivity implements HomeView, SearchViewListener {
 
     //CONST
     private static final String TAG = HomeActivity.class.getSimpleName();
@@ -136,7 +137,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d(TAG, "onQueryTextSubmit " + query);
                 if(mHomeViewPagerAdapter.getRegisteredFragment(0) != null) {
                     if (query.isEmpty())
                         ((RecipeListFragment) mHomeViewPagerAdapter.getRegisteredFragment(0)).cancelFilterRecipes();
@@ -163,7 +163,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             public void onSearchViewShown() {
                 //mAppBarLayout.setExpanded(false, true);
                 mTabLayout.setVisibility(View.GONE);
-                Log.d(TAG, "onSearchViewShown");
             }
 
             @Override
@@ -171,10 +170,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 //mAppBarLayout.setExpanded(true, true);
                 mTabLayout.setVisibility(View.VISIBLE);
                 ((RecipeListFragment) mHomeViewPagerAdapter.getRegisteredFragment(0)).cancelFilterRecipes();
-                Log.d(TAG, "onSearchViewClosed");
             }
         });
     }
+
 
 
 //    @Override
@@ -226,5 +225,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    /* SearchViewListener interface implementation */
+    @Override
+    public void closeSearchView(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSearchView.closeSearch();
+            }
+        }, 500);
+    }
 
 }
