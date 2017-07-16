@@ -36,9 +36,6 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.list_item_recipe_ingredient_icon_image)
     ImageView mIconImage;
 
-    @BindView(R.id.list_item_recipe_ingredient_icon_text)
-    TextView mIconText;
-
 
     public RecipeIngredientViewHolder(View itemView) {
         super(itemView);
@@ -53,23 +50,14 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
 
         mName.setText(mCurrent.getIngredient().getName());
 
-        if(Measurement.NONE.equals(mCurrent.getMeasurement()))
+        if (Measurement.NONE.equals(mCurrent.getMeasurement()))
             mAmountMeasurement.setVisibility(View.GONE);
         else {
             mAmountMeasurement.setVisibility(View.VISIBLE);
             mAmountMeasurement.setText(mCurrent.getAmount() + " " + mCurrent.getMeasurement().getAbbreviation());
         }
 
-        if(mCurrent.getMeasurement().getIcon() == null) {
-            mIconImage.setVisibility(View.GONE);
-            mIconText.setVisibility(View.VISIBLE);
-            //mIconText.setText(mCurrent.getMeasurement().getAbbreviation());
-        } else {
-            mIconText.setVisibility(View.GONE);
-            mIconImage.setVisibility(View.VISIBLE);
-            mIconImage.setImageDrawable(mCurrent.getMeasurement().getIcon());
-        }
-
+        mIconImage.setImageDrawable(mCurrent.getMeasurement().getIcon());
     }
 
     public void setListeners() {
