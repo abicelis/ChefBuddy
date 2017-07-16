@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ui.recipeDetail.RecipeDetailActivity"/>
         <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.addEditRecipe.AddEditRecipeActivity"/>
         <activity android:name=".ui.test.TestActivity">
         </activity>
     </application>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:layout_margin="6dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:background="@drawable/recipe_ingredient_rectangular_background"
+        />
+
+    <RelativeLayout
+        android:id="@+id/list_item_edit_recipe_ingredient_icon_container"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/recipe_ingredient_circle_background">
+        <ImageView
+            android:id="@+id/list_item_edit_recipe_ingredient_icon_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/list_item_edit_recipe_ingredient_amount_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="82dp"
+        android:layout_marginStart="82dp"
+        android:textColor="@color/secondary_text"
+        android:textSize="16sp"
+        android:lines="1"
+        android:text="1/2 cup"/>
+
+    <TextView
+        android:id="@+id/list_item_edit_recipe_ingredient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="156dp"
+        android:layout_marginStart="156dp"
+        android:textColor="@color/gray_text"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:lines="1"
+        android:text="Melted cheese"/>
+
+
+    <RelativeLayout
+        android:id="@+id/list_item_edit_recipe_ingredient_delete_container"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/recipe_ingredient_circle_background">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/list_item_edit_recipe_ingredient_drag_handle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:tint="@color/divider"
+        android:src="@drawable/ic_drag_handle"
+        />
+
+</RelativeLayout>

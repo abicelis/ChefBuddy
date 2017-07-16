@@ -41,8 +41,17 @@
 
 
 
+    <!--Add Edit Recipe activity-->
+    <string name="activity_add_edit_recipe_title_add">Add recipe</string>
+    <string name="activity_add_edit_recipe_title_edit">Edit recipe</string>
+
+    <string name="activity_add_edit_recipe_menu_save">Save</string>
 
 
+    <string name="activity_add_edit_recipe_title_basic">BASIC</string>
+    <string name="activity_add_edit_recipe_title_ingredients">INGREDIENTS</string>
+    <string name="activity_add_edit_recipe_title_preparation">PREPARATION</string>
+    <string name="activity_add_edit_recipe_title_images">IMAGES</string>
 
 
 
