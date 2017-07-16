@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="6dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:paddingLeft="25dp"
+        android:paddingStart="25dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/recipe_ingredient_rectangular_background">
+
+        <TextView
+            android:id="@+id/list_item_recipe_ingredient_amount_measurement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:text="1/2 cup"/>
+
+        <TextView
+            android:id="@+id/list_item_recipe_ingredient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/gray_text"
+            android:textSize="20sp"
+            android:text="Melted cheese"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/recipe_ingredient_circle_background">
+        <ImageView
+            android:id="@+id/list_item_recipe_ingredient_icon_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/list_item_recipe_ingredient_icon_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:text="Kg"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
