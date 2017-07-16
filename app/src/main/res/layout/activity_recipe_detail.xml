@@ -133,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="@color/recycler_background"
+        android:background="@color/gray_background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
@@ -143,7 +143,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:focusableInTouchMode="true"
+            >
 
 
 
@@ -161,13 +163,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
-                <TextView
-                    android:id="@+id/activity_recipe_detail_ingredients"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_recipe_detail_ingredients_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingExtra="8dp"
-                    android:textSize="18sp"
                     />
+
+                <TextView
+                    android:id="@+id/activity_recipe_detail_ingredients_no_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/activity_recipe_detail_no_ingredients"
+                    android:visibility="gone"
+                    />
+
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
 
 
@@ -209,12 +219,23 @@
             <ve.com.abicelis.chefbuddy.views.FancyCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-                <TextView
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="56dp">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_recipe_detail_images_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TODO: images recyclerview"
                     />
+
+                <TextView
+                    android:id="@+id/activity_recipe_detail_images_no_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/activity_recipe_detail_no_images"
+                    android:visibility="gone"
+                    />
+
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

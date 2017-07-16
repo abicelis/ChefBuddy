@@ -6,6 +6,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,13 +100,26 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
 
     /* NestedScrollView bottom content */
-    // TODO: 14/7/2017 Missing images recyclerview.. also ingredients recyclerview
-    @BindView(R.id.activity_recipe_detail_ingredients)
-    TextView mIngredients;
-
     @BindView(R.id.activity_recipe_detail_preparation)
     TextView mPreparation;
 
+
+    /* Ingredients recycler */
+    @BindView(R.id.activity_recipe_detail_ingredients_recycler)
+    RecyclerView mIngredientsRecyclerView;
+    @BindView(R.id.activity_recipe_detail_ingredients_no_items)
+    TextView mNoIngredients;
+    private LinearLayoutManager mIngredientsLayoutManager;
+    private RecipeIngredientAdapter mIngredientsAdapter;
+
+
+    /* Images recycler */
+    @BindView(R.id.activity_recipe_detail_images_recycler)
+    RecyclerView mImagesRecyclerView;
+    @BindView(R.id.activity_recipe_detail_images_no_items)
+    TextView mNoImages;
+    private LinearLayoutManager mImagesLayoutManager;
+    private ImageAdapter mImageAdapter;
 
 
     @Override
@@ -154,6 +169,28 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mToolbarBottom.getMenu().findItem(R.id.menu_recipe_detail_share).setVisible(false);   //Hide Share option
         mToolbarBottom.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
         mToolbarBottom.setNavigationOnClickListener(new NavigationBackListener());
+
+
+        //Ingredients Recyclerview
+        mIngredientsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mIngredientsAdapter = new RecipeIngredientAdapter(this);
+
+        mIngredientsRecyclerView.setLayoutManager(mIngredientsLayoutManager);
+        mIngredientsRecyclerView.setAdapter(mIngredientsAdapter);
+        mIngredientsRecyclerView.setNestedScrollingEnabled(false);
+
+
+        //Image Recyclerview
+        mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mImageAdapter = new ImageAdapter(this);
+
+        //DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), mLayoutManager.getOrientation());
+        //itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_decoration_complete_line));
+        //mImagesRecyclerView.addItemDecoration(itemDecoration);
+
+        mImagesRecyclerView.setLayoutManager(mImagesLayoutManager);
+        mImagesRecyclerView.setAdapter(mImageAdapter);
+        mImagesRecyclerView.setNestedScrollingEnabled(false);
     }
 
 
@@ -233,8 +270,33 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                 recipe.getPreparationTime(),
                 recipe.getPreparationTimeType().getFriendlyName(recipe.getPreparationTime())));
 
-        mIngredients.setText(recipe.getSimpleIngredientsString());
         mPreparation.setText(recipe.getDirections());
+
+
+        //Ingredients recyclerView
+        mIngredientsAdapter.getItems().addAll(recipe.getRecipeIngredients());
+        mIngredientsAdapter.notifyDataSetChanged();
+
+        if(mIngredientsAdapter.getItems().size() == 0) {
+            mNoIngredients.setVisibility(View.VISIBLE);
+            mIngredientsRecyclerView.setVisibility(View.GONE);
+        } else {
+            mNoIngredients.setVisibility(View.GONE);
+            mIngredientsRecyclerView.setVisibility(View.VISIBLE);
+        }
+
+
+        //Images recyclerView
+        mImageAdapter.getItems().addAll(recipe.getImages());
+        mImageAdapter.notifyDataSetChanged();
+
+        if(mImageAdapter.getItems().size() == 0) {
+            mNoImages.setVisibility(View.VISIBLE);
+            mImagesRecyclerView.setVisibility(View.GONE);
+        } else {
+            mNoImages.setVisibility(View.GONE);
+            mImagesRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

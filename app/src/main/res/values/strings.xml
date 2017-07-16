@@ -35,6 +35,8 @@
     <string name="activity_recipe_detail_title_preparation">PREPARATION</string>
     <string name="activity_recipe_detail_title_images">IMAGES</string>
 
+    <string name="activity_recipe_detail_no_images">No images here</string>
+    <string name="activity_recipe_detail_no_ingredients">No ingredients here</string>
 
 
 
@@ -96,7 +98,6 @@
     <string name="measurement_liter_abbr">L</string>
     <string name="measurement_gram_abbr">g</string>
     <string name="measurement_kilogram_abbr">Kg</string>
-
 
 
 </resources>
