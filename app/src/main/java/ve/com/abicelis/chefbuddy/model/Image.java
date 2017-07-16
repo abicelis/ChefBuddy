@@ -31,6 +31,9 @@ public class Image {
     }
 
     public Bitmap getImage() {
+        if(image == null)
+            loadImage();
+
         return image;
     }
 }
