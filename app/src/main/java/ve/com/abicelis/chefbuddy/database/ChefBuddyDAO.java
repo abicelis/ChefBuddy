@@ -1188,7 +1188,7 @@ public class ChefBuddyDAO {
     private ContentValues getValuesForRecipeIngredient(long recipeId, RecipeIngredient recipeIngredient) {
         ContentValues values = new ContentValues();
         values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName(), recipeId);
-        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName(), recipeIngredient.getId());
+        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName(), recipeIngredient.getIngredient().getId());
         values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName(), recipeIngredient.getAmount());
         values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName(), recipeIngredient.getMeasurement().name());
         return values;
