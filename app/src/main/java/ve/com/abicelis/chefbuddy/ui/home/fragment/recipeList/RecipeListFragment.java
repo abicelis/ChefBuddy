@@ -1,8 +1,10 @@
 package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.SearchViewListener;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
@@ -50,6 +53,7 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     RecyclerView mRecyclerView;
     @BindView(R.id.fragment_recipe_list_no_items_container)
     RelativeLayout mNoItemsContainer;
+
     private LinearLayoutManager mLayoutManager;
     private RecipeListAdapter mRecipeListAdapter;
 
@@ -67,8 +71,6 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
 
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
         presenter.attachView(this);
-        presenter.getRecipes();
-
         return view;
     }
 
@@ -78,6 +80,12 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
             mSearchViewListener = (SearchViewListener)context;
         }
         super.onAttach(context);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getRecipes();
     }
 
     @Override
