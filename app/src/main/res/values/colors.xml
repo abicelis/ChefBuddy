@@ -6,11 +6,12 @@
     <color name="primary_light">#D1C4E9</color>
     <color name="accent">#FF9800</color>
     <color name="primary_text">#212121</color>
+    <color name="gray_text">#414141</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
-    <color name="recycler_background">#EEEEEE</color>
+    <color name="gray_background">#EEEEEE</color>
     <color name="transparent_background">#88000000</color>
 
 
