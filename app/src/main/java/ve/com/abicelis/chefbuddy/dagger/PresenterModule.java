@@ -5,6 +5,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
@@ -35,6 +37,12 @@ public class PresenterModule {
     @Singleton
     RecipeDetailPresenter provideRecipeDetailPresenter(ChefBuddyDAO dao){
         return new RecipeDetailPresenterImpl(dao);
+    }
+
+    @Provides
+    @Singleton
+    AddEditRecipePresenter provideAddEditRecipeDetailPresenter(ChefBuddyDAO dao) {
+        return new AddEditRecipePresenterImpl(dao);
     }
 
 }

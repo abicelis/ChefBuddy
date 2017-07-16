@@ -3,6 +3,10 @@ package ve.com.abicelis.chefbuddy.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
@@ -28,5 +32,8 @@ public interface AppComponent {
 
     void inject(RecipeDetailActivity target);
     void inject(RecipeDetailPresenterImpl target);
+
+    void inject(AddEditRecipeActivity target);
+    void inject(AddEditRecipePresenterImpl target);
 
 }
