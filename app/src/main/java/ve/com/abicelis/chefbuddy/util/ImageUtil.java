@@ -3,6 +3,8 @@ package ve.com.abicelis.chefbuddy.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -24,6 +26,17 @@ public class ImageUtil {
     public static Bitmap getBitmap(byte[] imgInBytes) {
         int length = imgInBytes.length;
         return BitmapFactory.decodeByteArray(imgInBytes, 0, length);
+    }
+
+
+    /**
+     * Returns a bitmap given a drawable
+     * @param drawable The drawable to convert
+     */
+    public static Bitmap getBitmap(Drawable drawable) {
+        BitmapDrawable bdp = (BitmapDrawable)drawable;
+        Bitmap bp = bdp.getBitmap();
+        return bp;
     }
 
     /**
