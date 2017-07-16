@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.addEditRecipe.AddEditRecipeActivity"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_add_edit_recipe_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@color/gray_background"
+        >
+
+
+
+        <LinearLayout
+            android:id="@+id/activity_add_edit_recipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:focusableInTouchMode="true"
+            >
+
+
+
+
+            <!-- BASIC -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_edit_recipe_title_basic"
+                style="@style/AppTheme.TextViewTitle"
+                />
+
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/activity_add_edit_recipe_poop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="placeholder basic"
+                    />
+
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+
+
+
+
+            <!-- INGREDIENTS -->
+            <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_edit_recipe_title_ingredients"
+                />
+
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_add_edit_recipe_ingredients_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+
+
+
+
+
+            <!-- PREPARATION -->
+            <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_edit_recipe_title_preparation"
+                />
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/activity_add_edit_recipe_preparation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="placeholder preparation"
+                    />
+
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+
+
+
+
+            <!-- IMAGES -->
+            <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_edit_recipe_title_images"
+                />
+            <ve.com.abicelis.chefbuddy.views.FancyCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="56dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_add_edit_recipe_images_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/activity_add_edit_recipe_fab_share"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="32dp" app:fabSize="normal"-->
+    <!--app:layout_anchor="@id/activity_add_edit_recipe_appbar"-->
+    <!--app:layout_anchorGravity="bottom|end"-->
+    <!--app:srcCompat="@drawable/ic_fab_share" />-->
+
+</LinearLayout>
