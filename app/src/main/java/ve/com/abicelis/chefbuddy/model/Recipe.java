@@ -3,10 +3,10 @@ package ve.com.abicelis.chefbuddy.model;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
@@ -85,6 +85,24 @@ public class Recipe {
         //Remove last ", "
         if(sb.length() > 0)
             sb.setLength(sb.length() - 2);
+
+        return sb.toString();
+    }
+
+    public String getIngredientsString() {
+        StringBuilder sb = new StringBuilder();
+        for (RecipeIngredient i: recipeIngredients) {
+            if(Measurement.NONE == i.getMeasurement())
+                sb.append(i.getIngredient().getName());
+            else
+                sb.append(String.format(Locale.getDefault(), Constants.RECIPE_INGREDIENT_STRING_FORMAT, i.getAmount(), i.getMeasurement().getAbbreviation(), i.getIngredient().getName()));
+
+            sb.append("\n");
+        }
+
+        //Remove last ", "
+        if(sb.length() > 0)
+            sb.setLength(sb.length() - 1);
 
         return sb.toString();
     }
