@@ -143,6 +143,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recipeDetailPresenter.detachView();
+
+    }
+
     private void initViews() {
 
         //Hide upper toolbar (toolbarContainer)
