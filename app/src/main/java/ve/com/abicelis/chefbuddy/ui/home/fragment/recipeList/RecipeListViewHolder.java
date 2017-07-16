@@ -43,13 +43,6 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
     public RecipeListViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-
-        mContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     public void setData(RecipeListAdapter adapter, Activity activity, Recipe current, int position) {
@@ -72,8 +65,6 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         int id = v.getId();
         switch (id) {
             case R.id.list_item_recipe_container:
-                Toast.makeText(v.getContext(), "Container clicked pos=" + mPosition, Toast.LENGTH_SHORT).show();
-
                 Intent viewRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
                 viewRecipeDetailIntent.putExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
                 mActivity.startActivity(viewRecipeDetailIntent);
