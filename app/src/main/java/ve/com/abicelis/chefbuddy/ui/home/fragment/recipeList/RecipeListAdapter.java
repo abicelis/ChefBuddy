@@ -18,6 +18,7 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListViewHolder> {
 
     //DATA
+    private RecyclerViewClickListener mListener;
     private List<Recipe> mRecipes = new ArrayList<>();
     private LayoutInflater mInflater;
     private Activity mActivity;
@@ -46,5 +47,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListViewHolder
     @Override
     public int getItemCount() {
         return mRecipes.size();
+    }
+
+
+    public void forwardRecyclerViewClick() {
+        mListener.onRecyclerviewClicked();      //Forward click to RecyclerViewClickListener
+    }
+
+
+    public void setOnRecyclerViewClickListener(RecyclerViewClickListener listener) {
+        mListener = listener;
+    }
+
+    interface RecyclerViewClickListener {
+        void onRecyclerviewClicked();
     }
 }

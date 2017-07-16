@@ -1,5 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.home.SearchViewListener;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
 
@@ -39,6 +41,7 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     //DATA
     @Inject
     RecipeListPresenter presenter;
+    SearchViewListener mSearchViewListener;
 
     //UI
     @BindView(R.id.fragment_recipe_list_swipe_refresh)
@@ -70,6 +73,14 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     }
 
     @Override
+    public void onAttach(Context context) {
+        if(context instanceof SearchViewListener){
+            mSearchViewListener = (SearchViewListener)context;
+        }
+        super.onAttach(context);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         presenter.detachView();
@@ -93,6 +104,12 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mRecipeListAdapter);
+        mRecipeListAdapter.setOnRecyclerViewClickListener(new RecipeListAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onRecyclerviewClicked() {
+                mSearchViewListener.closeSearchView();  //Forward recyclerView click to HomeActivity SearchViewListener
+            }
+        });
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.swipe_refresh_green, R.color.swipe_refresh_red, R.color.swipe_refresh_yellow);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
