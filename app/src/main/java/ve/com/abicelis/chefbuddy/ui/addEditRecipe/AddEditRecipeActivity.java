@@ -30,6 +30,8 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.SimpleItemTouc
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
+import ve.com.abicelis.chefbuddy.views.FancyEditText;
+import ve.com.abicelis.chefbuddy.views.FancySpinner;
 
 /**
  * Created by abicelis on 16/7/2017.
@@ -47,6 +49,17 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @BindView(R.id.activity_add_edit_recipe_container)
     LinearLayout mContainer;
 
+    /* BASIC */
+    @BindView(R.id.activity_add_edit_recipe_name)
+    FancyEditText mName;
+
+    @BindView(R.id.activity_add_edit_recipe_servings)
+    FancySpinner mServings;
+
+    @BindView(R.id.activity_add_edit_recipe_preparation_time)
+    FancySpinner mPreparationTime;
+
+    /* INGREDIENTS */
     @BindView(R.id.activity_add_edit_recipe_ingredients_add)
     Button mAddIngredient;
 
