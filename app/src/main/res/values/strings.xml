@@ -47,11 +47,14 @@
 
     <string name="activity_add_edit_recipe_menu_save">Save</string>
 
-
     <string name="activity_add_edit_recipe_title_basic">BASIC</string>
     <string name="activity_add_edit_recipe_title_ingredients">INGREDIENTS</string>
     <string name="activity_add_edit_recipe_title_preparation">PREPARATION</string>
     <string name="activity_add_edit_recipe_title_images">IMAGES</string>
+
+    <string name="activity_add_edit_recipe_ingredient_button_add">Add</string>
+
+    <string name="activity_add_edit_recipe_name_hint">Recipe name&#8230;</string>
 
 
 
