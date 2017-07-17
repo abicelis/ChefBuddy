@@ -28,7 +28,7 @@
     <string name="activity_recipe_detail_delete">Delete</string>
     <string name="activity_recipe_detail_share">Share</string>
 
-    <string name="activity_recipe_detail_title_detail_format">%1$d Servings | Preparation %2$s %3$s</string>
+    <string name="activity_recipe_detail_title_detail_format">%1$d Servings | Preparation %2$s</string>
 
 
     <string name="activity_recipe_detail_title_ingredients">INGREDIENTS</string>
@@ -68,7 +68,7 @@
     <string name="message_recipe_detail_activity_error_loading_recipe">Could not load recipe</string>
 
 
-    <!--PreparationTimeType enum-->
+    <!--PreparationTime enum-->
     <string name="preparation_time_type_minute">minute</string>
     <string name="preparation_time_type_minutes">minutes</string>
     <string name="preparation_time_type_hour">hour</string>

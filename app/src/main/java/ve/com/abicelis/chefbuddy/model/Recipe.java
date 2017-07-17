@@ -19,7 +19,7 @@ public class Recipe {
     private long id;
     private String name;
     private int servings;
-    private PreparationTimeType preparationTimeType;
+    private PreparationTime preparationTime;
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
 
@@ -32,11 +32,11 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(long id, @NonNull String name, int servings, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
+    public Recipe(long id, @NonNull String name, int servings, @NonNull PreparationTime preparationTime, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
         this.id = id;
         this.name = name;
         this.servings = servings;
-        this.preparationTimeType = preparationTimeType;
+        this.preparationTime = preparationTime;
         this.directions = directions;
 
         this.featuredImageBytes = featuredImageBytes;
@@ -64,8 +64,8 @@ public class Recipe {
     public int getServings() {
         return servings;
     }
-    public PreparationTimeType getPreparationTimeType() {
-        return preparationTimeType;
+    public PreparationTime getPreparationTime() {
+        return preparationTime;
     }
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
@@ -139,8 +139,8 @@ public class Recipe {
     public void setServings(int servings) {
         this.servings = servings;
     }
-    public void setPreparationTimeType(PreparationTimeType preparationTimeType) {
-        this.preparationTimeType = preparationTimeType;
+    public void setPreparationTime(PreparationTime preparationTime) {
+        this.preparationTime = preparationTime;
     }
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;

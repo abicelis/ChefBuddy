@@ -12,7 +12,7 @@ import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotInsertDataException;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
-import ve.com.abicelis.chefbuddy.model.PreparationTimeType;
+import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 
@@ -1177,7 +1177,7 @@ public class ChefBuddyDAO {
         ContentValues values = new ContentValues();
         values.put(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName(), recipe.getName());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName(), recipe.getPreparationTimeType().name());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName(), recipe.getPreparationTime().name());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName(), recipe.getFeaturedImageBytes());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName(), recipe.getImageFilenames());
@@ -1329,18 +1329,18 @@ public class ChefBuddyDAO {
         String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName()));
         int servings = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName()));
 
-        PreparationTimeType preparationTimeType;
+        PreparationTime preparationTime;
         try {
-            preparationTimeType = PreparationTimeType.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName())));
+            preparationTime = PreparationTime.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName())));
         } catch (IllegalArgumentException e) {
-            preparationTimeType = null;
+            preparationTime = null;
         }
 
         String directions = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName()));
         byte[] featuredImage = cursor.getBlob(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName()));
         String imageFilenames = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName()));
 
-        return new Recipe(id, name, servings, preparationTimeType, directions, featuredImage, imageFilenames, false);
+        return new Recipe(id, name, servings, preparationTime, directions, featuredImage, imageFilenames, false);
     }
 
 
