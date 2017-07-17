@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -20,7 +22,11 @@ import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.Ingredient;
+import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.SimpleItemTouchHelperCallback;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
@@ -29,7 +35,7 @@ import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
  * Created by abicelis on 16/7/2017.
  */
 
-public class AddEditRecipeActivity extends AppCompatActivity implements AddEditRecipeView {
+public class AddEditRecipeActivity extends AppCompatActivity implements AddEditRecipeView, EditRecipeIngredientAdapter.OnDragStartListener {
 
 
     @Inject
@@ -41,11 +47,15 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @BindView(R.id.activity_add_edit_recipe_container)
     LinearLayout mContainer;
 
+    @BindView(R.id.activity_add_edit_recipe_ingredients_add)
+    Button mAddIngredient;
+
     /* Ingredients recycler */
     @BindView(R.id.activity_add_edit_recipe_ingredients_recycler)
     RecyclerView mIngredientsRecyclerView;
     private LinearLayoutManager mIngredientsLayoutManager;
     private EditRecipeIngredientAdapter mEditIngredientsAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
 
     @Override
@@ -80,11 +90,23 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
         //Ingredients RecyclerView
         mIngredientsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mEditIngredientsAdapter = new EditRecipeIngredientAdapter(this);
+        mEditIngredientsAdapter = new EditRecipeIngredientAdapter(this, this);
 
         mIngredientsRecyclerView.setLayoutManager(mIngredientsLayoutManager);
         mIngredientsRecyclerView.setAdapter(mEditIngredientsAdapter);
         mIngredientsRecyclerView.setNestedScrollingEnabled(false);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mEditIngredientsAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mIngredientsRecyclerView);
+
+        mAddIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditIngredientsAdapter.getItems().add(new RecipeIngredient("1/2", Measurement.CUP, new Ingredient("Poop")));
+                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
+            }
+        });
 
     }
 
@@ -119,5 +141,11 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     public void showErrorMessage(Message message) {
         SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
 
+    }
+
+
+    @Override
+    public void onDragStarted(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 }

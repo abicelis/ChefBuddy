@@ -1,8 +1,11 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.app.Activity;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,16 +18,18 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.ItemTouchHelperViewHolder;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeIngredientAdapter;
 
 /**
  * Created by abicelis on 15/7/2017.
  */
 
-public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnDragListener {
+public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
 
     //DATA
     private EditRecipeIngredientAdapter mAdapter;
+    private EditRecipeIngredientAdapter.OnDragStartListener mDragStartListener;
     private Activity mActivity;
     private RecipeIngredient mCurrent;
     private int mPosition;
@@ -68,9 +73,16 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
 
     }
 
-    public void setListeners() {
+    public void setListeners(final EditRecipeIngredientAdapter.OnDragStartListener dragStartListener) {
         mDelete.setOnClickListener(this);
-        mDragHandle.setOnDragListener(this);
+        mDragHandle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    dragStartListener.onDragStarted(EditRecipeIngredientViewHolder.this);
+                }
+                return false;            }
+        });
     }
 
     @Override
@@ -78,14 +90,26 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
         int id = v.getId();
         switch (id) {
             case R.id.list_item_edit_recipe_ingredient_delete_container:
-                Toast.makeText(mActivity, "Clicked delete on item " + mPosition, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(mActivity, "Are you sure...?" + mPosition, Toast.LENGTH_SHORT).show();
+                mAdapter.removeItem(mPosition);
                 break;
         }
     }
 
+    /* ItemTouchHelperViewHolder interface implementation */
     @Override
-    public boolean onDrag(View v, DragEvent event) {
-        //TODO drag handle implementation
-        return false;
+    public void onItemSelected() {
+        //Unused
+    }
+
+    @Override
+    public void onItemClear() {
+        //Unused
+    }
+
+    @Override
+    public void onItemMoved(int newPosition) {
+        mPosition = newPosition;
     }
 }

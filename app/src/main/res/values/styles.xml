@@ -35,6 +35,10 @@
         <item name="cardCornerRadius">6dp</item>
     </style>
 
+    <style name="ButtonTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/primary</item>
+    </style>
+
 
     <!-- Style for searchView on HomeActivity -->
     <style name="MaterialSearchViewStyle">
