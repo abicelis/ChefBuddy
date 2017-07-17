@@ -11,9 +11,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,6 +28,7 @@ import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
+import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.SimpleItemTouchHelperCallback;
@@ -38,6 +43,10 @@ import ve.com.abicelis.chefbuddy.views.FancySpinner;
  */
 
 public class AddEditRecipeActivity extends AppCompatActivity implements AddEditRecipeView, EditRecipeIngredientAdapter.OnDragStartListener {
+
+    //DATA
+    private List<String> mServingsList = new ArrayList<>();
+    private List<String> mPreparationTimesList = new ArrayList<>();
 
 
     @Inject
@@ -77,6 +86,14 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         setContentView(R.layout.activity_add_edit_recipe);
         ButterKnife.bind(this);
 
+        for(int i=1; i <= 50;i++)
+            mServingsList.add(String.valueOf(i) + " " + (i == 1 ?
+                    getResources().getString(R.string.activity_add_edit_recipe_servings_singular) :
+                    getResources().getString(R.string.activity_add_edit_recipe_servings_plural)));
+
+        for(PreparationTime p : PreparationTime.values())
+            mPreparationTimesList.add(p.getFriendlyName());
+
         //TODO true?
         initViews(true);
 
@@ -99,6 +116,28 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
                 Toast.makeText(AddEditRecipeActivity.this, "Back pressed, must check here if user wants to discard changes", Toast.LENGTH_SHORT).show();
                 //onBackPressed();
             }
+        });
+
+        //Basic: FancySpinners
+        mServings.setItems(mServingsList);
+        mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(AddEditRecipeActivity.this, "Selected serv item " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        mPreparationTime.setItems(mPreparationTimesList);
+        mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(AddEditRecipeActivity.this, "Selected prep item " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         //Ingredients RecyclerView
