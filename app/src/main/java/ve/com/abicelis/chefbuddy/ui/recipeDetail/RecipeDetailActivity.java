@@ -271,11 +271,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mImage.setImageBitmap(recipe.getFeaturedImage());
 
         mTitleTitle.setText(recipe.getName());
-        mTitleDetail.setText(String.format(Locale.getDefault(),
-                getResources().getString(R.string.activity_recipe_detail_title_detail_format),
-                recipe.getServings(),
-                recipe.getPreparationTime(),
-                recipe.getPreparationTimeType().getFriendlyName(recipe.getPreparationTime())));
+        //TODO: PREPARATIONTIME
+//        mTitleDetail.setText(String.format(Locale.getDefault(),
+//                getResources().getString(R.string.activity_recipe_detail_title_detail_format),
+//                recipe.getServings(),
+//                recipe.getPreparationTime(),
+//                recipe.getPreparationTimeType().getFriendlyName(recipe.getPreparationTime())));
 
         mPreparation.setText(recipe.getDirections());
 

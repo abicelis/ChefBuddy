@@ -1177,7 +1177,6 @@ public class ChefBuddyDAO {
         ContentValues values = new ContentValues();
         values.put(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName(), recipe.getName());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName(), recipe.getPreparationTime());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME_TYPE.getName(), recipe.getPreparationTimeType().name());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName(), recipe.getFeaturedImageBytes());
@@ -1329,7 +1328,6 @@ public class ChefBuddyDAO {
         long id = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_ID.getName()));
         String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName()));
         int servings = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName()));
-        String preparationTime = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName()));
 
         PreparationTimeType preparationTimeType;
         try {
@@ -1342,7 +1340,7 @@ public class ChefBuddyDAO {
         byte[] featuredImage = cursor.getBlob(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName()));
         String imageFilenames = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName()));
 
-        return new Recipe(id, name, servings, preparationTime, preparationTimeType, directions, featuredImage, imageFilenames, false);
+        return new Recipe(id, name, servings, preparationTimeType, directions, featuredImage, imageFilenames, false);
     }
 
 

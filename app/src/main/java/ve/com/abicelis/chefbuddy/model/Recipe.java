@@ -19,7 +19,6 @@ public class Recipe {
     private long id;
     private String name;
     private int servings;
-    private String preparationTime;
     private PreparationTimeType preparationTimeType;
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
@@ -33,11 +32,10 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(long id, @NonNull String name, int servings, @NonNull String preparationTime, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
+    public Recipe(long id, @NonNull String name, int servings, @NonNull PreparationTimeType preparationTimeType, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
         this.id = id;
         this.name = name;
         this.servings = servings;
-        this.preparationTime = preparationTime;
         this.preparationTimeType = preparationTimeType;
         this.directions = directions;
 
@@ -65,9 +63,6 @@ public class Recipe {
     }
     public int getServings() {
         return servings;
-    }
-    public String getPreparationTime() {
-        return preparationTime;
     }
     public PreparationTimeType getPreparationTimeType() {
         return preparationTimeType;
@@ -144,9 +139,6 @@ public class Recipe {
     public void setServings(int servings) {
         this.servings = servings;
     }
-    public void setPreparationTime(String preparationTime) {
-        this.preparationTime = preparationTime;
-    }
     public void setPreparationTimeType(PreparationTimeType preparationTimeType) {
         this.preparationTimeType = preparationTimeType;
     }
@@ -168,7 +160,6 @@ public class Recipe {
         return  "ID=" + id + "\r\n" +
                 " name=" + name + "\r\n" +
                 " servings=" + servings + "\r\n" +
-                " preparation=" + preparationTime + " " + (preparationTimeType != null ? preparationTimeType.getFriendlyName(preparationTime) : "") + "\r\n" +
                 " recipeIngredients=" + TextUtils.join(", ", recipeIngredients) + "\r\n" +
                 " directions=" + directions;
     }
