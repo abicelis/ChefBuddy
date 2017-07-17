@@ -1,12 +1,10 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter;
+package ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import java.io.File;
@@ -20,7 +18,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Recipe;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
+import ve.com.abicelis.chefbuddy.ui.home_recipeList.view.RecipeListView;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
 

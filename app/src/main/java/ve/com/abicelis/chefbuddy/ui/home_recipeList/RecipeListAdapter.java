@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
+package ve.com.abicelis.chefbuddy.ui.home_recipeList;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;

@@ -1,10 +1,8 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
+package ve.com.abicelis.chefbuddy.ui.home_recipeList;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,10 +25,9 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
-import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.SearchViewListener;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenter;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.view.RecipeListView;
+import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenter;
+import ve.com.abicelis.chefbuddy.ui.home_recipeList.view.RecipeListView;
 
 /**
  * Created by abicelis on 8/7/2017.

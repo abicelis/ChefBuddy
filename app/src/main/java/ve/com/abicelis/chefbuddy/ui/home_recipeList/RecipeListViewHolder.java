@@ -1,4 +1,4 @@
-package ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList;
+package ve.com.abicelis.chefbuddy.ui.home_recipeList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
