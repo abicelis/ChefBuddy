@@ -4,13 +4,11 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
-import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
-import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.RecipeListFragment;
-import ve.com.abicelis.chefbuddy.ui.home.fragment.recipeList.presenter.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
+import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
