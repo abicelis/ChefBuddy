@@ -45,7 +45,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="156dp"
         android:layout_marginStart="156dp"
-        android:textColor="@color/gray_text"
+        android:textColor="@color/primary_text"
         android:ellipsize="end"
         android:textSize="20sp"
         android:lines="1"

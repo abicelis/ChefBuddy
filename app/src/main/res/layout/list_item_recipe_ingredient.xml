@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/primary_text"
             android:ellipsize="end"
             android:textSize="20sp"
             android:lines="1"
