@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="fancy_edit_text">
+    <declare-styleable name="fancy_common">
         <attr name="icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="fancy_edit_text" parent="fancy_common">
         <attr name="text" format="reference" />
         <attr name="hint" format="reference" />
+        <attr name="icon"/>
+    </declare-styleable>
+
+    <declare-styleable name="fancy_spinner" parent="fancy_common">
+        <attr name="icon"/>
     </declare-styleable>
 </resources>
