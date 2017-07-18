@@ -28,7 +28,7 @@
     <string name="activity_recipe_detail_delete">Delete</string>
     <string name="activity_recipe_detail_share">Share</string>
 
-    <string name="activity_recipe_detail_title_detail_format">%1$d Servings | Preparation %2$s</string>
+    <string name="activity_recipe_detail_title_detail_format">%1$s | %2$s preparation</string>
 
 
     <string name="activity_recipe_detail_title_ingredients">INGREDIENTS</string>
