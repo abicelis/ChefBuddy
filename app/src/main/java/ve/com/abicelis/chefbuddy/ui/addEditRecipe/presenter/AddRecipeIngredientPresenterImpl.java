@@ -35,9 +35,11 @@ public class AddRecipeIngredientPresenterImpl implements AddRecipeIngredientPres
     public void getIngredients() {
         try {
             List<Ingredient> ingredients = mDao.getIngredients();
-            mView.populateIngredientSpinner(ingredients);
+            if(mView != null)
+                mView.populateIngredientSpinner(ingredients);
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.ERROR_LOADING_INGREDIENTS);
+            if(mView != null)
+                mView.showErrorMessage(Message.ERROR_LOADING_INGREDIENTS);
         }
     }
 

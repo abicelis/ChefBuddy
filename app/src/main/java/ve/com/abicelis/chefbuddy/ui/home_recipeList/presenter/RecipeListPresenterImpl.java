@@ -124,9 +124,11 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
             @Override
             public void run() {
                 try {
-                    mView.showRecipes(mDao.getRecipes());
+                    if(mView != null)
+                        mView.showRecipes(mDao.getRecipes());
                 } catch (CouldNotGetDataException e) {
-                    mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
+                    if(mView != null)
+                        mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
                 }
             }
         }, 1000);
@@ -145,18 +147,22 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
     @Override
     public void cancelFilteredRecipes() {
         try {
-            mView.showRecipes(mDao.getRecipes());
+            if(mView != null)
+                mView.showRecipes(mDao.getRecipes());
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
+            if(mView != null)
+                mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
         }
     }
 
     @Override
     public void getFilteredRecipes(@NonNull String query) {
         try {
-            mView.showRecipes(mDao.getFilteredRecipes(query));
+            if(mView != null)
+                mView.showRecipes(mDao.getFilteredRecipes(query));
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
+            if(mView != null)
+                mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
         }
     }
 }
