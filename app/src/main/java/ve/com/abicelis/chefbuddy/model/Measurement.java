@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 
@@ -56,5 +59,13 @@ public enum Measurement {
 
     public @Nullable Drawable getIcon() {
         return ContextCompat.getDrawable(ChefBuddyApplication.getContext(), icon);
+    }
+
+    public static List<String> getFriendlyValues() {
+        List<String> friendlyValues = new ArrayList<>();
+        for (Measurement x : values()) {
+            friendlyValues.add(ChefBuddyApplication.getContext().getString(x.friendlyName));
+        }
+        return friendlyValues;
     }
 }
