@@ -89,5 +89,8 @@ public class FancySpinner extends LinearLayout {
     public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
         mSpinner.setOnItemSelectedListener(listener);
     }
+    public void setSelection(int position) {
+        mSpinner.setSelection(position);
+    }
 
 }
