@@ -51,11 +51,10 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
         mName.setText(mCurrent.getIngredient().getName());
 
         if (Measurement.NONE.equals(mCurrent.getMeasurement()))
-            mAmountMeasurement.setVisibility(View.GONE);
-        else {
-            mAmountMeasurement.setVisibility(View.VISIBLE);
+            mAmountMeasurement.setText(mCurrent.getAmount());
+        else
             mAmountMeasurement.setText(mCurrent.getAmount() + " " + mCurrent.getMeasurement().getAbbreviation());
-        }
+
 
         mIconImage.setImageDrawable(mCurrent.getMeasurement().getIcon());
     }
