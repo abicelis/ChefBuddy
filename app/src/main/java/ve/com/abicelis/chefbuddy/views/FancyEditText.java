@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.util.DimensionUtil;
 
 /**
  * Created by abicelis on 14/7/2017.
@@ -85,6 +85,9 @@ public class FancyEditText extends LinearLayout {
             mEditText.setHint(hintId);
     }
 
+    public void setMaxLenght(int lenght) {
+        mEditText.setFilters( new InputFilter[] { new InputFilter.LengthFilter(lenght) } );
+    }
 
     public void setText(String text) {
         mEditText.setText(text);
