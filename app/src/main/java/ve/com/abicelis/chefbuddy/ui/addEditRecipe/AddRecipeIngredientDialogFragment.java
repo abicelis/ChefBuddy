@@ -83,7 +83,7 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
         presenter.attachView(this);
 
-        mMeasurementList = Measurement.getFriendlyValues();
+        mMeasurementList = Measurement.getFriendlyNames();
     }
 
     @Override

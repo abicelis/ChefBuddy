@@ -61,7 +61,7 @@ public enum Measurement {
         return ContextCompat.getDrawable(ChefBuddyApplication.getContext(), icon);
     }
 
-    public static List<String> getFriendlyValues() {
+    public static List<String> getFriendlyNames() {
         List<String> friendlyValues = new ArrayList<>();
         for (Measurement x : values()) {
             friendlyValues.add(ChefBuddyApplication.getContext().getString(x.friendlyName));

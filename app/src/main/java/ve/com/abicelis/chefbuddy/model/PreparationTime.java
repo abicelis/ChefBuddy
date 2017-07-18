@@ -2,6 +2,9 @@ package ve.com.abicelis.chefbuddy.model;
 
 import android.support.annotation.StringRes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 
@@ -45,4 +48,14 @@ public enum PreparationTime {
             return timeValue + " " + ChefBuddyApplication.getContext().getString((minutes? minutePlural : hourPlural));
     }
 
+    public static List<String> getFriendlyNames() {
+        List<String> friendlyValues = new ArrayList<>();
+        for (PreparationTime x : values()) {
+            if(x.timeValue == 1)
+                friendlyValues.add( x.timeValue + " " + ChefBuddyApplication.getContext().getString((x.minutes? minuteSingular : hourSingular)));
+            else
+                friendlyValues.add( x.timeValue + " " + ChefBuddyApplication.getContext().getString((x.minutes? minutePlural : hourPlural)));
+        }
+        return friendlyValues;
+    }
 }
