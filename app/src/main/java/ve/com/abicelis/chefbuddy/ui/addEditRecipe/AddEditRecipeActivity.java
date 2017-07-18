@@ -71,6 +71,12 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @BindView(R.id.activity_add_edit_recipe_ingredients_add)
     Button mAddIngredient;
 
+    /* PREPARATION */
+    @BindView(R.id.activity_add_edit_recipe_preparation)
+    FancyEditText mPreparation;
+
+
+
     /* Ingredients recycler */
     @BindView(R.id.activity_add_edit_recipe_ingredients_recycler)
     RecyclerView mIngredientsRecyclerView;
