@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddRecipeIngredientDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
@@ -32,6 +33,8 @@ public interface AppComponent {
     void inject(RecipeDetailPresenterImpl target);
 
     void inject(AddEditRecipeActivity target);
+    void inject(AddRecipeIngredientDialogFragment target);
     void inject(AddEditRecipePresenterImpl target);
+
 
 }
