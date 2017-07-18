@@ -34,10 +34,17 @@ TODO
 - ItemTouchHelper implementation (for dragging/sorting items on a recyclerView) (thanks to [ItemTouchHelper-Demo](https://github.com/iPaulPro/Android-ItemTouchHelper-Demo))
 
 
-<!---
+
 ## Code dependencies
-TODO
---->
+
+This Project uses external dependencies and SDK's
+* [Butterknife](https://github.com/JakeWharton/butterknife) - Android view binder library by JakeWharton
+* [Dagger 2](https://github.com/google/dagger) - Dependency Injection library by Square
+* [TransitionsEverywhere](https://github.com/andkulikov/Transitions-Everywhere) - Backported Transitions library by andkulikov
+* [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView) - Material Search View by MiguelCatalan
+* [Image Cropper](https://github.com/ArthurHub/Android-Image-Cropper) - Image Cropping Library by ArthurHub
+* [PhotoView](https://github.com/chrisbanes/PhotoView) - ImageView with zoom support by Chrisbanes
+* [CircleImageView](https://github.com/hdodenhof/CircleImageView) - CircleImageView by hdodenhof
 
 
 ## Software used
