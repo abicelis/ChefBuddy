@@ -12,6 +12,8 @@ import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 
 public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
 
+    private long mRecipeId = -1;
+    private Recipe mLoadedRecipe;
     private RecipeDetailView mView;
     private ChefBuddyDAO mDao;
 
@@ -31,12 +33,29 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
     }
 
     @Override
-    public void getRecipe(long recipeId) {
-        try {
-            Recipe recipe = mDao.getRecipe(recipeId);
-            mView.showRecipe(recipe);
-        } catch (CouldNotGetDataException e) {
+    public void setRecipeId(long recipeId) {
+        mRecipeId = recipeId;
+        mLoadedRecipe = null;
+    }
+
+    @Override
+    public void reloadRecipe() {
+        if(mRecipeId == -1)
             mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
+
+        try {
+            mLoadedRecipe = mDao.getRecipe(mRecipeId);
+            if(mView != null)
+                mView.showRecipe(mLoadedRecipe);
+        } catch (CouldNotGetDataException e) {
+            if(mView != null)
+                mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
         }
     }
+
+    @Override
+    public Recipe getLoadedRecipe() {
+        return mLoadedRecipe;
+    }
+
 }

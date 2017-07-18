@@ -1,5 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -28,6 +29,7 @@ import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
@@ -137,10 +139,15 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         //Handle incoming Intent
         if(getIntent().hasExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID)) {
             long recipeId = getIntent().getLongExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
-            recipeDetailPresenter.getRecipe(recipeId);
+            recipeDetailPresenter.setRecipeId(recipeId);
         } else
             showErrorMessage(Message.ERROR_LOADING_RECIPE);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recipeDetailPresenter.reloadRecipe();
     }
 
     @Override
@@ -273,13 +280,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mTitleTitle.setText(recipe.getName());
         mTitleDetail.setText(String.format(Locale.getDefault(),
                 getResources().getString(R.string.activity_recipe_detail_title_detail_format),
-                recipe.getServings(),
+                recipe.getServings().getFriendlyName(),
                 recipe.getPreparationTime().getFriendlyName()));
 
         mPreparation.setText(recipe.getDirections());
 
 
         //Ingredients recyclerView
+        mIngredientsAdapter.getItems().clear();
         mIngredientsAdapter.getItems().addAll(recipe.getRecipeIngredients());
         mIngredientsAdapter.notifyDataSetChanged();
 
@@ -293,6 +301,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
 
         //Images recyclerView
+        mImageAdapter.getItems().clear();
         mImageAdapter.getItems().addAll(recipe.getImages());
         mImageAdapter.notifyDataSetChanged();
 
@@ -318,8 +327,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
             switch (item.getItemId()) {
                 case R.id.menu_recipe_detail_edit:
-                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.NOTICE, R.string.activity_recipe_detail_edit, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    Intent editRecipeIntent = new Intent(RecipeDetailActivity.this, AddEditRecipeActivity.class);
+                    editRecipeIntent.putExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID, recipeDetailPresenter.getLoadedRecipe().getId());
+                    startActivity(editRecipeIntent);
                     break;
+
                 case R.id.menu_recipe_detail_delete:
                     SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, R.string.activity_recipe_detail_delete, SnackbarUtil.SnackbarDuration.SHORT, null);
                     break;
