@@ -35,8 +35,9 @@
                 <ve.com.abicelis.chefbuddy.views.FancyEditText
                     android:id="@+id/dialog_add_recipe_ingredient_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    custom:maxLines="1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -53,7 +54,7 @@
                 <ve.com.abicelis.chefbuddy.views.FancySpinner
                     android:id="@+id/dialog_add_recipe_ingredient_measurement"
                     android:layout_width="110dp"
-                    android:layout_height="46dp"
+                    android:layout_height="52dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
@@ -76,8 +77,9 @@
                 <ve.com.abicelis.chefbuddy.views.FancyAutoCompleteTextView
                     android:id="@+id/dialog_add_recipe_ingredient_ingredient"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    custom:maxLines="1"
                     />
             </LinearLayout>
 
