@@ -6,8 +6,6 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
-import ve.com.abicelis.chefbuddy.model.Recipe;
-import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddRecipeIngredientView;
 
 /**
@@ -39,7 +37,7 @@ public class AddRecipeIngredientPresenterImpl implements AddRecipeIngredientPres
             List<Ingredient> ingredients = mDao.getIngredients();
             mView.populateIngredientSpinner(ingredients);
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.ADD_RECIPE_INGREDIENT_DIALOG_FRAGMENT_ERROR_LOADING_INGREDIENTS);
+            mView.showErrorMessage(Message.ERROR_LOADING_INGREDIENTS);
         }
     }
 

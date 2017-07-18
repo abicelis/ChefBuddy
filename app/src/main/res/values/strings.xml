@@ -81,9 +81,9 @@
 
 
     <!--Message enum-->
-    <string name="message_home_activity_error_loading_recipes">Unexpected error loading recipe list</string>
-    <string name="message_recipe_detail_activity_error_loading_recipe">Could not load recipe</string>
-    <string name="message_add_recipe_ingredient_dialog_fragment_error_loading_ingredients">Could not load ingredients</string>
+    <string name="error_loading_recipes">Unexpected error loading recipe list</string>
+    <string name="error_loading_recipe">Could not load recipe</string>
+    <string name="error_loading_ingredients">Could not load ingredients</string>
 
 
     <!--PreparationTime enum-->
@@ -92,6 +92,9 @@
     <string name="preparation_time_type_hour">hour</string>
     <string name="preparation_time_type_hours">hours</string>
 
+    <!--Servings enum-->
+    <string name="servings_singular">serving</string>
+    <string name="servings_plural">servings</string>
 
     <!--Measurements enum-->
     <string name="measurement_none">NONE</string>

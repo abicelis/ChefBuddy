@@ -36,7 +36,7 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
             Recipe recipe = mDao.getRecipe(recipeId);
             mView.showRecipe(recipe);
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.RECIPE_DETAIL_ACTIVITY_ERROR_LOADING_RECIPE);
+            mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
         }
     }
 }

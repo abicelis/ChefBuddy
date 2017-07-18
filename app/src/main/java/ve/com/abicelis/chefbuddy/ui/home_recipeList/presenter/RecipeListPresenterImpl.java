@@ -126,7 +126,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
                 try {
                     mView.showRecipes(mDao.getRecipes());
                 } catch (CouldNotGetDataException e) {
-                    mView.showErrorMessage(Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES);
+                    mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
                 }
             }
         }, 1000);
@@ -147,7 +147,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
         try {
             mView.showRecipes(mDao.getRecipes());
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES);
+            mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
         }
     }
 
@@ -156,7 +156,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
         try {
             mView.showRecipes(mDao.getFilteredRecipes(query));
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES);
+            mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
         }
     }
 }

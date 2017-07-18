@@ -171,8 +171,8 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
         mSwipeRefreshLayout.setRefreshing(false);
 
         switch (message) {
-            case HOME_ACTIVITY_ERROR_LOADING_RECIPES:
-                Log.d(TAG, Message.HOME_ACTIVITY_ERROR_LOADING_RECIPES.getFriendlyName());
+            case ERROR_LOADING_RECIPES:
+                Log.d(TAG, Message.ERROR_LOADING_RECIPES.getFriendlyName());
             default:
                 Log.d(TAG, "Unexpected unknown error.");
         }
