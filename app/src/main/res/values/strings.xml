@@ -53,6 +53,7 @@
     <string name="activity_add_edit_recipe_title_images">IMAGES</string>
 
     <string name="activity_add_edit_recipe_ingredient_button_add">Add</string>
+    <string name="activity_add_edit_recipe_image_button_add">Add</string>
 
     <string name="activity_add_edit_recipe_hint_name">Recipe name&#8230;</string>
     <string name="activity_add_edit_recipe_hint_preparation">Preparation&#8230;</string>

@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
@@ -41,7 +42,7 @@ import ve.com.abicelis.chefbuddy.views.FancySpinner;
  * Created by abicelis on 16/7/2017.
  */
 
-public class AddEditRecipeActivity extends AppCompatActivity implements AddEditRecipeView, EditRecipeIngredientAdapter.OnDragStartListener {
+public class AddEditRecipeActivity extends AppCompatActivity implements AddEditRecipeView, EditRecipeIngredientAdapter.OnDragStartListener, EditImageAdapter.OnDragStartListener {
 
     //DATA
     private List<String> mServingsList = new ArrayList<>();
@@ -57,6 +58,8 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @BindView(R.id.activity_add_edit_recipe_container)
     LinearLayout mContainer;
 
+
+
     /* BASIC */
     @BindView(R.id.activity_add_edit_recipe_name)
     FancyEditText mName;
@@ -67,22 +70,38 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @BindView(R.id.activity_add_edit_recipe_preparation_time)
     FancySpinner mPreparationTime;
 
+
+
     /* INGREDIENTS */
     @BindView(R.id.activity_add_edit_recipe_ingredients_add)
     Button mAddIngredient;
-
-    /* PREPARATION */
-    @BindView(R.id.activity_add_edit_recipe_preparation)
-    FancyEditText mPreparation;
-
-
 
     /* Ingredients recycler */
     @BindView(R.id.activity_add_edit_recipe_ingredients_recycler)
     RecyclerView mIngredientsRecyclerView;
     private LinearLayoutManager mIngredientsLayoutManager;
     private EditRecipeIngredientAdapter mEditIngredientsAdapter;
-    private ItemTouchHelper mItemTouchHelper;
+    private ItemTouchHelper mIngredientItemTouchHelper;
+
+
+
+    /* PREPARATION */
+    @BindView(R.id.activity_add_edit_recipe_preparation)
+    FancyEditText mPreparation;
+
+
+    /* IMAGES */
+    @BindView(R.id.activity_add_edit_recipe_images_add)
+    Button mAddImage;
+
+    /* Ingredients recycler */
+    @BindView(R.id.activity_add_edit_recipe_images_recycler)
+    RecyclerView mImagesRecyclerView;
+    private LinearLayoutManager mImagesLayoutManager;
+    private EditImageAdapter mEditImageAdapter;
+    private ItemTouchHelper mImageItemTouchHelper;
+
+
 
 
     @Override
@@ -154,15 +173,33 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mIngredientsRecyclerView.setNestedScrollingEnabled(false);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mEditIngredientsAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mIngredientsRecyclerView);
+        mIngredientItemTouchHelper = new ItemTouchHelper(callback);
+        mIngredientItemTouchHelper.attachToRecyclerView(mIngredientsRecyclerView);
 
         mAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleAddRecipeIngredient();
-//                mEditIngredientsAdapter.getItems().add(new RecipeIngredient("1/2", Measurement.CUP, new Ingredient("Poop")));
-//                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
+            }
+        });
+
+
+        //Images RecyclerView
+        mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mEditImageAdapter = new EditImageAdapter(this, this);
+
+        mImagesRecyclerView.setLayoutManager(mImagesLayoutManager);
+        mImagesRecyclerView.setAdapter(mEditImageAdapter);
+        mImagesRecyclerView.setNestedScrollingEnabled(false);
+
+        ItemTouchHelper.Callback callback2 = new SimpleItemTouchHelperCallback(mEditImageAdapter);
+        mImageItemTouchHelper = new ItemTouchHelper(callback2);
+        mImageItemTouchHelper.attachToRecyclerView(mImagesRecyclerView);
+
+        mAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleAddImage();
             }
         });
 
@@ -200,6 +237,22 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         dialog.show(fm, "EditLinkAttachmentDialogFragment");
     }
 
+    private void handleAddImage(){
+        //TODO
+        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+//        FragmentManager fm = this.getSupportFragmentManager();
+//
+//        AddRecipeIngredientDialogFragment dialog = AddRecipeIngredientDialogFragment.newInstance();
+//        dialog.setListener(new AddRecipeIngredientDialogFragment.AddRecipeIngredientListener() {
+//            @Override
+//            public void onRecipeIngredientAdded(RecipeIngredient recipeIngredient) {
+//                mEditIngredientsAdapter.getItems().add(recipeIngredient);
+//                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
+//            }
+//        });
+//        dialog.show(fm, "EditLinkAttachmentDialogFragment");
+    }
+
 
 
     @Override
@@ -207,6 +260,10 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         //Ingredients recyclerView
         mEditIngredientsAdapter.getItems().addAll(recipe.getRecipeIngredients());
         mEditIngredientsAdapter.notifyDataSetChanged();
+
+        //Images recyclerView
+        mEditImageAdapter.getItems().addAll(recipe.getImages());
+        mEditImageAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -218,6 +275,10 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
     @Override
     public void onDragStarted(RecyclerView.ViewHolder viewHolder) {
-        mItemTouchHelper.startDrag(viewHolder);
+        if(viewHolder instanceof EditRecipeIngredientViewHolder)
+            mIngredientItemTouchHelper.startDrag(viewHolder);
+
+        if(viewHolder instanceof EditImageViewHolder)
+            mImageItemTouchHelper.startDrag(viewHolder);
     }
 }

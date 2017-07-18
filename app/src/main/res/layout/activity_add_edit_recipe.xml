@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
             android:focusableInTouchMode="true"
             >
 
@@ -152,15 +153,28 @@
             <ve.com.abicelis.chefbuddy.views.FancyCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="56dp">
+                android:layout_marginTop="8dp">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_add_edit_recipe_images_recycler"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:orientation="vertical">
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_add_edit_recipe_images_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                    <Button
+                        android:id="@+id/activity_add_edit_recipe_images_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:theme="@style/ButtonTheme"
+                        android:textColor="@color/white"
+                        android:text="@string/activity_add_edit_recipe_image_button_add"
+                        />
+                </LinearLayout>
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
         </LinearLayout>
     </ScrollView>

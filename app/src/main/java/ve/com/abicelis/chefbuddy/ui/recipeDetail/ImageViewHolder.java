@@ -44,6 +44,7 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
         mPosition = position;
 
         mImage.setImageBitmap(mCurrent.getImage());
+
     }
 
     public void setListeners() {
