@@ -65,7 +65,7 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
         mIconImage.setImageDrawable(mCurrent.getMeasurement().getIcon());
 
         if (Measurement.NONE.equals(mCurrent.getMeasurement()))
-            mAmountMeasurement.setText("");
+            mAmountMeasurement.setText(mCurrent.getAmount());
         else
             mAmountMeasurement.setText(mCurrent.getAmount() + " " + mCurrent.getMeasurement().getAbbreviation());
 
