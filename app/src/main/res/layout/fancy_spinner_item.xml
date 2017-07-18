@@ -16,7 +16,8 @@
     style="?android:attr/textViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:maxLines="1"
+    android:maxLines="2"
+    android:ellipsize="end"
     android:textSize="15sp"
     android:textAlignment="inherit"
     android:textAppearance="?android:attr/textAppearanceMedium" />
