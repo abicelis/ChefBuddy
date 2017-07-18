@@ -56,10 +56,13 @@ public class FancyEditText extends LinearLayout {
         int iconId = a.getResourceId(R.styleable.fancy_edit_text_icon, -1);
         int textId = a.getResourceId(R.styleable.fancy_edit_text_text, -1);
         int hintId = a.getResourceId(R.styleable.fancy_edit_text_hint, -1);
+        int maxLines = a.getInt(R.styleable.fancy_edit_text_maxLines, -1);
+
 
         setIcon(iconId);
         setText(textId);
         setHint(hintId);
+        setMaxLines(maxLines);
         a.recycle();
 
 
@@ -87,6 +90,14 @@ public class FancyEditText extends LinearLayout {
 
     public void setMaxLenght(int lenght) {
         mEditText.setFilters( new InputFilter[] { new InputFilter.LengthFilter(lenght) } );
+    }
+
+    public void setMaxLines(int maxLines) {
+        if(maxLines != -1) {
+            mEditText.setMaxLines(maxLines);
+            if(maxLines == 1)
+                mEditText.setSingleLine();
+        }
     }
 
     public void setText(String text) {

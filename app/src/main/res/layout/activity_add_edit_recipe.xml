@@ -51,10 +51,12 @@
             <ve.com.abicelis.chefbuddy.views.FancyEditText
                 android:id="@+id/activity_add_edit_recipe_name"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 custom:icon="@drawable/ic_food"
-                custom:hint="@string/activity_add_edit_recipe_name_hint"/>
+                custom:hint="@string/activity_add_edit_recipe_hint_name"
+                custom:maxLines="2"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,7 +66,7 @@
                     android:id="@+id/activity_add_edit_recipe_servings"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="46dp"
+                    android:layout_height="52dp"
                     android:layout_marginTop="8dp"
                     custom:icon="@drawable/ic_servings"
                     />
@@ -73,7 +75,7 @@
                     android:id="@+id/activity_add_edit_recipe_preparation_time"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="46dp"
+                    android:layout_height="52dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
@@ -117,11 +119,7 @@
                         android:text="@string/activity_add_edit_recipe_ingredient_button_add"
                         />
                 </LinearLayout>
-
-
-
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
-
 
 
 
@@ -132,20 +130,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_edit_recipe_title_preparation"
                 />
-            <ve.com.abicelis.chefbuddy.views.FancyCardView
+
+            <ve.com.abicelis.chefbuddy.views.FancyEditText
+                android:id="@+id/activity_add_edit_recipe_preparation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:id="@+id/activity_add_edit_recipe_preparation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="placeholder preparation"
-                    />
-
-            </ve.com.abicelis.chefbuddy.views.FancyCardView>
+                android:minHeight="46dp"
+                android:layout_marginTop="8dp"
+                custom:hint="@string/activity_add_edit_recipe_hint_preparation"
+                />
 
 
 

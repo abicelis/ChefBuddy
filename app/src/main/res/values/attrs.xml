@@ -4,12 +4,14 @@
         <attr name="icon" format="reference" />
         <attr name="text" format="reference" />
         <attr name="hint" format="reference" />
+        <attr name="maxLines" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="fancy_edit_text" parent="fancy_common">
         <attr name="text"/>
         <attr name="hint"/>
         <attr name="icon"/>
+        <attr name="maxLines"/>
     </declare-styleable>
 
     <declare-styleable name="fancy_spinner" parent="fancy_common">
@@ -20,5 +22,6 @@
         <attr name="text"/>
         <attr name="hint"/>
         <attr name="icon"/>
+        <attr name="maxLines"/>
     </declare-styleable>
 </resources>

@@ -61,10 +61,12 @@ public class FancyAutoCompleteTextView extends LinearLayout {
         int iconId = a.getResourceId(R.styleable.fancy_auto_complete_text_view_icon, -1);
         int textId = a.getResourceId(R.styleable.fancy_auto_complete_text_view_text, -1);
         int hintId = a.getResourceId(R.styleable.fancy_auto_complete_text_view_hint, -1);
+        int maxLines = a.getInt(R.styleable.fancy_edit_text_maxLines, -1);
 
         setIcon(iconId);
         setText(textId);
         setHint(hintId);
+        setMaxLines(maxLines);
         a.recycle();
 
 
@@ -104,6 +106,14 @@ public class FancyAutoCompleteTextView extends LinearLayout {
 
     public void setMaxLenght(int lenght) {
         mAutoCompleteTextView.setFilters( new InputFilter[] { new InputFilter.LengthFilter(lenght) } );
+    }
+
+    public void setMaxLines(int maxLines) {
+        if(maxLines != -1) {
+            mAutoCompleteTextView.setMaxLines(maxLines);
+            if (maxLines == 1)
+                mAutoCompleteTextView.setSingleLine();
+        }
     }
 
     /* Bypass functions for internal autoCompleteTextView */
