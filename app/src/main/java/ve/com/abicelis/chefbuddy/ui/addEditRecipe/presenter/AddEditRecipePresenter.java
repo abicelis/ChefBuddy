@@ -10,5 +10,7 @@ public interface AddEditRecipePresenter {
     void attachView(AddEditRecipeView view);
     void detachView();
 
-    void getRecipe(long recipeId);
+    void editingExistingRecipe(long recipeId);
+    int getServingsSelection();
+    int getPreparationTimeSelection();
 }

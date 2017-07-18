@@ -18,7 +18,7 @@ import ve.com.abicelis.chefbuddy.util.ImageUtil;
 public class Recipe {
     private long id;
     private String name;
-    private int servings;
+    private Servings servings;
     private PreparationTime preparationTime;
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
@@ -29,10 +29,9 @@ public class Recipe {
     private List<Image> images = new ArrayList<>();
 
 
-
     public Recipe() {}
 
-    public Recipe(long id, @NonNull String name, int servings, @NonNull PreparationTime preparationTime, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
+    public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
         this.id = id;
         this.name = name;
         this.servings = servings;
@@ -61,7 +60,7 @@ public class Recipe {
     public String getName() {
         return name;
     }
-    public int getServings() {
+    public Servings getServings() {
         return servings;
     }
     public PreparationTime getPreparationTime() {
@@ -83,7 +82,6 @@ public class Recipe {
 
         return sb.toString();
     }
-
     public String getIngredientsString() {
         StringBuilder sb = new StringBuilder();
         for (RecipeIngredient i: recipeIngredients) {
@@ -101,18 +99,15 @@ public class Recipe {
 
         return sb.toString();
     }
-
     public String getDirections() {
         return directions;
     }
-
     public Bitmap getFeaturedImage() {
         return featuredImage;
     }
     public byte[] getFeaturedImageBytes() {
         return featuredImageBytes;
     }
-
     public List<Image> getImages() {
         return images;
     }
@@ -136,7 +131,7 @@ public class Recipe {
     public void setName(String name) {
         this.name = name;
     }
-    public void setServings(int servings) {
+    public void setServings(Servings servings) {
         this.servings = servings;
     }
     public void setPreparationTime(PreparationTime preparationTime) {
@@ -148,7 +143,6 @@ public class Recipe {
     public void setDirections(String directions) {
         this.directions = directions;
     }
-
     public void setFeaturedImageBytes(byte[] featuredImageBytes) {
         this.featuredImageBytes = featuredImageBytes;
         this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
@@ -159,7 +153,8 @@ public class Recipe {
     public String toString() {
         return  "ID=" + id + "\r\n" +
                 " name=" + name + "\r\n" +
-                " servings=" + servings + "\r\n" +
+                " servings=" + servings.getFriendlyName() + "\r\n" +
+                " preparationTime=" + preparationTime.getFriendlyName() + "\r\n" +
                 " recipeIngredients=" + TextUtils.join(", ", recipeIngredients) + "\r\n" +
                 " directions=" + directions;
     }

@@ -15,6 +15,7 @@ import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.Servings;
 
 
 /**
@@ -1176,7 +1177,7 @@ public class ChefBuddyDAO {
     private ContentValues getValuesForRecipe(Recipe recipe) {
         ContentValues values = new ContentValues();
         values.put(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName(), recipe.getName());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings());
+        values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings().name());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName(), recipe.getPreparationTime().name());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
         values.put(ChefBuddyContract.RecipeTable.COLUMN_FEATURED_IMAGE.getName(), recipe.getFeaturedImageBytes());
@@ -1327,7 +1328,13 @@ public class ChefBuddyDAO {
     private Recipe getRecipeFromCursor(Cursor cursor) {
         long id = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_ID.getName()));
         String name = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName()));
-        int servings = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName()));
+
+        Servings servings;
+        try {
+            servings = Servings.valueOf(cursor.getString(cursor.getColumnIndex(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName())));
+        } catch (IllegalArgumentException e) {
+            servings = null;
+        }
 
         PreparationTime preparationTime;
         try {

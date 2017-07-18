@@ -31,6 +31,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
+import ve.com.abicelis.chefbuddy.model.Servings;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.SimpleItemTouchHelperCallback;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
@@ -110,20 +111,25 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         setContentView(R.layout.activity_add_edit_recipe);
         ButterKnife.bind(this);
 
-        for(int i=1; i <= 50;i++)
-            mServingsList.add(String.valueOf(i) + " " + (i == 1 ?
-                    getResources().getString(R.string.activity_add_edit_recipe_servings_singular) :
-                    getResources().getString(R.string.activity_add_edit_recipe_servings_plural)));
 
-        for(PreparationTime p : PreparationTime.values())
-            mPreparationTimesList.add(p.getFriendlyName());
+
+        //Handle incoming Intent if editing an existing recipe
+        if(getIntent().hasExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID)) {
+            long recipeId = getIntent().getLongExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
+
+            presenter.editingExistingRecipe(recipeId);
+        } else
+            showErrorMessage(Message.ERROR_LOADING_RECIPE);
+
+
+
 
         //TODO true?
         initViews(true);
 
         ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
         presenter.attachView(this);
-        presenter.getRecipe(8);    //TODO check if editing or not
+        presenter.editingExistingRecipe(8);    //TODO check if editing or not
 
 
     }
@@ -142,7 +148,9 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
             }
         });
 
+
         //Basic: FancySpinners
+        mServingsList.addAll(Servings.getFriendlyNames());
         mServings.setItems(mServingsList);
         mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -153,6 +161,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+        mPreparationTimesList.addAll(PreparationTime.getFriendlyNames());
         mPreparationTime.setItems(mPreparationTimesList);
         mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -163,6 +172,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
 
         //Ingredients RecyclerView
         mIngredientsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -257,9 +267,16 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
     @Override
     public void showRecipe(Recipe recipe) {
+
+        mName.setText(recipe.getName());
+        mServings.setSelection(presenter.getServingsSelection());
+        mPreparationTime.setSelection(presenter.getPreparationTimeSelection());
+
         //Ingredients recyclerView
         mEditIngredientsAdapter.getItems().addAll(recipe.getRecipeIngredients());
         mEditIngredientsAdapter.notifyDataSetChanged();
+
+        mPreparation.setText(recipe.getDirections());
 
         //Images recyclerView
         mEditImageAdapter.getItems().addAll(recipe.getImages());
@@ -269,7 +286,6 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @Override
     public void showErrorMessage(Message message) {
         SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
-
     }
 
 

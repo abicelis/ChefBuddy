@@ -4,6 +4,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.Servings;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 
 /**
@@ -12,6 +13,9 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 
 public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
 
+    //DATA
+    private boolean mEditingExistingRecipe = false;
+    private Recipe mExistingRecipe;
     private AddEditRecipeView mView;
     private ChefBuddyDAO mDao;
 
@@ -30,12 +34,27 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
     }
 
     @Override
-    public void getRecipe(long recipeId) {
+    public void editingExistingRecipe(long recipeId) {
+        mEditingExistingRecipe = true;
         try {
-            Recipe recipe = mDao.getRecipe(recipeId);
-            mView.showRecipe(recipe);
+            mExistingRecipe = mDao.getRecipe(recipeId);
+            mView.showRecipe(mExistingRecipe);
         } catch (CouldNotGetDataException e) {
-            mView.showErrorMessage(Message.RECIPE_DETAIL_ACTIVITY_ERROR_LOADING_RECIPE);
+            mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
         }
+    }
+
+    @Override
+    public int getServingsSelection() {
+        if(!mEditingExistingRecipe)
+            return -1;
+        return mExistingRecipe.getServings().ordinal();
+    }
+
+    @Override
+    public int getPreparationTimeSelection() {
+        if(!mEditingExistingRecipe)
+            return -1;
+        return mExistingRecipe.getPreparationTime().ordinal();
     }
 }
