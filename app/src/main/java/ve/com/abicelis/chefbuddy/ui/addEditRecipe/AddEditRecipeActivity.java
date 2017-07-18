@@ -2,6 +2,7 @@ package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +27,6 @@ import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.model.Ingredient;
-import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
@@ -155,8 +154,9 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditIngredientsAdapter.getItems().add(new RecipeIngredient("1/2", Measurement.CUP, new Ingredient("Poop")));
-                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
+                handleAddRecipeIngredient();
+//                mEditIngredientsAdapter.getItems().add(new RecipeIngredient("1/2", Measurement.CUP, new Ingredient("Poop")));
+//                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
             }
         });
 
@@ -178,6 +178,20 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleAddRecipeIngredient(){
+        FragmentManager fm = this.getSupportFragmentManager();
+
+        AddRecipeIngredientDialogFragment dialog = AddRecipeIngredientDialogFragment.newInstance();
+        dialog.setListener(new AddRecipeIngredientDialogFragment.AddRecipeIngredientListener() {
+            @Override
+            public void onRecipeIngredientAdded(RecipeIngredient recipeIngredient) {
+                mEditIngredientsAdapter.getItems().add(recipeIngredient);
+                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
+            }
+        });
+        dialog.show(fm, "EditLinkAttachmentDialogFragment");
     }
 
 
