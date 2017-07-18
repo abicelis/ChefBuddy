@@ -15,8 +15,8 @@
         android:id="@+id/list_item_edit_recipe_ingredient_icon_container"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/recipe_ingredient_circle_background">
         <ImageView
             android:id="@+id/list_item_edit_recipe_ingredient_icon_image"
@@ -31,27 +31,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="82dp"
-        android:layout_marginStart="82dp"
+        android:layout_toRightOf="@id/list_item_edit_recipe_ingredient_icon_container"
+        android:layout_toEndOf="@id/list_item_edit_recipe_ingredient_icon_container"
+        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
         android:textColor="@color/secondary_text"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:lines="1"
         android:text="1/2 cup"/>
-
-    <TextView
-        android:id="@+id/list_item_edit_recipe_ingredient_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="156dp"
-        android:layout_marginStart="156dp"
-        android:textColor="@color/primary_text"
-        android:ellipsize="end"
-        android:textSize="20sp"
-        android:lines="1"
-        android:text="Melted cheese"/>
-
-
     <RelativeLayout
         android:id="@+id/list_item_edit_recipe_ingredient_delete_container"
         android:layout_width="32dp"
@@ -59,8 +46,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="48dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginEnd="42dp"
         android:background="@drawable/recipe_ingredient_circle_background">
         <ImageView
             android:layout_width="20dp"
@@ -73,14 +60,36 @@
     <ImageView
         android:id="@+id/list_item_edit_recipe_ingredient_drag_handle"
         android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="12dp"
         android:layout_marginEnd="12dp"
         android:tint="@color/divider"
-        android:src="@drawable/ic_drag_handle"
+        android:src="@drawable/ic_drag_handle_vertical"
         />
+
+    <TextView
+        android:id="@+id/list_item_edit_recipe_ingredient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/list_item_edit_recipe_ingredient_amount_measurement"
+        android:layout_toEndOf="@id/list_item_edit_recipe_ingredient_amount_measurement"
+        android:layout_toLeftOf="@id/list_item_edit_recipe_ingredient_delete_container"
+        android:layout_toStartOf="@id/list_item_edit_recipe_ingredient_delete_container"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/primary_text"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:lines="1"
+        android:text="Melted cheese"/>
+
+
+
 
 </RelativeLayout>
