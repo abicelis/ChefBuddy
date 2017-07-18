@@ -65,7 +65,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
             case R.id.list_item_recipe_container:
                 mAdapter.forwardRecyclerViewClick();    //Forward click to adapter
                 Intent viewRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
-                viewRecipeDetailIntent.putExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
                 mActivity.startActivity(viewRecipeDetailIntent);
                 break;
         }

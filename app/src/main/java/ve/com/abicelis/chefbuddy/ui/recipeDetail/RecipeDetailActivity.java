@@ -135,8 +135,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         recipeDetailPresenter.attachView(this);
 
         //Handle incoming Intent
-        if(getIntent().hasExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID)) {
-            long recipeId = getIntent().getLongExtra(Constants.RECIPE_LIST_INTENT_EXTRA_RECIPE_ID, -1);
+        if(getIntent().hasExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID)) {
+            long recipeId = getIntent().getLongExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
             recipeDetailPresenter.getRecipe(recipeId);
         } else
             showErrorMessage(Message.RECIPE_DETAIL_ACTIVITY_ERROR_LOADING_RECIPE);
