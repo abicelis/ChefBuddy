@@ -60,14 +60,28 @@
     <string name="activity_add_edit_recipe_servings_plural">servings</string>
 
 
+    <!--Add Recipe Ingredient Dialog-->
+    <string name="dialog_add_recipe_ingredient_title">ADD INGREDIENT</string>
+
+    <string name="dialog_add_recipe_ingredient_amount_hint">Amount</string>
+    <string name="dialog_add_recipe_ingredient_measurement_hint">Measurement</string>
+    <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient</string>
+
+    <string name="dialog_add_recipe_ingredient_error_amount">Invalid amount</string>
+    <string name="dialog_add_recipe_ingredient_error_ingredient">Invalid ingredient</string>
 
 
 
+
+    <!--Dialog-->
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_done">DONE</string>
 
 
     <!--Message enum-->
     <string name="message_home_activity_error_loading_recipes">Unexpected error loading recipe list</string>
     <string name="message_recipe_detail_activity_error_loading_recipe">Could not load recipe</string>
+    <string name="message_add_recipe_ingredient_dialog_fragment_error_loading_ingredients">Could not load ingredients</string>
 
 
     <!--PreparationTime enum-->
@@ -78,7 +92,7 @@
 
 
     <!--Measurements enum-->
-    <string name="measurement_none"></string>
+    <string name="measurement_none">NONE</string>
     <string name="measurement_inch">Inch</string>
     <string name="measurement_tablespoon">Tablespoon</string>
     <string name="measurement_teaspoon">Teaspoon</string>
