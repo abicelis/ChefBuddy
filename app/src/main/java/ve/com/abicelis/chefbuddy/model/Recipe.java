@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ve.com.abicelis.chefbuddy.app.Constants;
+import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
@@ -29,7 +30,13 @@ public class Recipe {
     private List<Image> images = new ArrayList<>();
 
 
-    public Recipe() {}
+    public Recipe() {
+        id = -1;
+        name = "";
+        servings = Servings.SERVINGS_2;
+        preparationTime = PreparationTime.HOUR_1;
+        directions = "";
+    }
 
     public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
         this.id = id;
@@ -39,7 +46,8 @@ public class Recipe {
         this.directions = directions;
 
         this.featuredImageBytes = featuredImageBytes;
-        this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
+        if(featuredImageBytes != null)
+            this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
 
         if(imageFilenames != null && !imageFilenames.isEmpty()) {
             for( String filename : imageFilenames.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
@@ -128,26 +136,41 @@ public class Recipe {
     public void setId(long id) {
         this.id = id;
     }
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
-    public void setServings(Servings servings) {
+    public void setServings(@NonNull Servings servings) {
         this.servings = servings;
     }
-    public void setPreparationTime(PreparationTime preparationTime) {
+    public void setPreparationTime(@NonNull PreparationTime preparationTime) {
         this.preparationTime = preparationTime;
     }
-    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+    public void setRecipeIngredients(@NonNull List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-    public void setDirections(String directions) {
+    public void setDirections(@NonNull String directions) {
         this.directions = directions;
     }
-    public void setFeaturedImageBytes(byte[] featuredImageBytes) {
+    public void setFeaturedImageBytes(@NonNull byte[] featuredImageBytes) {
         this.featuredImageBytes = featuredImageBytes;
         this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
     }
 
+    public Message checkIfValid() {
+        if(name.trim().isEmpty())
+            return Message.INVALID_RECIPE_NAME;
+
+        if(servings == null)
+            return Message.INVALID_RECIPE_SERVINGS;
+
+        if(preparationTime == null)
+            return Message.INVALID_RECIPE_PREPARATION_TIME;
+
+        if(directions.trim().isEmpty())
+            return Message.INVALID_RECIPE_DIRECTIONS;
+
+        return null;
+    }
 
     @Override
     public String toString() {
