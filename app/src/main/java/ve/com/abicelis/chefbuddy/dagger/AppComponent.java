@@ -10,6 +10,8 @@ import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
+import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
@@ -36,5 +38,6 @@ public interface AppComponent {
     void inject(AddRecipeIngredientDialogFragment target);
     void inject(AddEditRecipePresenterImpl target);
 
-
+    void inject(ImageGalleryActivity target);
+    void inject(ImageGalleryPresenterImpl target);
 }

@@ -13,6 +13,8 @@ import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter;
+import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
 
@@ -53,4 +55,9 @@ public class PresenterModule {
         return new AddRecipeIngredientPresenterImpl(dao);
     }
 
+    @Provides
+    @Singleton
+    ImageGalleryPresenter provideImageGalleryPresenter(ChefBuddyDAO dao) {
+        return new ImageGalleryPresenterImpl(dao);
+    }
 }
