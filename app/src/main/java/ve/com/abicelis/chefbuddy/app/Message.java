@@ -12,6 +12,7 @@ public enum Message {
     ERROR_LOADING_RECIPES(R.string.error_loading_recipes),
     ERROR_LOADING_RECIPE(R.string.error_loading_recipe),
     ERROR_LOADING_INGREDIENTS(R.string.error_loading_ingredients),
+    ERROR_LOADING_IMAGES(R.string.error_loading_images),
     ERROR_SAVING_RECIPE(R.string.error_saving_recipe),
 
     INVALID_RECIPE_NAME(R.string.invalid_recipe_name),

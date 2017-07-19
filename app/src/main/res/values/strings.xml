@@ -84,6 +84,7 @@
     <string name="error_loading_recipes">Unexpected error loading recipe list</string>
     <string name="error_loading_recipe">Could not load recipe</string>
     <string name="error_loading_ingredients">Could not load ingredients</string>
+    <string name="error_loading_images">Could not load images</string>
     <string name="error_saving_recipe">Unexpected error saving the recipe</string>
 
     <string name="invalid_recipe_name">Please enter a valid recipe name</string>
