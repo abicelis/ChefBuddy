@@ -58,8 +58,8 @@
     <string name="activity_add_edit_recipe_hint_name">Recipe name&#8230;</string>
     <string name="activity_add_edit_recipe_hint_preparation">Preparation&#8230;</string>
 
-    <string name="activity_add_edit_recipe_servings_singular">serving</string>
-    <string name="activity_add_edit_recipe_servings_plural">servings</string>
+    <string name="activity_add_edit_recipe_success_saving_recipe">Recipe saved successfully</string>
+
 
 
     <!--Add Recipe Ingredient Dialog-->
@@ -69,8 +69,7 @@
     <string name="dialog_add_recipe_ingredient_measurement_hint">Measurement</string>
     <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient</string>
 
-    <string name="dialog_add_recipe_ingredient_error_amount">Invalid amount</string>
-    <string name="dialog_add_recipe_ingredient_error_ingredient">Invalid ingredient</string>
+    <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
 
 
 
@@ -80,10 +79,18 @@
     <string name="dialog_done">DONE</string>
 
 
+
     <!--Message enum-->
     <string name="error_loading_recipes">Unexpected error loading recipe list</string>
     <string name="error_loading_recipe">Could not load recipe</string>
     <string name="error_loading_ingredients">Could not load ingredients</string>
+    <string name="error_saving_recipe">Unexpected error saving the recipe</string>
+
+    <string name="invalid_recipe_name">Please enter a valid recipe name</string>
+    <string name="invalid_recipe_servings">Please enter a valid servings amount</string>
+    <string name="invalid_recipe_preparation_time">Please enter a valid preparation time</string>
+    <string name="invalid_recipe_directions">Please enter a valid preparation text</string>
+
 
 
     <!--PreparationTime enum-->
