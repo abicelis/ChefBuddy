@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.R;
@@ -21,7 +20,7 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
     //DATA
     private Activity mActivity;
     private LayoutInflater mInflater;
-    private List<Image> mImages = new ArrayList<>();
+    private List<Image> mImages;
     private OnDragStartListener mDragStartListener;
 
 
@@ -42,19 +41,27 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
         holder.setListeners(mDragStartListener);
     }
 
-    public List<Image> getItems() {
-        return mImages;
+    @Override
+    public int getItemCount() {
+        return mImages.size();
+    }
+
+
+
+    public void setItems(List<Image> recipeIngredients) {
+        mImages = recipeIngredients;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(Image image) {
+        mImages.add(image);
+        notifyItemInserted(getItemCount());
     }
 
     public void removeItem(int position) {
         mImages.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mImages.size();
     }
 
 

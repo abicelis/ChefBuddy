@@ -2,6 +2,8 @@ package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +53,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
 
     @Inject
-    AddEditRecipePresenter presenter;
+    AddEditRecipePresenter mPresenter;
 
     @BindView(R.id.activity_add_edit_recipe_toolbar)
     Toolbar mToolbar;
@@ -111,34 +113,30 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         setContentView(R.layout.activity_add_edit_recipe);
         ButterKnife.bind(this);
 
+        ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
+
+        initViews();
+        mPresenter.attachViews(this, mEditIngredientsAdapter, mEditImageAdapter);
 
 
         //Handle incoming Intent if editing an existing recipe
         if(getIntent().hasExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID)) {
-            long recipeId = getIntent().getLongExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
+            long recipeId = getIntent().getLongExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
+            mPresenter.setExistingRecipe(recipeId);
+        } else {
+            mPresenter.creatingNewRecipe();
+        }
 
-            presenter.editingExistingRecipe(recipeId);
-        } else
-            showErrorMessage(Message.ERROR_LOADING_RECIPE);
-
-
-
-
-        //TODO true?
-        initViews(true);
-
-        ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
-        presenter.attachView(this);
-        presenter.editingExistingRecipe(8);    //TODO check if editing or not
-
-
+        //If isEditingExistingRecipe, change title to editing
+        if(mPresenter.isEditingExistingRecipe())
+            getSupportActionBar().setTitle(R.string.activity_add_edit_recipe_title_edit);
     }
 
-    private void initViews(boolean addingRecipe) {
+    private void initViews() {
 
         //Setup toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle((addingRecipe ? R.string.activity_add_edit_recipe_title_add : R.string.activity_add_edit_recipe_title_edit));
+        getSupportActionBar().setTitle(R.string.activity_add_edit_recipe_title_add);
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +153,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AddEditRecipeActivity.this, "Selected serv item " + position, Toast.LENGTH_SHORT).show();
+                mPresenter.setServingsSelection(position);
             }
 
             @Override
@@ -163,10 +161,10 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         });
         mPreparationTimesList.addAll(PreparationTime.getFriendlyNames());
         mPreparationTime.setItems(mPreparationTimesList);
-        mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mPreparationTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AddEditRecipeActivity.this, "Selected prep item " + position, Toast.LENGTH_SHORT).show();
+                mPresenter.setPreparationTimeSelection(position);
             }
 
             @Override
@@ -189,7 +187,16 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleAddRecipeIngredient();
+                FragmentManager fm = AddEditRecipeActivity.this.getSupportFragmentManager();
+
+                AddRecipeIngredientDialogFragment dialog = AddRecipeIngredientDialogFragment.newInstance();
+                dialog.setListener(new AddRecipeIngredientDialogFragment.AddRecipeIngredientListener() {
+                    @Override
+                    public void onRecipeIngredientAdded(RecipeIngredient recipeIngredient) {
+                        mPresenter.addRecipeIngredient(recipeIngredient);
+                    }
+                });
+                dialog.show(fm, "EditLinkAttachmentDialogFragment");
             }
         });
 
@@ -209,10 +216,18 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleAddImage();
+                Toast.makeText(AddEditRecipeActivity.this, "TODO", Toast.LENGTH_SHORT).show();
+                // TODO: 18/7/2017
+                //mPresenter.addImage();
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachViews();
     }
 
     @Override
@@ -226,61 +241,22 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_add_edit_recipe_save:
-                Toast.makeText(this, "Save todo", Toast.LENGTH_SHORT).show();
+                mPresenter.saveRecipe(mName.getText(), mPreparation.getText());
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void handleAddRecipeIngredient(){
-        FragmentManager fm = this.getSupportFragmentManager();
-
-        AddRecipeIngredientDialogFragment dialog = AddRecipeIngredientDialogFragment.newInstance();
-        dialog.setListener(new AddRecipeIngredientDialogFragment.AddRecipeIngredientListener() {
-            @Override
-            public void onRecipeIngredientAdded(RecipeIngredient recipeIngredient) {
-                mEditIngredientsAdapter.getItems().add(recipeIngredient);
-                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
-            }
-        });
-        dialog.show(fm, "EditLinkAttachmentDialogFragment");
-    }
-
-    private void handleAddImage(){
-        //TODO
-        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
-//        FragmentManager fm = this.getSupportFragmentManager();
-//
-//        AddRecipeIngredientDialogFragment dialog = AddRecipeIngredientDialogFragment.newInstance();
-//        dialog.setListener(new AddRecipeIngredientDialogFragment.AddRecipeIngredientListener() {
-//            @Override
-//            public void onRecipeIngredientAdded(RecipeIngredient recipeIngredient) {
-//                mEditIngredientsAdapter.getItems().add(recipeIngredient);
-//                mEditIngredientsAdapter.notifyItemInserted(mEditIngredientsAdapter.getItemCount());
-//            }
-//        });
-//        dialog.show(fm, "EditLinkAttachmentDialogFragment");
-    }
 
 
-
+    /* AddEditRecipeView interface implementation */
     @Override
     public void showRecipe(Recipe recipe) {
-
         mName.setText(recipe.getName());
-        mServings.setSelection(presenter.getServingsSelection());
-        mPreparationTime.setSelection(presenter.getPreparationTimeSelection());
-
-        //Ingredients recyclerView
-        mEditIngredientsAdapter.getItems().addAll(recipe.getRecipeIngredients());
-        mEditIngredientsAdapter.notifyDataSetChanged();
-
+        mServings.setSelection(mPresenter.getServingsSelection());
+        mPreparationTime.setSelection(mPresenter.getPreparationTimeSelection());
         mPreparation.setText(recipe.getDirections());
-
-        //Images recyclerView
-        mEditImageAdapter.getItems().addAll(recipe.getImages());
-        mEditImageAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -288,7 +264,21 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 
+    @Override
+    public void recipeSavedSoFinish() {
+        BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                finish();
+            }
+        };
+        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_add_edit_recipe_success_saving_recipe, SnackbarUtil.SnackbarDuration.SHORT, callback);
 
+    }
+
+
+    /* OnDragStartListener interface implementation */
     @Override
     public void onDragStarted(RecyclerView.ViewHolder viewHolder) {
         if(viewHolder instanceof EditRecipeIngredientViewHolder)

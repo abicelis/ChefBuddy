@@ -1,5 +1,9 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter;
 
+import ve.com.abicelis.chefbuddy.model.Image;
+import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditImageAdapter;
+import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 
 /**
@@ -7,10 +11,23 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
  */
 
 public interface AddEditRecipePresenter {
-    void attachView(AddEditRecipeView view);
-    void detachView();
+    void attachViews(AddEditRecipeView view, EditRecipeIngredientAdapter editRecipeIngredientAdapter, EditImageAdapter editImageAdapter);
+    void detachViews();
 
-    void editingExistingRecipe(long recipeId);
+
+    void setExistingRecipe(long recipeId);
+    void creatingNewRecipe();
+
+    void saveRecipe(String name, String preparation);
+
+
+    boolean isEditingExistingRecipe();
+
     int getServingsSelection();
+    void setServingsSelection(int position);
     int getPreparationTimeSelection();
+    void setPreparationTimeSelection(int position);
+
+    void addRecipeIngredient(RecipeIngredient recipeIngredient);
+    void addImage(Image image);
 }

@@ -22,7 +22,7 @@ public class EditRecipeIngredientAdapter extends RecyclerView.Adapter<EditRecipe
     //DATA
     private Activity mActivity;
     private LayoutInflater mInflater;
-    private List<RecipeIngredient> mRecipeIngredients = new ArrayList<>();
+    private List<RecipeIngredient> mRecipeIngredients;
     private OnDragStartListener mDragStartListener;
 
 
@@ -43,19 +43,28 @@ public class EditRecipeIngredientAdapter extends RecyclerView.Adapter<EditRecipe
         holder.setListeners(mDragStartListener);
     }
 
-    public List<RecipeIngredient> getItems() {
-        return mRecipeIngredients;
+    @Override
+    public int getItemCount() {
+        return mRecipeIngredients.size();
+    }
+
+
+
+    public void setItems(List<RecipeIngredient> recipeIngredients) {
+        mRecipeIngredients = recipeIngredients;
+        notifyDataSetChanged();
+
+    }
+
+    public void addItem(RecipeIngredient recipeIngredient) {
+        mRecipeIngredients.add(recipeIngredient);
+        notifyItemInserted(getItemCount());
     }
 
     public void removeItem(int position) {
         mRecipeIngredients.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mRecipeIngredients.size();
     }
 
 
