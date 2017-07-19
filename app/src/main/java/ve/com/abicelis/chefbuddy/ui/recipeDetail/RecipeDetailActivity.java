@@ -274,8 +274,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mToolbarTitle.setText(recipe.getName());
         //mToolbarLogo.setImageBitmap(recipe.getFeaturedImage());
 
-        mTitleImage.setImageBitmap(recipe.getFeaturedImage());
-        mImage.setImageBitmap(recipe.getFeaturedImage());
+        if(recipe.getFeaturedImage() != null) {
+            mTitleImage.setImageBitmap(recipe.getFeaturedImage());
+            mImage.setImageBitmap(recipe.getFeaturedImage());
+        } else {
+            mImage.setVisibility(View.GONE);
+            mTitleImage.setImageResource(R.drawable.default_recipe_image);
+        }
 
         mTitleTitle.setText(recipe.getName());
         mTitleDetail.setText(String.format(Locale.getDefault(),
