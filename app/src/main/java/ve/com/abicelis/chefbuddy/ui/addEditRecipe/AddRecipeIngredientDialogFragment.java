@@ -132,10 +132,6 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
                 break;
 
             case R.id.dialog_add_recipe_ingredient_ok:
-                if(mAmount.getText().isEmpty()) {
-                    Toast.makeText(getActivity(), R.string.dialog_add_recipe_ingredient_error_amount, Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if(mIngredient.getText().isEmpty()) {
                     Toast.makeText(getActivity(), R.string.dialog_add_recipe_ingredient_error_ingredient, Toast.LENGTH_SHORT).show();
                     return;
