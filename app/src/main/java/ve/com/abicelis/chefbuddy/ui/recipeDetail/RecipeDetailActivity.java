@@ -30,6 +30,7 @@ import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
@@ -197,6 +198,15 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         //Image Recyclerview
         mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mImageAdapter = new ImageAdapter(this);
+        mImageAdapter.setImageClickListener(new ImageAdapter.ImageClickListener() {
+            @Override
+            public void onImageClicked(int position) {
+                Intent openImageGalleryIntent = new Intent(RecipeDetailActivity.this, ImageGalleryActivity.class);
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID, recipeDetailPresenter.getLoadedRecipe().getId());
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION, position);
+                startActivity(openImageGalleryIntent);
+            }
+        });
 
         //DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), mLayoutManager.getOrientation());
         //itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_decoration_complete_line));

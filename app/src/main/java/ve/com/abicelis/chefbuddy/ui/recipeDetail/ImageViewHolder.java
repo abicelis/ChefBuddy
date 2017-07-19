@@ -56,11 +56,7 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
         int id = v.getId();
         switch (id) {
             case R.id.list_item_image_image:
-                Toast.makeText(v.getContext(), "Image clicked pos=" + mPosition, Toast.LENGTH_SHORT).show();
-
-                //Intent viewImageDetail = new Intent(mActivity, Blah.class);
-                //viewImageDetail.putExtra(Constants.EXTRA, mCurrent);
-                //mActivity.startActivity(viewImageDetail);
+                mAdapter.notifyImageClick(mPosition);
                 break;
         }
     }

@@ -10,6 +10,7 @@
     <color name="hint_text">#BDBDBD</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="transparent">#96000000</color>
 
     <color name="gray_background">#EEEEEE</color>
     <color name="transparent_background">#88000000</color>

@@ -21,6 +21,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     //DATA
     private Activity mActivity;
     private LayoutInflater mInflater;
+    private ImageClickListener mListener;
     private List<Image> mImages = new ArrayList<>();
 
     public ImageAdapter(Activity activity) {
@@ -46,5 +47,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     @Override
     public int getItemCount() {
         return mImages.size();
+    }
+
+
+
+    /* Interface for notifying activity when user clicked on an image */
+    public void notifyImageClick(int position) {
+        mListener.onImageClicked(position);
+    }
+
+    public void setImageClickListener(ImageClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface ImageClickListener {
+        void onImageClicked(int position);
     }
 }
