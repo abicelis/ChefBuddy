@@ -37,6 +37,9 @@ dependencies {
     //Transitions
     compile 'com.andkulikov:transitionseverywhere:1.7.0'
 
+    //ScrollGalleryView
+    compile 'com.veinhorn.scrollgalleryview:library:1.0.5'
+
 
     //Extra
     compile 'com.github.lukedeighton:wheelview:0.4.1'
