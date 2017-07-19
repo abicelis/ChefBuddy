@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 
 /**
