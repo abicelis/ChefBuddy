@@ -91,11 +91,6 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
                         case "Carbonara Pasta":
                             dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.pasta);
                             break;
-
-                        default:
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.pasta);
-                            break;
-
                     }
 
                     Bitmap bp = ImageUtil.getBitmap(dp);
