@@ -11,7 +11,13 @@ import ve.com.abicelis.chefbuddy.R;
 public enum Message {
     ERROR_LOADING_RECIPES(R.string.error_loading_recipes),
     ERROR_LOADING_RECIPE(R.string.error_loading_recipe),
-    ERROR_LOADING_INGREDIENTS(R.string.error_loading_ingredients)
+    ERROR_LOADING_INGREDIENTS(R.string.error_loading_ingredients),
+    ERROR_SAVING_RECIPE(R.string.error_saving_recipe),
+
+    INVALID_RECIPE_NAME(R.string.invalid_recipe_name),
+    INVALID_RECIPE_SERVINGS(R.string.invalid_recipe_servings),
+    INVALID_RECIPE_PREPARATION_TIME(R.string.invalid_recipe_preparation_time),
+    INVALID_RECIPE_DIRECTIONS(R.string.invalid_recipe_directions)
     ;
 
     @StringRes int friendlyName;
