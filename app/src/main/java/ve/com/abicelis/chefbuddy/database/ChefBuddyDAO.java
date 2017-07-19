@@ -10,6 +10,7 @@ import java.util.List;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotDeleteDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotInsertDataException;
+import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotUpdateDataException;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
@@ -36,7 +37,7 @@ public class ChefBuddyDAO {
     public List<Recipe> getRecipes() throws CouldNotGetDataException {
         List<Recipe> recipes = new ArrayList<>();
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-        Cursor cursor = db.query(ChefBuddyContract.RecipeTable.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(ChefBuddyContract.RecipeTable.TABLE_NAME, null, null, null, null, null, ChefBuddyContract.RecipeTable.COLUMN_NAME.getName() + " ASC");
 
         try {
             while(cursor.moveToNext()) {
@@ -191,7 +192,6 @@ public class ChefBuddyDAO {
         } else
             throw new CouldNotInsertDataException("There was a problem inserting the Recipe: " + recipe.toString());
 
-        db.close();
         return newRowId;
     }
 
@@ -223,7 +223,6 @@ public class ChefBuddyDAO {
                 throw new CouldNotInsertDataException("There was a problem inserting the RecipeIngredient: " + recipeIngredients.toString());
         }
 
-        db.close();
         return newRowIds;
     }
 
@@ -245,7 +244,6 @@ public class ChefBuddyDAO {
 //                throw new CouldNotInsertDataException("There was a problem inserting the Ingredient: " + ingredients.toString());
 //        }
 //
-//        db.close();
 //        return newRowIds;
 //    }
 
@@ -265,7 +263,6 @@ public class ChefBuddyDAO {
             throw new CouldNotInsertDataException("There was a problem inserting the Ingredient: " + ingredient.toString());
 
 
-        db.close();
         return newRowId;
     }
 
@@ -913,6 +910,58 @@ public class ChefBuddyDAO {
 //
 //
 //
+
+
+
+
+    /* Update data on database */
+
+    /**
+     * Updates the information stored about a Recipe
+     * @param recipe The Recipe to update
+     */
+    public long updateRecipe(Recipe recipe) throws CouldNotUpdateDataException {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        try {
+            deleteRecipeIngredientsFromRecipe(recipe.getId());
+            insertRecipeIngredientsOfRecipe(recipe.getId(), recipe.getRecipeIngredients());
+        } catch (CouldNotDeleteDataException e) {
+            throw new CouldNotUpdateDataException("Error deleting current recipe ingredients", e);
+        } catch (CouldNotInsertDataException e) {
+            throw new CouldNotUpdateDataException("Error inserting new recipe ingredients", e);
+        }
+
+
+        int count = db.update(
+                ChefBuddyContract.RecipeTable.TABLE_NAME,
+                getValuesForRecipe(recipe),
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + " =? ",
+                new String[] {String.valueOf(recipe.getId())} );
+
+        return count;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //
 //
@@ -1196,7 +1245,6 @@ public class ChefBuddyDAO {
 
     private ContentValues getValuesForIngredient(Ingredient ingredient) {
         ContentValues values = new ContentValues();
-        values.put(ChefBuddyContract.IngredientTable.COLUMN_ID.getName(), ingredient.getId());
         values.put(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName(), ingredient.getName());
         return values;
     }
