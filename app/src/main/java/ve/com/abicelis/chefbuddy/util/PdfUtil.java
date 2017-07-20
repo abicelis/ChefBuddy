@@ -37,7 +37,7 @@ public class PdfUtil {
     private static final float INGREDIENT_HEIGHT = 50;
 
 
-    private static final float HEADER_TEXT_TITLE_SUBTITLE_SPACING = 20;
+    private static final float HEADER_TEXT_TITLE_SUBTITLE_SPACING = 30;
     private static final float SUBTITLE_MARGIN_LEFT = 40;
     private static final float SUBTITLE_MARGIN_TOP = 40;
     private static final float INGREDIENT_MARGIN_LEFT = 80;
