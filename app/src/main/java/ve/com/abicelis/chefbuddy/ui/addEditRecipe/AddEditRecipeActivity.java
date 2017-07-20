@@ -1,7 +1,10 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -141,8 +144,23 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddEditRecipeActivity.this, "Back pressed, must check here if user wants to discard changes", Toast.LENGTH_SHORT).show();
-                //onBackPressed();
+                AlertDialog dialog = new AlertDialog.Builder(AddEditRecipeActivity.this)
+                        .setTitle(getResources().getString(R.string.dialog_add_edit_recipe_discard_title))
+                        .setMessage(getResources().getString(R.string.dialog_add_edit_recipe_discard_message))
+                        .setPositiveButton(getResources().getString(R.string.dialog_discard),  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                onBackPressed();
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                dialog.show();
             }
         });
 
@@ -247,6 +265,8 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 
