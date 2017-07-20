@@ -7,7 +7,7 @@ THIS SOFTWARE IS CURRENTLY IN DEVELOPMENT
 
 Are you one of those people that **can't seem to decide** on what to cook? 
 
-Chef Buddy is an Android app built to **manage yout recipes and help you decide**! Chef buddy also allows you to **keep track of meals** you've cooked in the past, so that you dont repeat them! 
+Chef Buddy is an Android app which helps you **manage your recipes and help you decide**! Chef buddy also allows you to **keep track of meals** you've cooked in the past, so that you dont repeat them! 
 
 Please check out the prototype by clicking [right here!](https://abicelis.github.io/ChefBuddyPrototype/ "Chef Buddy Prototype")
 
@@ -25,14 +25,15 @@ TODO
 --->
 
 
-## Things I learnt/practiced 
+## Skills learnt while building the app 
 - MVP: Model View Presenter
-- Unit testing
-- Integration testing
+<!---- Unit testing
+- Integration testing--->
 - Dependency Injection
 - Custom Compound Views (such as FancyEditText)
+- Custom xml attributes for compound views
 - ItemTouchHelper implementation (for dragging/sorting items on a recyclerView) (thanks to [ItemTouchHelper-Demo](https://github.com/iPaulPro/Android-ItemTouchHelper-Demo))
-
+- Material design layouts: Coordinatorlayout, AppbarLayout, CollapsingToolbarLayout
 
 
 ## Code dependencies
@@ -43,7 +44,7 @@ This Project uses external dependencies and SDK's
 * [TransitionsEverywhere](https://github.com/andkulikov/Transitions-Everywhere) - Backported Transitions library by andkulikov
 * [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView) - Material Search View by MiguelCatalan
 * [Image Cropper](https://github.com/ArthurHub/Android-Image-Cropper) - Image Cropping Library by ArthurHub
-* [PhotoView](https://github.com/chrisbanes/PhotoView) - ImageView with zoom support by Chrisbanes
+* [ScrollGalleryView](https://github.com/VEINHORN/ScrollGalleryView) - Image Gallery by VEINHORN
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView) - CircleImageView by hdodenhof
 
 
