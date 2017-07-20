@@ -50,11 +50,9 @@ public class RecipeIngredient {
     }
 
     public String getAmountString() {
-        if (measurement == null || amount == null)
+        if(amount.isEmpty() && measurement != Measurement.NONE)
             return "";
-        else
-            return amount + " " + measurement.getAbbreviation();
-
+        return amount + " " + (measurement != Measurement.NONE ? measurement.getAbbreviation() : "");
     }
 
 
