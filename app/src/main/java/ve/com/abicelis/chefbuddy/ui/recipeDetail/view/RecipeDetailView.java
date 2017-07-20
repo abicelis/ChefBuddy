@@ -9,5 +9,6 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 
 public interface RecipeDetailView {
     void showRecipe(Recipe recipe);
+    void recipeDeletedSoFinish();
     void showErrorMessage(Message message);
 }

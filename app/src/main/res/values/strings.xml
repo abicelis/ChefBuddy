@@ -40,6 +40,12 @@
 
     <string name="activity_recipe_detail_share_recipe_title">Share Recipe</string>
 
+    <string name="activity_recipe_detail_success_deleting_recipe">Recipe deleted successfully</string>
+
+
+        <!--Add Edit Recipe Discard Dialog-->
+        <string name="dialog_recipe_detail_delete_title">Delete recipe</string>
+        <string name="dialog_recipe_detail_delete_message">Are you sure you want to delete \'%1$s\'?</string>
 
 
 
@@ -88,6 +94,7 @@
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="dialog_discard">DISCARD</string>
+    <string name="dialog_delete">DELETE</string>
     <string name="dialog_save">SAVE</string>
 
 
@@ -95,6 +102,7 @@
     <!--Message enum-->
     <string name="error_loading_recipes">Unexpected error loading recipe list</string>
     <string name="error_loading_recipe">Could not load recipe</string>
+    <string name="error_deleting_recipe">Could not delete recipe</string>
     <string name="error_loading_ingredients">Could not load ingredients</string>
     <string name="error_loading_images">Could not load images</string>
     <string name="error_saving_recipe">Unexpected error saving the recipe</string>
