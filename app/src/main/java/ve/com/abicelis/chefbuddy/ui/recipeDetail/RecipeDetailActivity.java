@@ -1,6 +1,8 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.pdf.PdfDocument;
@@ -9,8 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -301,7 +305,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
             File filePath;
             try {
-                filePath = FileUtil.savePdfDocumentToSD(document);
+                filePath = FileUtil.savePdfDocumentToSD(document, recipeDetailPresenter.getLoadedRecipe().getName());
                 document.close();
             } catch (IOException e) {
                 showErrorMessage(Message.ERROR_SAVING_PDF);
@@ -325,7 +329,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -347,13 +350,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mToolbarTitle.setText(recipe.getName());
         //mToolbarLogo.setImageBitmap(recipe.getFeaturedImage());
 
-        if(recipe.getFeaturedImage() != null) {
-            mTitleImage.setImageBitmap(recipe.getFeaturedImage());
-            mImage.setImageBitmap(recipe.getFeaturedImage());
-        } else {
-            mImage.setVisibility(View.GONE);
-            mTitleImage.setImageResource(R.drawable.default_recipe_image);
-        }
+        mTitleImage.setImageBitmap(recipe.getFeaturedImage());
+        mImage.setImageBitmap(recipe.getFeaturedImage());
+
 
         mTitleTitle.setText(recipe.getName());
         mTitleDetail.setText(String.format(Locale.getDefault(),
@@ -393,13 +392,26 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     }
 
     @Override
+    public void recipeDeletedSoFinish() {
+        BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                onBackPressed();
+            }
+        };
+        SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_success_deleting_recipe, SnackbarUtil.SnackbarDuration.SHORT, callback);
+    }
+
+    @Override
     public void showErrorMessage(Message message) {
         SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 
 
-    private class ToolbarMenuItemClickListener implements Toolbar.OnMenuItemClickListener {
 
+
+    private class ToolbarMenuItemClickListener implements Toolbar.OnMenuItemClickListener {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
 
@@ -411,16 +423,37 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                     break;
 
                 case R.id.menu_recipe_detail_delete:
-                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.ERROR, R.string.activity_recipe_detail_delete, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    AlertDialog dialog = new AlertDialog.Builder(RecipeDetailActivity.this)
+                            .setTitle(getResources().getString(R.string.dialog_recipe_detail_delete_title))
+                            .setMessage(String.format(Locale.getDefault(),
+                                    getResources().getString(R.string.dialog_recipe_detail_delete_message),
+                                    recipeDetailPresenter.getLoadedRecipe().getName()))
+                            .setPositiveButton(getResources().getString(R.string.dialog_delete),  new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    recipeDetailPresenter.deleteRecipe();
+                                }
+                            })
+                            .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+                    dialog.show();
                     break;
+
                 case R.id.menu_recipe_detail_share:
-                    SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_share, SnackbarUtil.SnackbarDuration.SHORT, null);
+                    handleRecipeShare();
                     break;
 
             }
             return true;
         }
     }
+
     private class NavigationBackListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
