@@ -305,6 +305,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
             File filePath;
             try {
+                // TODO: 20/7/2017 REMOVE THIS NEXT LINE
+                FileUtil.savePdfDocumentToSD(document, "recipe");
                 filePath = FileUtil.savePdfDocumentToSD(document, recipeDetailPresenter.getLoadedRecipe().getName());
                 document.close();
             } catch (IOException e) {
