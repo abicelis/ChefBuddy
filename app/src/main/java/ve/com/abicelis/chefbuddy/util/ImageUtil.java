@@ -7,17 +7,31 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+
 /**
  * Created by abicelis on 8/7/2017.
  */
 
 public class ImageUtil {
+
+    /**
+     * Returns a bitmap of the @DrawableRes
+     * @param drawableRes @DrawableRes of the image
+     */
+    public static Bitmap getBitmap(@DrawableRes int drawableRes) {
+        Drawable d = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), drawableRes);
+        return getBitmap(d);
+    }
+
 
     /**
      * Returns a bitmap of the image contained in the byte array
