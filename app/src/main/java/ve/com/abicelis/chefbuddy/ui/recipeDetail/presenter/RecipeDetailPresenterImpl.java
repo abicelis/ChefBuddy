@@ -2,6 +2,7 @@ package ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter;
 
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
+import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotDeleteDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
@@ -50,6 +51,24 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
         } catch (CouldNotGetDataException e) {
             if(mView != null)
                 mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
+        }
+    }
+
+    @Override
+    public void deleteRecipe() {
+        if(mRecipeId == -1) {
+            if (mView != null) {
+                mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
+                return;
+            }
+        }
+
+        try {
+            mDao.deleteRecipe(mRecipeId);
+            mView.recipeDeletedSoFinish();
+        } catch (CouldNotDeleteDataException e) {
+            if(mView != null)
+                mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
         }
     }
 

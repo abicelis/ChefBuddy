@@ -13,6 +13,7 @@ public interface RecipeDetailPresenter {
 
     void setRecipeId(long recipeId);
     void reloadRecipe();
+    void deleteRecipe();
     Recipe getLoadedRecipe();
 
 }
