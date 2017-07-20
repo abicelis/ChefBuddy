@@ -1,10 +1,17 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -33,6 +42,8 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
+import ve.com.abicelis.chefbuddy.util.PdfUtil;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
@@ -170,7 +181,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         mFabShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_share, SnackbarUtil.SnackbarDuration.SHORT, null);
+                handleRecipeShare();
             }
         });
 
@@ -274,11 +285,63 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         v.startAnimation(alphaAnimation);
     }
 
+    private void handleRecipeShare() {
+        //Check for storage write permissions
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.RECIPE_DETAIL_ACTIVITY_PERMISSIONS);
+            return;
+        }
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            PdfDocument document = PdfUtil.generatePdfFromRecipe(recipeDetailPresenter.getLoadedRecipe());
+            if(document == null) {
+                showErrorMessage(Message.ERROR_EXPORTING_RECIPE_TO_PDF);
+                return;
+            }
+
+            File filePath;
+            try {
+                filePath = FileUtil.savePdfDocumentToSD(document);
+                document.close();
+            } catch (IOException e) {
+                showErrorMessage(Message.ERROR_SAVING_PDF);
+                return;
+            }
+
+
+            Intent sharePdfIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharePdfIntent.setType("application/pdf");
+            sharePdfIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath));
+            startActivity(Intent.createChooser(sharePdfIntent, getString(R.string.activity_recipe_detail_share_recipe_title)));
+
+
+
+        } else {    //Old phone, sharing as text.
+            Intent shareTextIntent = new Intent(android.content.Intent.ACTION_SEND);
+            shareTextIntent.setType("text/plain");
+            shareTextIntent.putExtra(Intent.EXTRA_TEXT, "some text");
+            startActivity(Intent.createChooser(shareTextIntent, getString(R.string.activity_recipe_detail_share_recipe_title)));
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == Constants.RECIPE_DETAIL_ACTIVITY_PERMISSIONS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                handleRecipeShare();
+            else
+                showErrorMessage(Message.PERMISSIONS_WRITE_STORAGE_NOT_GRANTED);
+        }
+
+    }
 
     /*
-    *   RecipeDetailView interface implementation
-    */
+        *   RecipeDetailView interface implementation
+        */
     @Override
     public void showRecipe(Recipe recipe) {
         mToolbarTitle.setText(recipe.getName());
