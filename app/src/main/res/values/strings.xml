@@ -38,6 +38,8 @@
     <string name="activity_recipe_detail_no_images">No images here</string>
     <string name="activity_recipe_detail_no_ingredients">No ingredients here</string>
 
+    <string name="activity_recipe_detail_share_recipe_title">Share Recipe</string>
+
 
 
 
@@ -61,15 +63,21 @@
     <string name="activity_add_edit_recipe_success_saving_recipe">Recipe saved successfully</string>
 
 
+        <!--Add Edit Recipe Discard Dialog-->
+        <string name="dialog_add_edit_recipe_discard_title">Discard changes</string>
+        <string name="dialog_add_edit_recipe_discard_message">Are you sure you want to discard your changes?</string>
 
-    <!--Add Recipe Ingredient Dialog-->
-    <string name="dialog_add_recipe_ingredient_title">ADD INGREDIENT</string>
 
-    <string name="dialog_add_recipe_ingredient_amount_hint">Amount</string>
-    <string name="dialog_add_recipe_ingredient_measurement_hint">Measurement</string>
-    <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient</string>
+        <!--Add Recipe Ingredient Dialog-->
+        <string name="dialog_add_recipe_ingredient_title">ADD INGREDIENT</string>
 
-    <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
+        <string name="dialog_add_recipe_ingredient_amount_hint">Amount</string>
+        <string name="dialog_add_recipe_ingredient_measurement_hint">Measurement</string>
+        <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient</string>
+
+        <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
+
+
 
 
 
@@ -77,6 +85,10 @@
     <!--Dialog-->
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_done">DONE</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
+    <string name="dialog_discard">DISCARD</string>
+    <string name="dialog_save">SAVE</string>
 
 
 
@@ -86,12 +98,15 @@
     <string name="error_loading_ingredients">Could not load ingredients</string>
     <string name="error_loading_images">Could not load images</string>
     <string name="error_saving_recipe">Unexpected error saving the recipe</string>
+    <string name="error_exporting_recipe_to_pdf">Unexpected error exporting the recipe to pdf</string>
+    <string name="error_saving_pdf">Unexpected error saving the pdf</string>
 
     <string name="invalid_recipe_name">Please enter a valid recipe name</string>
     <string name="invalid_recipe_servings">Please enter a valid servings amount</string>
     <string name="invalid_recipe_preparation_time">Please enter a valid preparation time</string>
     <string name="invalid_recipe_directions">Please enter a valid preparation text</string>
 
+    <string name="permissions_write_storage_not_granted">Please grant storage permissions</string>
 
 
     <!--PreparationTime enum-->
