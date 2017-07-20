@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
@@ -111,6 +113,9 @@ public class Recipe {
         return directions;
     }
     public Bitmap getFeaturedImage() {
+        if(featuredImage == null)
+            return ImageUtil.getBitmap(R.drawable.default_recipe_image);
+
         return featuredImage;
     }
     public byte[] getFeaturedImageBytes() {
