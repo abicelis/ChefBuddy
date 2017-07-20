@@ -1,6 +1,10 @@
 package ve.com.abicelis.chefbuddy.util;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.pdf.PdfDocument;
+import android.os.Build;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +20,10 @@ import ve.com.abicelis.chefbuddy.app.Constants;
  */
 
 public class FileUtil {
+
+    private static final String RECIPE_FILENAME_PDF = "recipe.pdf";
+
+
     /**
      * Creates the specified <code>toFile</code> as a byte for byte copy of the
      * <code>fromFile</code>. If <code>toFile</code> already exists, then it
@@ -54,6 +62,10 @@ public class FileUtil {
         return new File(ChefBuddyApplication.getContext().getExternalFilesDir(null), Constants.IMAGE_FILES_DIR);
     }
 
+    public static File getExternalStorageDir() {
+        return new File(Environment.getExternalStorageDirectory().getPath());
+    }
+
     public static void createDirIfNotExists(File directory) throws IOException, SecurityException  {
         if (directory.mkdirs()){
             File nomedia = new File(directory, ".nomedia");
@@ -79,6 +91,13 @@ public class FileUtil {
             File file = new File(FileUtil.getImageFilesDir(), filename);
             file.delete();
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static File savePdfDocumentToSD(PdfDocument pdfDocument) throws IOException {
+        File filePath = new File(getExternalStorageDir(), RECIPE_FILENAME_PDF);
+        pdfDocument.writeTo(new FileOutputStream(filePath));
+        return filePath;
     }
 
 
