@@ -49,10 +49,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         mCurrent = current;
         mPosition = position;
 
-        if(mCurrent.getFeaturedImage() != null)
-            mImage.setImageBitmap(mCurrent.getFeaturedImage());
-        else
-            mImage.setImageResource(R.drawable.default_recipe_image);
+        mImage.setImageBitmap(mCurrent.getFeaturedImage());
         mName.setText(mCurrent.getName());
         mIngredients.setText(mCurrent.getSimpleIngredientsString());
     }
