@@ -21,8 +21,6 @@ import ve.com.abicelis.chefbuddy.app.Constants;
 
 public class FileUtil {
 
-    private static final String RECIPE_FILENAME_PDF = "recipe.pdf";
-
 
     /**
      * Creates the specified <code>toFile</code> as a byte for byte copy of the
@@ -94,8 +92,8 @@ public class FileUtil {
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static File savePdfDocumentToSD(PdfDocument pdfDocument) throws IOException {
-        File filePath = new File(getExternalStorageDir(), RECIPE_FILENAME_PDF);
+    public static File savePdfDocumentToSD(PdfDocument pdfDocument, String filename) throws IOException {
+        File filePath = new File(getExternalStorageDir(), filename.replaceAll("[^A-Za-z0-9\\s]", "") + Constants.CHEFF_BUDDY + Constants.PDF_FILE_EXTENSION);
         pdfDocument.writeTo(new FileOutputStream(filePath));
         return filePath;
     }
