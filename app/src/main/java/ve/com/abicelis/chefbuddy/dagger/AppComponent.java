@@ -6,6 +6,8 @@ import dagger.Component;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddRecipeIngredientDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.editImageActivity.EditImageActivity;
+import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
@@ -40,4 +42,7 @@ public interface AppComponent {
 
     void inject(ImageGalleryActivity target);
     void inject(ImageGalleryPresenterImpl target);
+
+    void inject(EditImageActivity target);
+    void inject(EditImagePresenterImpl target);
 }

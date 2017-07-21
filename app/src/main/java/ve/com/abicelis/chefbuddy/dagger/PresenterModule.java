@@ -9,6 +9,8 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresent
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenter;
+import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenter;
@@ -59,5 +61,11 @@ public class PresenterModule {
     @Singleton
     ImageGalleryPresenter provideImageGalleryPresenter(ChefBuddyDAO dao) {
         return new ImageGalleryPresenterImpl(dao);
+    }
+
+    @Provides
+    @Singleton
+    EditImagePresenter provideEditImagePresenter() {
+        return new EditImagePresenterImpl();
     }
 }
