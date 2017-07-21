@@ -75,8 +75,8 @@ public class ImageUtil {
      * Returns a bitmap of the image at the specified uri
      * @param uri The URI containing the path to the image
      */
-    public static Bitmap getBitmap(Uri uri, Activity activity) throws IOException {
-        return MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uri);
+    public static Bitmap getBitmap(Uri uri) throws IOException {
+        return MediaStore.Images.Media.getBitmap(ChefBuddyApplication.getContext().getContentResolver(), uri);
     }
 
 
