@@ -3,6 +3,7 @@
     package="ve.com.abicelis.chefbuddy">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".app.ChefBuddyApplication"
@@ -22,8 +23,20 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.addEditRecipe.AddEditRecipeActivity"/>
         <activity android:name=".ui.test.TestActivity"/>
-        <activity android:name=".ui.imageGallery.ImageGalleryActivity">
+        <activity android:name=".ui.imageGallery.ImageGalleryActivity"/>
+        <activity android:name=".ui.editImageActivity.EditImageActivity">
         </activity>
+
+        <!--FILE PROVIDER FOR CAMERA-->
+        <provider
+            android:authorities="ve.com.abicelis.chefbuddy.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
