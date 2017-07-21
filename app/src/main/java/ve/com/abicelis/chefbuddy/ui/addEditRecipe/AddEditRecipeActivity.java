@@ -283,18 +283,6 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     }
 
 
-// TODO: 20/7/2017 use this code to update featured image when saving recipe     private void updateImageAttachmentThumbnail() {
-//        try {
-//        Bitmap thumbnail = ImageUtil.getBitmap(new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename()));
-//        thumbnail = ImageUtil.scaleBitmap(thumbnail, 480);
-//        byte[] thumbnailBytes = ImageUtil.toCompressedByteArray(thumbnail, THUMBNAIL_COMPRESSION_PERCENTAGE);
-//        mImageAttachment.setThumbnail(thumbnailBytes);
-//    } catch (Exception e) {
-//        Log.e(TAG, "There was a problem updating the thumbnail");
-//        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.error_unexpected, SnackbarUtil.SnackbarDuration.LONG, null);        }
-//}
-
-
     /* AddEditRecipeView interface implementation */
     @Override
     public void showRecipe(Recipe recipe) {
