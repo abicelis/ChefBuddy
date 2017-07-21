@@ -1,5 +1,8 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter;
 
+import android.graphics.Bitmap;
+
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
@@ -13,6 +16,7 @@ import ve.com.abicelis.chefbuddy.model.Servings;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditImageAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
+import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
  * Created by abicelis on 16/7/2017.
@@ -81,6 +85,8 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
         mRecipe.setName(name);
         mRecipe.setDirections(preparation);
 
+        updateFeaturedImage();
+
         Message valid = mRecipe.checkIfValid();
         if(valid == null) {
             try {
@@ -99,6 +105,22 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
             if(mView != null)
                 mView.showErrorMessage(valid);
         }
+    }
+
+    private void updateFeaturedImage() {
+
+        if(mRecipe.getImages().size() > 0) {
+
+            try {
+                Bitmap thumbnail = ImageUtil.scaleBitmap(mRecipe.getImages().get(0).getImage(), Constants.THUMBNAIL_LARGER_DIMENSION);
+                byte[] thumbnailBytes = ImageUtil.toCompressedByteArray(thumbnail, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
+                mRecipe.setFeaturedImageBytes(thumbnailBytes);
+            } catch (Exception e) {
+                if(mView != null)
+                    mView.showErrorMessage(Message.ERROR_SAVING_RECIPE);
+            }
+        }
+
     }
 
     @Override
