@@ -1,10 +1,11 @@
 package ve.com.abicelis.chefbuddy.util;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -83,13 +84,10 @@ public class FileUtil {
     }
 
 
-
-    public static void deleteImageAttachment(Activity activity, String filename) {
-        if(filename != null && !filename.isEmpty()) { //Delete file
-            File file = new File(FileUtil.getImageFilesDir(), filename);
-            file.delete();
-        }
+    public static Uri getUriForFile(File file) {
+        return FileProvider.getUriForFile(ChefBuddyApplication.getContext(), "ve.com.abicelis.chefbuddy.fileprovider", file);
     }
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static File savePdfDocumentToSD(PdfDocument pdfDocument, String filename) throws IOException {
