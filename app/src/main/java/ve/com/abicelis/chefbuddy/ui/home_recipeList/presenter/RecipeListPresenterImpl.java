@@ -53,7 +53,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
         try {
             List<Recipe> recipes = mDao.getRecipes();
 
-            if(recipes.size() > 0 && recipes.get(0).getFeaturedImage() == null) {
+            if(recipes.size() > 0 && recipes.get(0).getFeaturedImage() == ImageUtil.getBitmap(R.drawable.default_recipe_image)) {
                 //Recipes don't have images.
 
                 //Create image dir
