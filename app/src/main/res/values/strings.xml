@@ -86,6 +86,18 @@
 
 
 
+    <!--Edit Image Activity-->
+    <string name="activity_edit_image_success_saving_image">Image saved successfully</string>
+
+
+        <!--Select image source dialog-->
+        <string name="dialog_select_image_source_title">IMAGE SOURCE</string>
+        <string name="dialog_select_image_source_camera">Camera</string>
+        <string name="dialog_select_image_source_gallery">Gallery</string>
+
+
+
+
 
 
     <!--Dialog-->
@@ -105,6 +117,10 @@
     <string name="error_deleting_recipe">Could not delete recipe</string>
     <string name="error_loading_ingredients">Could not load ingredients</string>
     <string name="error_loading_images">Could not load images</string>
+    <string name="error_creating_image">Unexpected error creating image</string>
+    <string name="error_saving_image">Unexpected error saving the image</string>
+    <string name="error_no_camera_installed">No camera app installed on device</string>
+    <string name="error_requesting_camera">Unexpected error requesting camera</string>
     <string name="error_saving_recipe">Unexpected error saving the recipe</string>
     <string name="error_exporting_recipe_to_pdf">Unexpected error exporting the recipe to pdf</string>
     <string name="error_saving_pdf">Unexpected error saving the pdf</string>
@@ -115,6 +131,7 @@
     <string name="invalid_recipe_directions">Please enter a valid preparation text</string>
 
     <string name="permissions_write_storage_not_granted">Please grant storage permissions</string>
+    <string name="permissions_not_granted">Chef Buddy needs all permissions granted</string>
 
 
     <!--PreparationTime enum-->

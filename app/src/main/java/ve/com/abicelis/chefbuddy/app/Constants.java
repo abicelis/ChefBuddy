@@ -15,6 +15,7 @@ public class Constants {
     public static final String  IMAGE_FILES_DIR = "recipe/image";
     public static final String  IMAGE_FILENAMES_SEPARATOR = "|";
     public static final int     IMAGE_JPEG_COMPRESSION_PERCENTAGE = 30;
+    public static final int     THUMBNAIL_LARGER_DIMENSION = 480;
 
 
     public static final String RECIPE_INGREDIENT_STRING_FORMAT = "%1$s%2$s %3$s";
@@ -28,9 +29,17 @@ public class Constants {
     public static final String ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID = "ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID";
     public static final String IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID = "IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID";
     public static final String IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION = "IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION";
+    public static final String EDIT_IMAGE_ACTIVITY_INTENT_IMAGE_FILENAME = "EDIT_IMAGE_ACTIVITY_INTENT_IMAGE_FILENAME";
 
 
     /* PERMISSIONS */
     public static final int RECIPE_DETAIL_ACTIVITY_PERMISSIONS = 200;
+    public static final int EDIT_IMAGE_ACTIVITY_PERMISSIONS = 201;
+
+
+    /* START ACTIVITY REQUEST CODES */
+    public static final int REQUEST_ADD_RECIPE_IMAGE = 122;
+    public static final int REQUEST_IMAGE_CAPTURE = 123;
+    public static final int REQUEST_PICK_IMAGE_GALLERY = 124;
 
 }
