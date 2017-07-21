@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.views;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -29,10 +30,10 @@ public class FancyCardView extends CardView {
     }
 
     private void init(Context context) {
-        this.setRadius(DimensionUtil.convertDpToPixel(6));
-
+        setRadius(DimensionUtil.convertDpToPixel(6));
+        setCardElevation(0);
         int contentPadding = (int)DimensionUtil.convertDpToPixel(12);
-        this.setContentPadding(contentPadding, contentPadding, contentPadding, contentPadding);
+        setContentPadding(contentPadding, contentPadding, contentPadding, contentPadding);
     }
 
 
