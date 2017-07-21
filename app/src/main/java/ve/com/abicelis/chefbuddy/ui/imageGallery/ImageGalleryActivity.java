@@ -1,17 +1,11 @@
 package ve.com.abicelis.chefbuddy.ui.imageGallery;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.veinhorn.scrollgalleryview.MediaInfo;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
@@ -61,9 +55,7 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
         //Set translucent things
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
-            //getWindow().setStatusBarColor(Color.TRANSPARENT);
-            //getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.transparent));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));`
         }
 
         //Get list of images from intent
