@@ -40,6 +40,9 @@ dependencies {
     //ScrollGalleryView
     compile 'com.veinhorn.scrollgalleryview:library:1.0.5'
 
+    //ImageCropper
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
+
 
     //Extra
     compile 'com.github.lukedeighton:wheelview:0.4.1'
