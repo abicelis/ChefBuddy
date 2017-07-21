@@ -2,9 +2,9 @@ package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
@@ -40,6 +40,7 @@ import ve.com.abicelis.chefbuddy.model.Servings;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.SimpleItemTouchHelperCallback;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
+import ve.com.abicelis.chefbuddy.ui.editImageActivity.EditImageActivity;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 import ve.com.abicelis.chefbuddy.views.FancyEditText;
 import ve.com.abicelis.chefbuddy.views.FancySpinner;
@@ -234,12 +235,27 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         mAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddEditRecipeActivity.this, "TODO", Toast.LENGTH_SHORT).show();
-                // TODO: 18/7/2017
-                //mPresenter.addImage();
+                Intent addImageIntent = new Intent(AddEditRecipeActivity.this, EditImageActivity.class);
+                startActivityForResult(addImageIntent, Constants.REQUEST_ADD_RECIPE_IMAGE);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == Constants.REQUEST_ADD_RECIPE_IMAGE) {
+            if(resultCode == RESULT_OK) {
+                String fileName = data.getStringExtra(Constants.EDIT_IMAGE_ACTIVITY_INTENT_IMAGE_FILENAME);
+
+                if(fileName != null && !fileName.isEmpty()) {
+                    Image newImage = new Image(fileName, true);
+                    mPresenter.addImage(newImage);
+                }
+            }
+        }
     }
 
     @Override
@@ -267,7 +283,16 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     }
 
 
-
+// TODO: 20/7/2017 use this code to update featured image when saving recipe     private void updateImageAttachmentThumbnail() {
+//        try {
+//        Bitmap thumbnail = ImageUtil.getBitmap(new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename()));
+//        thumbnail = ImageUtil.scaleBitmap(thumbnail, 480);
+//        byte[] thumbnailBytes = ImageUtil.toCompressedByteArray(thumbnail, THUMBNAIL_COMPRESSION_PERCENTAGE);
+//        mImageAttachment.setThumbnail(thumbnailBytes);
+//    } catch (Exception e) {
+//        Log.e(TAG, "There was a problem updating the thumbnail");
+//        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.error_unexpected, SnackbarUtil.SnackbarDuration.LONG, null);        }
+//}
 
 
     /* AddEditRecipeView interface implementation */
@@ -294,7 +319,6 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
             }
         };
         SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_add_edit_recipe_success_saving_recipe, SnackbarUtil.SnackbarDuration.SHORT, callback);
-
     }
 
 
