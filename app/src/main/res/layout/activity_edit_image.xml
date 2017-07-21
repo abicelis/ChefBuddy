@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_edit_image_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/activity_edit_image_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_edit_image_button_container"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/activity_edit_image_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/activity_edit_image_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:textColor="@color/white"
+            android:text="@string/dialog_cancel"
+            style="?attr/borderlessButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/activity_edit_image_done"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:textColor="@color/white"
+            android:text="@string/dialog_done"
+            style="?attr/borderlessButtonStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@id/activity_edit_image_button_container"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_edit_image_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:fabSize="normal"
+            app:elevation="0dp"
+            app:backgroundTint="@color/primary"
+            android:src="@drawable/ic_crop"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_edit_image_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:fabSize="normal"
+            app:elevation="0dp"
+            app:backgroundTint="@color/primary"
+            android:src="@drawable/ic_rotate_90_ccw"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_edit_image_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+
+            app:elevation="0dp"
+            app:backgroundTint="@color/primary"
+            android:src="@drawable/ic_camera"/>
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>
+
+
+
+
