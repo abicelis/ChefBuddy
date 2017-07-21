@@ -203,6 +203,7 @@
                         android:id="@+id/activity_recipe_detail_preparation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="18sp"
                         />
                 </LinearLayout>
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
