@@ -59,7 +59,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
                         mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
                 }
             }
-        }, 1000);
+        }, 500);
     }
 
 
