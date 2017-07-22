@@ -14,11 +14,11 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
+import java.io.File;
 import java.util.Locale;
 
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 
@@ -69,8 +69,8 @@ public class PdfUtil {
                 + SUBTITLE_MARGIN_TOP * 3
                 + INGREDIENT_HEIGHT * recipe.getRecipeIngredients().size()
                 + PREPARATION_PARAGRAPH_HEIGHT
-                + NORMAL_IMAGE_MARGIN_VERTICAL * recipe.getImages().size()
-                + NORMAL_IMAGE_HEIGHT * recipe.getImages().size()
+                + NORMAL_IMAGE_MARGIN_VERTICAL * recipe.getImageFilenames().size()
+                + NORMAL_IMAGE_HEIGHT * recipe.getImageFilenames().size()
                 + NORMAL_IMAGE_MARGIN_VERTICAL;
 
         //Paints
@@ -107,9 +107,10 @@ public class PdfUtil {
 
 
         //Featured image
-        Rect destRect = getDestRectForAspectRatio(recipe.getFeaturedImage(), FEATURED_IMAGE_ASPECT_RATIO);
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(recipe.getFeaturedImage(), destRect.width(), destRect.height());
-        pageCanvas.drawBitmap(bitmap, null, new Rect(0, 0, (int)PDF_WIDTH, (int)FEATURED_IMAGE_HEIGHT), null);
+        Bitmap featuredImage = getBitmapFromImageFile(recipe.getFeaturedImageFilename());
+        Rect destRect = getDestRectForAspectRatio(featuredImage, FEATURED_IMAGE_ASPECT_RATIO);
+        featuredImage = ThumbnailUtils.extractThumbnail(featuredImage, destRect.width(), destRect.height());
+        pageCanvas.drawBitmap(featuredImage, null, new Rect(0, 0, (int)PDF_WIDTH, (int)FEATURED_IMAGE_HEIGHT), null);
 
 
         //Header background, title and subtitle
@@ -177,11 +178,12 @@ public class PdfUtil {
         drawIndicatorLine(pageCanvas, cursorY, Color.RED);
 
 
-        for (Image i : recipe.getImages()) {
+        for (String imageFilename : recipe.getImageFilenames()) {
             cursorY+=NORMAL_IMAGE_MARGIN_VERTICAL;
-            Rect dest = getDestRectForAspectRatio(i.getImage(), NORMAL_IMAGE_ASPECT_RATIO);
-            Bitmap b = ThumbnailUtils.extractThumbnail(i.getImage(), dest.width()/3, dest.height()/3);
-            pageCanvas.drawBitmap(b,
+            Bitmap image = getBitmapFromImageFile(imageFilename);
+            Rect dest = getDestRectForAspectRatio(image, NORMAL_IMAGE_ASPECT_RATIO);
+            image = ThumbnailUtils.extractThumbnail(image, dest.width()/3, dest.height()/3);
+            pageCanvas.drawBitmap(image,
                     null,
                     new Rect((int)NORMAL_IMAGE_MARGIN_HORIZONTAL,
                             (int)cursorY,
@@ -196,7 +198,17 @@ public class PdfUtil {
     }
 
 
-
+    private static Bitmap getBitmapFromImageFile(String imageFileName) {
+        if(imageFileName == null) //Load default image
+            return ImageUtil.getBitmap(R.drawable.default_recipe_image);
+        else {
+            try {
+                return ImageUtil.getBitmap(new File(FileUtil.getImageFilesDir(), imageFileName));
+            } catch (Exception e) {
+                return ImageUtil.getBitmap(R.drawable.default_recipe_image);
+            }
+        }
+    }
 
     private static void drawText(Canvas canvas, float posY, float posX, String text, Paint paint) {
         drawIndicatorLine(canvas, posY, Color.GREEN);
@@ -212,6 +224,7 @@ public class PdfUtil {
 
         return new StaticLayout(text, paint, (int)textWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
     }
+
     private static Rect getDestRectForAspectRatio(Bitmap bitmap, float aspectRatio) {
         int destWidth, destHeight;
 
@@ -227,6 +240,7 @@ public class PdfUtil {
         }
         return new Rect(0 ,0, destWidth, destHeight);
     }
+
     private static void drawIndicatorLine(Canvas canvas, float posY, int color) {
 //        if(color == -1)
 //            color = Color.RED;
@@ -235,6 +249,7 @@ public class PdfUtil {
 //        redPaint.setColor(color);
 //        canvas.drawLine(0, posY, canvas.getWidth(), posY, redPaint);
     }
+
     private static float calculateHalfTextHeight(String text, Paint paint) {
         //Calculate text bounds, grab the height, shift text pos by half the text height
         Rect r = new Rect();
