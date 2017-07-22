@@ -49,6 +49,7 @@ public enum Servings {
     public int getValue(){
         return value;
     }
+
     public String getFriendlyName() {
         return value + " " + ChefBuddyApplication.getContext().getString((value == 1 ? servingsSingular : servingsPlural));
     }
@@ -60,5 +61,21 @@ public enum Servings {
             friendlyValues.add(x.value + " " + ChefBuddyApplication.getContext().getString((x.value == 1 ? servingsSingular : servingsPlural)));
         }
         return friendlyValues;
+    }
+
+    public static Servings getServingsForInt(int servingsInt) {
+        if(servingsInt <= 1)
+            return values()[0];
+        if (servingsInt >= SERVINGS_50.getValue())
+            return values()[values().length-1];         //last enum value
+
+        for(int i = 1; i < values().length; i++) {
+            Servings current = values()[i];
+            Servings previous = values()[i-1];
+
+            if(servingsInt >= previous.getValue() && servingsInt < current.getValue())
+                return previous;
+        }
+        return values()[values().length-1];             //last enum value
     }
 }
