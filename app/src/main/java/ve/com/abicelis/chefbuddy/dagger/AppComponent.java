@@ -17,13 +17,15 @@ import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRecipePresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.
  */
 
 @Singleton
-@Component(modules = {AppModule.class, PresenterModule.class, DatabaseModule.class})
+@Component(modules = {AppModule.class, PresenterModule.class, DatabaseModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(MainActivity target);
 
@@ -45,4 +47,8 @@ public interface AppComponent {
 
     void inject(EditImageActivity target);
     void inject(EditImagePresenterImpl target);
+
+
+    void inject(SearchOnlineRecipeActivity target);
+    void inject(SearchOnlineRecipePresenterImpl target);
 }

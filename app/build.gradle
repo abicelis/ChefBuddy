@@ -43,6 +43,9 @@ dependencies {
     //ImageCropper
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
 
+    //Retrofit
+    compile "com.squareup.retrofit2:retrofit:2.1.0"
+    compile "com.squareup.retrofit2:converter-gson:2.1.0"
 
     //Extra
     compile 'com.github.lukedeighton:wheelview:0.4.1'
