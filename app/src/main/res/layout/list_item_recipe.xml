@@ -38,8 +38,12 @@
             android:layout_marginTop="6dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="@color/primary_text"
             android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Placeholder title of Recipe"/>
 
         <TextView
@@ -48,9 +52,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/secondary_text"
             android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="Placeholder ingredients of recipe"/>
     </LinearLayout>
 
