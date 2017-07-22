@@ -182,4 +182,8 @@
     <string name="measurement_kilogram_abbr">Kg</string>
 
 
+
+
+    <!--misc-->
+    <string name="loading">Loading&#8230;</string>
 </resources>
