@@ -8,8 +8,6 @@ package ve.com.abicelis.chefbuddy.app;
 public class Constants {
     public static final String CHEFF_BUDDY = " - Chef Buddy";
 
-    public static final String API_KEY = "394TsayTE0ZxEgLLwuCvpfQWyoWTjGHF3UivkfZB";
-
     public static final String  IMAGE_FILE_EXTENSION = ".jpg";
     public static final String  PDF_FILE_EXTENSION = ".pdf";
     public static final String  IMAGE_FILES_DIR = "recipe/image";
@@ -41,5 +39,11 @@ public class Constants {
     public static final int REQUEST_ADD_RECIPE_IMAGE = 122;
     public static final int REQUEST_IMAGE_CAPTURE = 123;
     public static final int REQUEST_PICK_IMAGE_GALLERY = 124;
+
+
+    /* WEB APIS */
+    public static final String EDAMAM_BASE_URL = "https://edamam-recipe-search-and-diet-v1.p.mashape.com";
+    private static final String EDAMAM_API_KEY_TESTING = "FgW2dpYzYzmshHbrNbwec3dlmvy6p1DHtBLjsn0iVf8VxE8zWS";
+    public static final String EDAMAM_API_KEY = EDAMAM_API_KEY_TESTING;
 
 }
