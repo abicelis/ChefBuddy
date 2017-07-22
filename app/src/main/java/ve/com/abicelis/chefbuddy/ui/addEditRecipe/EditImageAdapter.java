@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.ItemTouchHelperAdapter;
 
 /**
@@ -20,7 +19,7 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
     //DATA
     private Activity mActivity;
     private LayoutInflater mInflater;
-    private List<Image> mImages;
+    private List<String> mImageFilenames;
     private OnDragStartListener mDragStartListener;
 
 
@@ -37,29 +36,29 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
 
     @Override
     public void onBindViewHolder(EditImageViewHolder holder, int position) {
-        holder.setData(this, mActivity, mImages.get(position), position);
+        holder.setData(this, mActivity, mImageFilenames.get(position), position);
         holder.setListeners(mDragStartListener);
     }
 
     @Override
     public int getItemCount() {
-        return mImages.size();
+        return mImageFilenames.size();
     }
 
 
 
-    public void setItems(List<Image> recipeIngredients) {
-        mImages = recipeIngredients;
+    public void setItems(List<String> imageFilenames) {
+        mImageFilenames = imageFilenames;
         notifyDataSetChanged();
     }
 
-    public void addItem(Image image) {
-        mImages.add(image);
+    public void addItem(String imageFilename) {
+        mImageFilenames.add(imageFilename);
         notifyItemInserted(getItemCount());
     }
 
     public void removeItem(int position) {
-        mImages.remove(position);
+        mImageFilenames.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
     }
@@ -69,8 +68,8 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
     /* ItemTouchHelperAdapter interface implementation */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        Image prev = mImages.remove(fromPosition);
-        mImages.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        String prev = mImageFilenames.remove(fromPosition);
+        mImageFilenames.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
         notifyItemMoved(fromPosition, toPosition);
     }
 

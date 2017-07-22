@@ -8,12 +8,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 
 /**
  * Created by abicelis on 9/7/2017.
@@ -49,7 +54,11 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         mCurrent = current;
         mPosition = position;
 
-        mImage.setImageBitmap(mCurrent.getFeaturedImage());
+        Picasso.with(activity)
+                .load(new File(FileUtil.getImageFilesDir(), mCurrent.getFeaturedImageFilename()))
+                .error(R.drawable.default_recipe_image)
+                .into(mImage);
+
         mName.setText(mCurrent.getName());
         mIngredients.setText(mCurrent.getSimpleIngredientsString());
     }

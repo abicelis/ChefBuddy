@@ -1,6 +1,5 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter;
 
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditImageAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
@@ -29,5 +28,5 @@ public interface AddEditRecipePresenter {
     void setPreparationTimeSelection(int position);
 
     void addRecipeIngredient(RecipeIngredient recipeIngredient);
-    void addImage(Image image);
+    void addImage(String imageFilename);
 }

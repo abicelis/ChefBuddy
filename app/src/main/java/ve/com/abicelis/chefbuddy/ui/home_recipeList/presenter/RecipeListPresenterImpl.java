@@ -53,7 +53,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
         try {
             List<Recipe> recipes = mDao.getRecipes();
 
-            if(recipes.size() > 0 && recipes.get(0).getFeaturedImage() == ImageUtil.getBitmap(R.drawable.default_recipe_image)) {
+            if(recipes.size() == 5) {
                 //Recipes don't have images.
 
                 //Create image dir
@@ -66,41 +66,7 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
                 saveDrawableAsImage(imageDir, "5.jpg", R.drawable.pasta);
 
                 for (Recipe r: recipes) {
-
-                    Drawable dp = null;
-                    switch (r.getName()) {
-                        case "Pizza Gloria":
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.pizza);
-                            break;
-
-                        case "Hummus":
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.hummus);
-                            break;
-
-
-                        case "Burgers":
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.burger);
-                            break;
-
-
-                        case "Caesar Salad":
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.salad);
-                            break;
-
-
-                        case "Carbonara Pasta":
-                            dp = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), R.drawable.pasta);
-                            break;
-                    }
-
-                    Bitmap bp = ImageUtil.getBitmap(dp);
-                    byte[] btp = ImageUtil.toCompressedByteArray(bp, 30);
-
-
-                    mDao.deleteRecipe(r.getId());
-                    r.setFeaturedImageBytes(btp);
                     mDao.insertRecipe(r);
-
                 }
 
             }

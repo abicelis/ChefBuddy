@@ -32,7 +32,6 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
@@ -251,8 +250,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
                 String fileName = data.getStringExtra(Constants.EDIT_IMAGE_ACTIVITY_INTENT_IMAGE_FILENAME);
 
                 if(fileName != null && !fileName.isEmpty()) {
-                    Image newImage = new Image(fileName, true);
-                    mPresenter.addImage(newImage);
+                    mPresenter.addImage(fileName);
                 }
             }
         }

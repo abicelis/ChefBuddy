@@ -28,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
@@ -350,11 +352,16 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     @Override
     public void showRecipe(Recipe recipe) {
         mToolbarTitle.setText(recipe.getName());
-        //mToolbarLogo.setImageBitmap(recipe.getFeaturedImage());
+        //mToolbarLogo.setImageBitmap(recipe.getFeaturedImageFilename());
 
-        mTitleImage.setImageBitmap(recipe.getFeaturedImage());
-        mImage.setImageBitmap(recipe.getFeaturedImage());
-
+        Picasso.with(this)
+                .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                .error(R.drawable.default_recipe_image)
+                .into(mTitleImage);
+        Picasso.with(this)
+                .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                .error(R.drawable.default_recipe_image)
+                .into(mImage);
 
         mTitleTitle.setText(recipe.getName());
         mTitleDetail.setText(String.format(Locale.getDefault(),
@@ -381,7 +388,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
         //Images recyclerView
         mImageAdapter.getItems().clear();
-        mImageAdapter.getItems().addAll(recipe.getImages());
+        mImageAdapter.getItems().addAll(recipe.getImageFilenames());
         mImageAdapter.notifyDataSetChanged();
 
         if(mImageAdapter.getItems().size() == 0) {

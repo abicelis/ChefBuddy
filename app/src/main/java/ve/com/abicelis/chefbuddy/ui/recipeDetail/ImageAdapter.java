@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.model.Image;
-import ve.com.abicelis.chefbuddy.model.Recipe;
 
 /**
  * Created by abicelis on 15/7/2017.
@@ -22,7 +20,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     private Activity mActivity;
     private LayoutInflater mInflater;
     private ImageClickListener mListener;
-    private List<Image> mImages = new ArrayList<>();
+    private List<String> mImageFilenames = new ArrayList<>();
 
     public ImageAdapter(Activity activity) {
         mActivity = activity;
@@ -36,17 +34,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        holder.setData(this, mActivity, mImages.get(position), position);
+        holder.setData(this, mActivity, mImageFilenames.get(position), position);
         holder.setListeners();
     }
 
-    public List<Image> getItems() {
-        return mImages;
+    public List<String> getItems() {
+        return mImageFilenames;
     }
 
     @Override
     public int getItemCount() {
-        return mImages.size();
+        return mImageFilenames.size();
     }
 
 

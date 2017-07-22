@@ -1,23 +1,23 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.app.Activity;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.model.Image;
-import ve.com.abicelis.chefbuddy.model.Measurement;
-import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.itemTouchHelper.ItemTouchHelperViewHolder;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 
 /**
  * Created by abicelis on 15/7/2017.
@@ -29,7 +29,7 @@ public class EditImageViewHolder extends RecyclerView.ViewHolder implements View
     private EditImageAdapter mAdapter;
     private EditImageAdapter.OnDragStartListener mDragStartListener;
     private Activity mActivity;
-    private Image mCurrent;
+    private String mCurrent;
     private int mPosition;
 
     //UI
@@ -38,11 +38,11 @@ public class EditImageViewHolder extends RecyclerView.ViewHolder implements View
 
     @BindView(R.id.list_item_edit_image_delete)
     //FloatingActionButton mDelete;
-    RelativeLayout mDelete;
+            RelativeLayout mDelete;
 
     @BindView(R.id.list_item_edit_image_drag_handle)
     //FloatingActionButton mDragHandle;
-    ImageView mDragHandle;
+            ImageView mDragHandle;
 
 
     public EditImageViewHolder(View itemView) {
@@ -50,13 +50,16 @@ public class EditImageViewHolder extends RecyclerView.ViewHolder implements View
         ButterKnife.bind(this, itemView);
     }
 
-    public void setData(EditImageAdapter adapter, Activity activity, Image current, int position) {
+    public void setData(EditImageAdapter adapter, Activity activity, String current, int position) {
         mAdapter = adapter;
         mActivity = activity;
         mCurrent = current;
         mPosition = position;
 
-        mImage.setImageBitmap(current.getImage());
+        Picasso.with(activity)
+                .load(new File(FileUtil.getImageFilesDir(), mCurrent))
+                .error(R.drawable.default_recipe_image)
+                .into(mImage);
     }
 
     public void setListeners(final EditImageAdapter.OnDragStartListener dragStartListener) {
