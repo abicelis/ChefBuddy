@@ -29,7 +29,8 @@ TODO
 - MVP: Model View Presenter
 <!---- Unit testing
 - Integration testing--->
-- Dependency Injection
+- Dependency Injection using Dagger 2
+- Retrofit
 - Custom Compound Views (such as FancyEditText)
 - Custom xml attributes for compound views
 - ItemTouchHelper implementation (for dragging/sorting items on a recyclerView) (thanks to [ItemTouchHelper-Demo](https://github.com/iPaulPro/Android-ItemTouchHelper-Demo))
