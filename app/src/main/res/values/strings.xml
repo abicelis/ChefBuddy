@@ -184,6 +184,8 @@
 
 
 
+
     <!--misc-->
     <string name="loading">Loading&#8230;</string>
+    <string name="edamam_perparation">Visit %1$s for instructions on how to prepare this recipe</string>
 </resources>
