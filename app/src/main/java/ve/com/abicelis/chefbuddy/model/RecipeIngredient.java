@@ -2,13 +2,14 @@ package ve.com.abicelis.chefbuddy.model;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 /**
  * Created by abicelis on 28/6/2017.
  */
 
-public class RecipeIngredient {
+public class RecipeIngredient implements Serializable {
 
     private long id;
     private String amount;

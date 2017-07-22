@@ -1,23 +1,21 @@
 package ve.com.abicelis.chefbuddy.model;
 
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 /**
  * Created by abicelis on 28/6/2017.
  */
 
-public class Recipe {
+public class Recipe implements Serializable {
     private long id;
     private String name;
     private Servings servings;
