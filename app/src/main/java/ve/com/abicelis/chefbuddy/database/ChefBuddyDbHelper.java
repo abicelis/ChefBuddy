@@ -129,10 +129,10 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName() +
                 ") VALUES " +
                 "(0, 'Pizza Gloria', 'SERVINGS_40', 'HOUR_2', 'Preheat oven and a baking sheet to 220C/fan 200C. Mix strong bread flour, salt and fast-action yeast together in a large bowl. Quickly stir in lukewarm water and olive oil and bring together to a rough dough.', '1.jpg')," +
-                "(1, 'Hummus', 'SERVINGS_50', 'MINUTE_45', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '1.jpg|2.jpg')," +
+                "(1, 'Hummus', 'SERVINGS_50', 'MINUTE_45', '1. Put everything except the parsley in a food processor and begin to process; add the chickpea liquid or water as needed to allow the machine to produce a smooth puree.', '2.jpg|1.jpg')," +
                 "(2, 'Burgers', 'SERVINGS_3', 'HOUR_2', '1 Preheat grill for high heat. 2 In a large bowl, mix the ground beef, egg, bread crumbs, evaporated milk, Worcestershire sauce, cayenne pepper, and garlic using your hands. Form the mixture into 8 hamburger patties. 3 Lightly oil the grill grate. Grill patties 5 minutes per side, or until well done.', '|')," +
-                "(3, 'Caesar Salad', 'SERVINGS_1', 'MINUTE_30', 'Mince 3 cloves of garlic, and combine in a small bowl with mayonnaise, anchovies, 2 tablespoons of the Parmesan cheese, Worcestershire sauce, mustard, and lemon juice. Season to taste with salt and black pepper. Heat oil in a large skillet over medium heat. Place lettuce in a large bowl.', '1.jpg|2.jpg|3.jpg|4.jpg|')," +
-                "(4, 'Carbonara Pasta', 'SERVINGS_2', 'HOUR_1', '1 Heat pasta water. 2 Saute pancetta/bacon and garlic. 3 Beat eggs and half of the cheese. 4 Cook pasta. 5 Toss pasta with pancetta/bacon. 6 Add the beaten egg mixture', '|1.jpg|2.jpg|3.jpg|4.jpg|5.jpg')" +
+                "(3, 'Caesar Salad', 'SERVINGS_1', 'MINUTE_30', 'Mince 3 cloves of garlic, and combine in a small bowl with mayonnaise, anchovies, 2 tablespoons of the Parmesan cheese, Worcestershire sauce, mustard, and lemon juice. Season to taste with salt and black pepper. Heat oil in a large skillet over medium heat. Place lettuce in a large bowl.', '4.jpg|2.jpg|3.jpg|1.jpg|')," +
+                "(4, 'Carbonara Pasta', 'SERVINGS_2', 'HOUR_1', '1 Heat pasta water. 2 Saute pancetta/bacon and garlic. 3 Beat eggs and half of the cheese. 4 Cook pasta. 5 Toss pasta with pancetta/bacon. 6 Add the beaten egg mixture', '|5.jpg|2.jpg|3.jpg|4.jpg|1.jpg')" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
