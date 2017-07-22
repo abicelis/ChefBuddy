@@ -27,6 +27,7 @@ public class Recipe {
     private List<String> imageFilenames = new ArrayList<>();
 
 
+    /* When creating a new recipe */
     public Recipe() {
         id = -1;
         name = "";
@@ -35,8 +36,25 @@ public class Recipe {
         directions = "";
     }
 
+    /* When fetching a recipe from db */
     public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, String imageFilenamesStr) {
         this.id = id;
+        this.name = name;
+        this.servings = servings;
+        this.preparationTime = preparationTime;
+        this.directions = directions;
+
+        if(imageFilenamesStr != null && !imageFilenamesStr.isEmpty()) {
+            for( String filename : imageFilenamesStr.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
+                if(!filename.isEmpty())
+                    this.imageFilenames.add(filename);
+            }
+        }
+    }
+
+    /* When fetching recipes online */
+    public Recipe(@NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, String imageFilenamesStr) {
+        id = -1;
         this.name = name;
         this.servings = servings;
         this.preparationTime = preparationTime;
