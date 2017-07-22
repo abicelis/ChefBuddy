@@ -21,6 +21,7 @@ public enum Message {
     ERROR_NO_CAMERA_INSTALLED(R.string.error_no_camera_installed),
     ERROR_REQUESTING_CAMERA(R.string.error_requesting_camera),
     ERROR_SAVING_PDF(R.string.error_saving_pdf),
+    ERROR_LOADING_ONLINE_RECIPES(R.string.error_loading_online_recipes),
 
 
     INVALID_RECIPE_NAME(R.string.invalid_recipe_name),

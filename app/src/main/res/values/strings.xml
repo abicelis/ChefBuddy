@@ -124,6 +124,7 @@
     <string name="error_saving_recipe">Unexpected error saving the recipe</string>
     <string name="error_exporting_recipe_to_pdf">Unexpected error exporting the recipe to pdf</string>
     <string name="error_saving_pdf">Unexpected error saving the pdf</string>
+    <string name="error_loading_online_recipes">Error loading online recipe list</string>
 
     <string name="invalid_recipe_name">Please enter a valid recipe name</string>
     <string name="invalid_recipe_servings">Please enter a valid servings amount</string>

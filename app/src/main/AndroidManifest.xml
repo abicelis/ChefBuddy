@@ -24,8 +24,8 @@
         <activity android:name=".ui.addEditRecipe.AddEditRecipeActivity"/>
         <activity android:name=".ui.test.TestActivity"/>
         <activity android:name=".ui.imageGallery.ImageGalleryActivity"/>
-        <activity android:name=".ui.editImageActivity.EditImageActivity">
-        </activity>
+        <activity android:name=".ui.editImageActivity.EditImageActivity"/>
+        <activity android:name=".ui.searchOnlineRecipe.SearchOnlineRecipeActivity"/>
 
         <!--FILE PROVIDER FOR CAMERA-->
         <provider

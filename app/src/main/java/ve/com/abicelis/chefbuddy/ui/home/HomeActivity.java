@@ -33,6 +33,7 @@ import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
+import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivity;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -232,8 +233,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_home_about:
-                Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
+                Intent goToSearchIntent = new Intent(this, SearchOnlineRecipeActivity.class);
+                startActivity(goToSearchIntent);
                 break;
+
             case R.id.menu_home_settings:
                 Toast.makeText(this, "Settings screen under construction", Toast.LENGTH_SHORT).show();
                 break;

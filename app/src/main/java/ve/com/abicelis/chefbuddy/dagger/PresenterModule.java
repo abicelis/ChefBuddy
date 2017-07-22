@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
+import ve.com.abicelis.chefbuddy.network.EdamamApi;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenter;
@@ -19,6 +20,8 @@ import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRecipePresenter;
+import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRecipePresenterImpl;
 
 /**
  * Created by abicelis on 5/7/2017.
@@ -67,5 +70,11 @@ public class PresenterModule {
     @Singleton
     EditImagePresenter provideEditImagePresenter() {
         return new EditImagePresenterImpl();
+    }
+
+    @Provides
+    @Singleton
+    SearchOnlineRecipePresenter provideSearchOnlineRecipePresenter(EdamamApi edamamApi, ChefBuddyDAO dao) {
+        return new SearchOnlineRecipePresenterImpl(edamamApi, dao);
     }
 }
