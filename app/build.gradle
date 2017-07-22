@@ -43,6 +43,10 @@ dependencies {
     //ImageCropper
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
 
+    //Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:2.1.0"
     compile "com.squareup.retrofit2:converter-gson:2.1.0"
