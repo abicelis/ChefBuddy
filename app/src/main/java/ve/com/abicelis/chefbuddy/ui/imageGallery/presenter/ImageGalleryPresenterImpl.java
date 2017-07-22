@@ -36,7 +36,7 @@ public class ImageGalleryPresenterImpl implements ImageGalleryPresenter {
         try{
             mRecipe = mDao.getRecipe(recipeId);
             if(mView != null)
-                mView.showImages(mRecipe.getImages());
+                mView.showImages(mRecipe.getImageFilenames());
         } catch (CouldNotGetDataException e) {
             if(mView != null)
                 mView.showErrorMessage(Message.ERROR_LOADING_IMAGES);

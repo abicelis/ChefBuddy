@@ -9,8 +9,8 @@ import android.view.View;
 
 import com.veinhorn.scrollgalleryview.MediaInfo;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
-import com.veinhorn.scrollgalleryview.loader.DefaultImageLoader;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +24,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.view.ImageGalleryView;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
@@ -73,14 +74,14 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
     /* ImageGalleryView interface implementation */
 
     @Override
-    public void showImages(List<Image> images) {
+    public void showImages(List<String> imageFilenames) {
         mGallery
                 .setThumbnailSize(300)
                 .setZoom(true)
                 .setFragmentManager(getSupportFragmentManager());
 
-        for (Image i : images)
-            mGallery.addMedia(MediaInfo.mediaLoader(new DefaultImageLoader(i.getImage())));
+        for (String imageFilename : imageFilenames)
+            mGallery.addMedia(MediaInfo.mediaLoader(new PicassoImageLoader( new File(FileUtil.getImageFilesDir(), imageFilename) )));
 
         mGallery.setCurrentItem(mPosition);
     }
