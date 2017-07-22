@@ -7,10 +7,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
-import ve.com.abicelis.chefbuddy.model.edamam.EdamamRecipe;
+import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.edamam.EdamamResponse;
 import ve.com.abicelis.chefbuddy.network.EdamamApi;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.view.SearchOnlineRecipeView;
+import ve.com.abicelis.chefbuddy.util.RecipeUtil;
 
 /**
  * Created by abicelis on 21/7/2017.
@@ -19,7 +20,6 @@ import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.view.SearchOnlineRecipeVi
 public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresenter {
 
     //DATA
-    //EdamamResponse edamamResponse;
     SearchOnlineRecipeView mView;
 
     //Injected
@@ -43,7 +43,7 @@ public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresen
     }
 
     @Override
-    public void getQueryRawResults(String query) {
+    public void getRecipes(String query) {
         if(mView != null)
             mView.showLoading();
 
@@ -55,13 +55,10 @@ public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresen
                     if(mView != null)
                         mView.showErrorMessage(Message.ERROR_LOADING_ONLINE_RECIPES);
                 } else {
-
-//                    List<FoodzItem> foodzItemList = Stream.of(response.body().getList().getItem())
-//                            .filter(foodzItem -> !foodzItem.getName().contains("ERROR"))
-//                            .collect(Collectors.toList());
+                    List<Recipe> recipes = RecipeUtil.getRecipesFromEdamamResponse(response);
 
                     if( mView != null)
-                        mView.showQueryRawResults(response);
+                        mView.showRecipes(recipes);
                 }
                 if(mView != null)
                     mView.hideLoading();

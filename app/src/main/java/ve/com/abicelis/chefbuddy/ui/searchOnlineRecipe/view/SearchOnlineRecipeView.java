@@ -1,8 +1,9 @@
 package ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.view;
 
-import retrofit2.Response;
+import java.util.List;
+
 import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.model.edamam.EdamamResponse;
+import ve.com.abicelis.chefbuddy.model.Recipe;
 
 /**
  * Created by abicelis on 21/7/2017.
@@ -11,6 +12,6 @@ import ve.com.abicelis.chefbuddy.model.edamam.EdamamResponse;
 public interface SearchOnlineRecipeView {
     void showLoading();
     void hideLoading();
-    void showQueryRawResults(Response<EdamamResponse> response);
+    void showRecipes(List<Recipe> recipes);
     void showErrorMessage(Message message);
 }

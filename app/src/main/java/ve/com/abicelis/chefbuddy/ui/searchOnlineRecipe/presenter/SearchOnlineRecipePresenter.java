@@ -11,5 +11,5 @@ public interface SearchOnlineRecipePresenter {
     void attachView(SearchOnlineRecipeView view);
     void detachView();
 
-    void getQueryRawResults(String query);
+    void getRecipes(String query);
 }
