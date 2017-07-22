@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 
 /**
  * Created by abicelis on 15/7/2017.
@@ -18,12 +20,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     //DATA
     private Activity mActivity;
+    private RecipeSource mRecipeSource;
     private LayoutInflater mInflater;
     private ImageClickListener mListener;
     private List<String> mImageFilenames = new ArrayList<>();
 
-    public ImageAdapter(Activity activity) {
+    public ImageAdapter(Activity activity, @NonNull RecipeSource recipeSource) {
         mActivity = activity;
+        mRecipeSource = recipeSource;
         mInflater = LayoutInflater.from(activity);
     }
 
@@ -34,7 +38,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        holder.setData(this, mActivity, mImageFilenames.get(position), position);
+        holder.setData(this, mActivity, mRecipeSource, mImageFilenames.get(position), position);
         holder.setListeners();
     }
 

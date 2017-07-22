@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 
 /**
@@ -71,7 +72,8 @@ public class SearchOnlineRecipeListViewHolder extends RecyclerView.ViewHolder im
             case R.id.list_item_recipe_container:
                 mAdapter.forwardRecyclerViewClick();    //Forward click to adapter
                 Intent viewOnlineRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
-                viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
+                viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE, mCurrent);
+                viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, RecipeSource.ONLINE);
                 mActivity.startActivity(viewOnlineRecipeDetailIntent);
                 break;
         }

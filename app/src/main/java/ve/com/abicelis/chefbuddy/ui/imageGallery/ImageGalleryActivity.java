@@ -57,6 +57,7 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
         }
 
+        // TODO: 22/7/2017 GRAB RECIPE ID AND THEN LOAD PICASSO EITHER LINKS OR FILENAMES 
         //Get list of images from intent
         if(getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID) &&
                 getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION)) {

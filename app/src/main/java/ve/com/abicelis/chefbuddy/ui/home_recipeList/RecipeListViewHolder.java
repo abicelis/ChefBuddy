@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
 
@@ -74,7 +75,8 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
             case R.id.list_item_recipe_container:
                 mAdapter.forwardRecyclerViewClick();    //Forward click to adapter
                 Intent viewRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
-                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, mCurrent.getId());
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE, mCurrent);
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, RecipeSource.DATABASE);
                 mActivity.startActivity(viewRecipeDetailIntent);
                 break;
         }

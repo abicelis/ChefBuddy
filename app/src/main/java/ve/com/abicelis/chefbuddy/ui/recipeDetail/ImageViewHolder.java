@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
 
 /**
@@ -21,6 +22,7 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
     //DATA
     private ImageAdapter mAdapter;
     private Activity mActivity;
+    private RecipeSource mRecipeSource;
     private String mCurrent;
     private int mPosition;
 
@@ -36,16 +38,28 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
         mImage = (ImageView) itemView;
     }
 
-    public void setData(ImageAdapter adapter, Activity activity, String current, int position) {
+    public void setData(ImageAdapter adapter, Activity activity, RecipeSource recipeSource, String current, int position) {
         mAdapter = adapter;
         mActivity = activity;
+        mRecipeSource = recipeSource;
         mCurrent = current;
         mPosition = position;
 
-        Picasso.with(activity)
-                .load(new File(FileUtil.getImageFilesDir(), mCurrent))
-                .error(R.drawable.default_recipe_image)
-                .into(mImage);
+        switch (mRecipeSource) {
+            case DATABASE:
+                Picasso.with(activity)
+                        .load(new File(FileUtil.getImageFilesDir(), mCurrent))
+                        .error(R.drawable.default_recipe_image)
+                        .into(mImage);
+                break;
+            case ONLINE:
+                Picasso.with(activity)
+                        .load(mCurrent)
+                        .error(R.drawable.default_recipe_image)
+                        .into(mImage);
+                break;
+
+        }
     }
 
     public void setListeners() {
