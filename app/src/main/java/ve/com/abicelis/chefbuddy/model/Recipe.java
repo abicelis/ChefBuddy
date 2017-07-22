@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
@@ -25,11 +24,7 @@ public class Recipe {
     private PreparationTime preparationTime;
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
-
-    private byte[] featuredImageBytes;
-    private Bitmap featuredImage = null;
-
-    private List<Image> images = new ArrayList<>();
+    private List<String> imageFilenames = new ArrayList<>();
 
 
     public Recipe() {
@@ -40,29 +35,21 @@ public class Recipe {
         directions = "";
     }
 
-    public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, byte[] featuredImageBytes, String imageFilenames, boolean preloadImages) {
+    public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, String imageFilenamesStr) {
         this.id = id;
         this.name = name;
         this.servings = servings;
         this.preparationTime = preparationTime;
         this.directions = directions;
 
-        this.featuredImageBytes = featuredImageBytes;
-        if(featuredImageBytes != null)
-            this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
-
-        if(imageFilenames != null && !imageFilenames.isEmpty()) {
-            for( String filename : imageFilenames.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
+        if(imageFilenamesStr != null && !imageFilenamesStr.isEmpty()) {
+            for( String filename : imageFilenamesStr.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
                 if(!filename.isEmpty())
-                    images.add(new Image(filename, preloadImages));
+                    this.imageFilenames.add(filename);
             }
         }
     }
 
-    public void reloadImages() {
-        for (Image i : images)
-            i.loadImage();
-    }
 
     public long getId() {
         return id;
@@ -112,22 +99,18 @@ public class Recipe {
     public String getDirections() {
         return directions;
     }
-    public Bitmap getFeaturedImage() {
-        if(featuredImage == null)
-            return ImageUtil.getBitmap(R.drawable.default_recipe_image);
-
-        return featuredImage;
+    public String getFeaturedImageFilename() {
+        if(imageFilenames.size() > 0)
+            return imageFilenames.get(0);
+        else return "NOFEATUREDIMAGE";
     }
-    public byte[] getFeaturedImageBytes() {
-        return featuredImageBytes;
+    public List<String> getImageFilenames() {
+        return imageFilenames;
     }
-    public List<Image> getImages() {
-        return images;
-    }
-    public String getImageFilenames() {
+    public String getImageFilenamesStr() {
         StringBuilder sb = new StringBuilder();
-        for (Image i : images) {
-            sb.append(i.getFilename());
+        for (String s : imageFilenames) {
+            sb.append(s);
             sb.append(Constants.IMAGE_FILENAMES_SEPARATOR);
         }
 
@@ -155,10 +138,6 @@ public class Recipe {
     }
     public void setDirections(@NonNull String directions) {
         this.directions = directions;
-    }
-    public void setFeaturedImageBytes(@NonNull byte[] featuredImageBytes) {
-        this.featuredImageBytes = featuredImageBytes;
-        this.featuredImage = ImageUtil.getBitmap(featuredImageBytes);
     }
 
     public Message checkIfValid() {
