@@ -21,7 +21,6 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
-import ve.com.abicelis.chefbuddy.model.Image;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.view.ImageGalleryView;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
@@ -38,7 +37,6 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
     ImageGalleryPresenter mPresenter;
 
     //DATA
-    List<Image> mImages;
     private int mPosition;
 
     @BindView(R.id.activity_image_gallery_view)
