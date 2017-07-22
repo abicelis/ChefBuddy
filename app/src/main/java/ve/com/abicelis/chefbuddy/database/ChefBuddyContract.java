@@ -27,7 +27,6 @@ final class ChefBuddyContract {
         static final TableColumn COLUMN_SERVINGS = new TableColumn(DataType.INTEGER, "servings");
         static final TableColumn COLUMN_PREPARATION_TIME = new TableColumn(DataType.TEXT, "preparation_time");
         static final TableColumn COLUMN_DIRECTIONS = new TableColumn(DataType.TEXT, "directions");
-        static final TableColumn COLUMN_FEATURED_IMAGE = new TableColumn(DataType.BLOB, "featured_image");
         static final TableColumn COLUMN_IMAGE_FILENAMES = new TableColumn(DataType.TEXT, "image_filenames");
     }
 
