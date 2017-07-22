@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter;
 
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 
 /**
@@ -11,7 +12,8 @@ public interface RecipeDetailPresenter {
     void attachView(RecipeDetailView view);
     void detachView();
 
-    void setRecipeId(long recipeId);
+    void setSourceData(RecipeSource recipeSource, Recipe recipe);
+
     void reloadRecipe();
     void deleteRecipe();
     Recipe getLoadedRecipe();

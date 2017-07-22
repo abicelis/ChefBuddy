@@ -5,6 +5,7 @@ import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotDeleteDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 
 /**
@@ -13,8 +14,9 @@ import ve.com.abicelis.chefbuddy.ui.recipeDetail.view.RecipeDetailView;
 
 public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
 
-    private long mRecipeId = -1;
-    private Recipe mLoadedRecipe;
+    private RecipeSource mRecipeSource;
+    private Recipe mRecipe = null;
+
     private RecipeDetailView mView;
     private ChefBuddyDAO mDao;
 
@@ -34,47 +36,51 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
     }
 
     @Override
-    public void setRecipeId(long recipeId) {
-        mRecipeId = recipeId;
-        mLoadedRecipe = null;
+    public void setSourceData(RecipeSource recipeSource, Recipe recipe) {
+        mRecipeSource = recipeSource;
+        mRecipe = recipe;
+        mView.initViews(mRecipeSource);
     }
+
 
     @Override
     public void reloadRecipe() {
-        if(mRecipeId == -1)
-            mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
-
-        try {
-            mLoadedRecipe = mDao.getRecipe(mRecipeId);
-            if(mView != null)
-                mView.showRecipe(mLoadedRecipe);
-        } catch (CouldNotGetDataException e) {
-            if(mView != null)
-                mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
+        switch (mRecipeSource) {
+            case DATABASE:
+                try {
+                    mRecipe = mDao.getRecipe(mRecipe.getId());
+                    mView.showRecipe(mRecipe, mRecipeSource);
+                } catch (CouldNotGetDataException e) {
+                    mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
+                }
+                break;
+            case ONLINE:
+                mView.showRecipe(mRecipe, mRecipeSource);
+                break;
         }
     }
 
     @Override
     public void deleteRecipe() {
-        if(mRecipeId == -1) {
-            if (mView != null) {
+        switch (mRecipeSource) {
+            case DATABASE:
+                try {
+                    mDao.deleteRecipe(mRecipe.getId());
+                    mView.showRecipe(mRecipe, mRecipeSource);
+                } catch (CouldNotDeleteDataException e) {
+                    mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
+                    mView.recipeDeletedSoFinish();
+                }
+                break;
+            case ONLINE:
                 mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
-                return;
-            }
-        }
-
-        try {
-            mDao.deleteRecipe(mRecipeId);
-            mView.recipeDeletedSoFinish();
-        } catch (CouldNotDeleteDataException e) {
-            if(mView != null)
-                mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
+                break;
         }
     }
 
     @Override
     public Recipe getLoadedRecipe() {
-        return mLoadedRecipe;
+        return mRecipe;
     }
 
 }

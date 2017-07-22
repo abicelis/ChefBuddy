@@ -44,6 +44,7 @@ import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
@@ -66,7 +67,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     private boolean mIsTheTitleContainerVisible = true;
 
     @Inject
-    RecipeDetailPresenter recipeDetailPresenter;
+    RecipeDetailPresenter mPresenter;
 
 
     @BindView(R.id.activity_recipe_detail_coordinator)
@@ -148,90 +149,33 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         setContentView(R.layout.activity_recipe_detail);
         ButterKnife.bind(this);
 
-        initViews();
-
         //Init Presenter
         ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
-        recipeDetailPresenter.attachView(this);
+        mPresenter.attachView(this);
 
         //Handle incoming Intent
-        if(getIntent().hasExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID)) {
-            long recipeId = getIntent().getLongExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_ID, -1);
-            recipeDetailPresenter.setRecipeId(recipeId);
+        if(getIntent().hasExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE)
+                && getIntent().hasExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE)) {
+
+            mPresenter.setSourceData(
+                    (RecipeSource) getIntent().getSerializableExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE),
+                    (Recipe) getIntent().getSerializableExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE));
         } else
             showErrorMessage(Message.ERROR_LOADING_RECIPE);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        recipeDetailPresenter.reloadRecipe();
+        mPresenter.reloadRecipe();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        recipeDetailPresenter.detachView();
+        mPresenter.detachView();
 
-    }
-
-    private void initViews() {
-
-        //Hide upper toolbar (toolbarContainer)
-        startAlphaAnimation(mToolbar, 0, View.INVISIBLE);
-
-        //Hook into appbar movement to hide/show views
-        mAppBarLayout.addOnOffsetChangedListener(this);
-
-        //Setup FAB onClick()
-        mFabShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleRecipeShare();
-            }
-        });
-
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
-        mToolbar.inflateMenu(R.menu.menu_recipe_detail);
-        mToolbar.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
-        mToolbar.setNavigationOnClickListener(new NavigationBackListener());
-
-        mToolbarBottom.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
-        mToolbarBottom.inflateMenu(R.menu.menu_recipe_detail);
-        mToolbarBottom.getMenu().findItem(R.id.menu_recipe_detail_share).setVisible(false);   //Hide Share option
-        mToolbarBottom.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
-        mToolbarBottom.setNavigationOnClickListener(new NavigationBackListener());
-
-
-        //Ingredients Recyclerview
-        mIngredientsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mIngredientsAdapter = new RecipeIngredientAdapter(this);
-
-        mIngredientsRecyclerView.setLayoutManager(mIngredientsLayoutManager);
-        mIngredientsRecyclerView.setAdapter(mIngredientsAdapter);
-        mIngredientsRecyclerView.setNestedScrollingEnabled(false);
-
-
-        //Image Recyclerview
-        mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mImageAdapter = new ImageAdapter(this);
-        mImageAdapter.setImageClickListener(new ImageAdapter.ImageClickListener() {
-            @Override
-            public void onImageClicked(int position) {
-                Intent openImageGalleryIntent = new Intent(RecipeDetailActivity.this, ImageGalleryActivity.class);
-                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID, recipeDetailPresenter.getLoadedRecipe().getId());
-                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION, position);
-                startActivity(openImageGalleryIntent);
-            }
-        });
-
-        //DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), mLayoutManager.getOrientation());
-        //itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_decoration_complete_line));
-        //mImagesRecyclerView.addItemDecoration(itemDecoration);
-
-        mImagesRecyclerView.setLayoutManager(mImagesLayoutManager);
-        mImagesRecyclerView.setAdapter(mImageAdapter);
-        mImagesRecyclerView.setNestedScrollingEnabled(false);
     }
 
 
@@ -299,7 +243,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            PdfDocument document = PdfUtil.generatePdfFromRecipe(recipeDetailPresenter.getLoadedRecipe());
+            PdfDocument document = PdfUtil.generatePdfFromRecipe(mPresenter.getLoadedRecipe());
             if(document == null) {
                 showErrorMessage(Message.ERROR_EXPORTING_RECIPE_TO_PDF);
                 return;
@@ -309,7 +253,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
             try {
                 // TODO: 20/7/2017 REMOVE THIS NEXT LINE
                 FileUtil.savePdfDocumentToSD(document, "recipe");
-                filePath = FileUtil.savePdfDocumentToSD(document, recipeDetailPresenter.getLoadedRecipe().getName());
+                filePath = FileUtil.savePdfDocumentToSD(document, mPresenter.getLoadedRecipe().getName());
                 document.close();
             } catch (IOException e) {
                 showErrorMessage(Message.ERROR_SAVING_PDF);
@@ -346,22 +290,103 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
     }
 
+
+
+
     /*
-        *   RecipeDetailView interface implementation
-        */
+     *   RecipeDetailView interface implementation
+     */
+
     @Override
-    public void showRecipe(Recipe recipe) {
+    public void initViews(RecipeSource recipeSource) {
+        //Hide upper toolbar (toolbarContainer)
+        startAlphaAnimation(mToolbar, 0, View.INVISIBLE);
+
+        //Hook into appbar movement to hide/show views
+        mAppBarLayout.addOnOffsetChangedListener(this);
+
+        //Setup FAB and toolbars
+        switch (recipeSource) {
+            case DATABASE:
+                mFabShare.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {handleRecipeShare();
+                    }
+                });
+
+                mToolbar.inflateMenu(R.menu.menu_recipe_detail);
+                mToolbar.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
+
+                mToolbarBottom.inflateMenu(R.menu.menu_recipe_detail);
+                mToolbarBottom.getMenu().findItem(R.id.menu_recipe_detail_share).setVisible(false);   //Hide Share option
+                mToolbarBottom.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
+                break;
+
+            case ONLINE:
+                mFabShare.setVisibility(View.GONE);
+        }
+
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbar.setNavigationOnClickListener(new NavigationBackListener());
+        mToolbarBottom.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbarBottom.setNavigationOnClickListener(new NavigationBackListener());
+
+
+        //Ingredients Recyclerview
+        mIngredientsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mIngredientsAdapter = new RecipeIngredientAdapter(this);
+
+        mIngredientsRecyclerView.setLayoutManager(mIngredientsLayoutManager);
+        mIngredientsRecyclerView.setAdapter(mIngredientsAdapter);
+        mIngredientsRecyclerView.setNestedScrollingEnabled(false);
+
+
+        //Image Recyclerview
+        mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mImageAdapter = new ImageAdapter(this, recipeSource);
+        mImageAdapter.setImageClickListener(new ImageAdapter.ImageClickListener() {
+            @Override
+            public void onImageClicked(int position) {
+                Intent openImageGalleryIntent = new Intent(RecipeDetailActivity.this, ImageGalleryActivity.class);
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID, mPresenter.getLoadedRecipe().getId());
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION, position);
+                startActivity(openImageGalleryIntent);
+            }
+        });
+
+        mImagesRecyclerView.setLayoutManager(mImagesLayoutManager);
+        mImagesRecyclerView.setAdapter(mImageAdapter);
+        mImagesRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void showRecipe(Recipe recipe, RecipeSource recipeSource) {
         mToolbarTitle.setText(recipe.getName());
         //mToolbarLogo.setImageBitmap(recipe.getFeaturedImageFilename());
 
-        Picasso.with(this)
-                .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
-                .error(R.drawable.default_recipe_image)
-                .into(mTitleImage);
-        Picasso.with(this)
-                .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
-                .error(R.drawable.default_recipe_image)
-                .into(mImage);
+        switch (recipeSource) {
+            case DATABASE:
+                Picasso.with(this)
+                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                        .error(R.drawable.default_recipe_image)
+                        .into(mTitleImage);
+                Picasso.with(this)
+                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                        .error(R.drawable.default_recipe_image)
+                        .into(mImage);
+                break;
+            case ONLINE:
+                Picasso.with(this)
+                        .load(recipe.getFeaturedImageFilename())
+                        .error(R.drawable.default_recipe_image)
+                        .into(mTitleImage);
+                Picasso.with(this)
+                        .load(recipe.getFeaturedImageFilename())
+                        .error(R.drawable.default_recipe_image)
+                        .into(mImage);
+                break;
+
+        }
 
         mTitleTitle.setText(recipe.getName());
         mTitleDetail.setText(String.format(Locale.getDefault(),
@@ -427,7 +452,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
             switch (item.getItemId()) {
                 case R.id.menu_recipe_detail_edit:
                     Intent editRecipeIntent = new Intent(RecipeDetailActivity.this, AddEditRecipeActivity.class);
-                    editRecipeIntent.putExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID, recipeDetailPresenter.getLoadedRecipe().getId());
+                    editRecipeIntent.putExtra(Constants.ADD_EDIT_RECIPE_ACTIVITY_INTENT_EXTRA_RECIPE_ID, mPresenter.getLoadedRecipe().getId());
                     startActivity(editRecipeIntent);
                     break;
 
@@ -436,12 +461,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                             .setTitle(getResources().getString(R.string.dialog_recipe_detail_delete_title))
                             .setMessage(String.format(Locale.getDefault(),
                                     getResources().getString(R.string.dialog_recipe_detail_delete_message),
-                                    recipeDetailPresenter.getLoadedRecipe().getName()))
+                                    mPresenter.getLoadedRecipe().getName()))
                             .setPositiveButton(getResources().getString(R.string.dialog_delete),  new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    recipeDetailPresenter.deleteRecipe();
+                                    mPresenter.deleteRecipe();
                                 }
                             })
                             .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
