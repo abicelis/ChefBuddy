@@ -3,7 +3,12 @@ package ve.com.abicelis.chefbuddy.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
+import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,8 +16,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
+import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.util.CalendarUtil;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
+import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
 
 /**
@@ -39,7 +48,9 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createDatabase(sqLiteDatabase);
         insertMockData(sqLiteDatabase);
+        saveImageFiles();
     }
+
 
 
     @Override
@@ -283,5 +294,26 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
         statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.RecipeTable.TABLE_NAME + "; ";
         sqLiteDatabase.execSQL(statement);
 
+    }
+
+
+    private void saveImageFiles() {
+        try {
+            File imageDir = FileUtil.getImageFilesDir();
+            FileUtil.createDirIfNotExists(imageDir);
+            saveDrawableAsImage(imageDir, "1.jpg", R.drawable.pizza);
+            saveDrawableAsImage(imageDir, "2.jpg", R.drawable.hummus);
+            saveDrawableAsImage(imageDir, "3.jpg", R.drawable.burger);
+            saveDrawableAsImage(imageDir, "4.jpg", R.drawable.salad);
+            saveDrawableAsImage(imageDir, "5.jpg", R.drawable.pasta);
+        } catch (Exception e) {
+            Toast.makeText(ChefBuddyApplication.getContext(), "Error saving image files", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveDrawableAsImage(File imageDir, String filename, @DrawableRes int drawable) throws IOException {
+        Drawable d = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), drawable);
+        Bitmap b = ImageUtil.getBitmap(d);
+        ImageUtil.saveBitmapAsJpeg(new File(imageDir, filename), b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
     }
 }

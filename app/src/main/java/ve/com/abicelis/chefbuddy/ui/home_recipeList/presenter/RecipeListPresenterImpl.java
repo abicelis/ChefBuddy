@@ -47,39 +47,6 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
 
     @Override
     public void getRecipes() {
-
-        // TODO: 10/7/2017 THIS IS A HORRIBLE HACK, DELETE THIS
-        //See if recipes need pics
-        try {
-            List<Recipe> recipes = mDao.getRecipes();
-
-            if(recipes.size() == 5) {
-                //Recipes don't have images.
-
-                //Create image dir
-                File imageDir = FileUtil.getImageFilesDir();
-                FileUtil.createDirIfNotExists(imageDir);
-                saveDrawableAsImage(imageDir, "1.jpg", R.drawable.pizza);
-                saveDrawableAsImage(imageDir, "2.jpg", R.drawable.hummus);
-                saveDrawableAsImage(imageDir, "3.jpg", R.drawable.burger);
-                saveDrawableAsImage(imageDir, "4.jpg", R.drawable.salad);
-                saveDrawableAsImage(imageDir, "5.jpg", R.drawable.pasta);
-
-                for (Recipe r: recipes) {
-                    mDao.insertRecipe(r);
-                }
-
-            }
-        } catch (Exception e) {
-            Exception poop = e;
-            String message = e.getMessage();
-            message += "asd";
-
-        }
-
-
-
-
         mView.showLoading();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -93,15 +60,6 @@ public class RecipeListPresenterImpl implements RecipeListPresenter {
                 }
             }
         }, 1000);
-
-
-    }
-
-    //TODO Kill this eventually
-    private void saveDrawableAsImage(File imageDir, String filename, @DrawableRes int drawable) throws IOException {
-        Drawable d = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), drawable);
-        Bitmap b = ImageUtil.getBitmap(d);
-        ImageUtil.saveBitmapAsJpeg(new File(imageDir, filename), b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
     }
 
 
