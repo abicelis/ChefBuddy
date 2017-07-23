@@ -69,8 +69,8 @@ public class PdfUtil {
                 + SUBTITLE_MARGIN_TOP * 3
                 + INGREDIENT_HEIGHT * recipe.getRecipeIngredients().size()
                 + PREPARATION_PARAGRAPH_HEIGHT
-                + NORMAL_IMAGE_MARGIN_VERTICAL * recipe.getImageFilenames().size()
-                + NORMAL_IMAGE_HEIGHT * recipe.getImageFilenames().size()
+                + NORMAL_IMAGE_MARGIN_VERTICAL * recipe.getImages().size()
+                + NORMAL_IMAGE_HEIGHT * recipe.getImages().size()
                 + NORMAL_IMAGE_MARGIN_VERTICAL;
 
         //Paints
@@ -107,7 +107,7 @@ public class PdfUtil {
 
 
         //Featured image
-        Bitmap featuredImage = getBitmapFromImageFile(recipe.getFeaturedImageFilename());
+        Bitmap featuredImage = getBitmapFromImageFile(recipe.getFeaturedImage());
         Rect destRect = getDestRectForAspectRatio(featuredImage, FEATURED_IMAGE_ASPECT_RATIO);
         featuredImage = ThumbnailUtils.extractThumbnail(featuredImage, destRect.width(), destRect.height());
         pageCanvas.drawBitmap(featuredImage, null, new Rect(0, 0, (int)PDF_WIDTH, (int)FEATURED_IMAGE_HEIGHT), null);
@@ -178,7 +178,7 @@ public class PdfUtil {
         drawIndicatorLine(pageCanvas, cursorY, Color.RED);
 
 
-        for (String imageFilename : recipe.getImageFilenames()) {
+        for (String imageFilename : recipe.getImages()) {
             cursorY+=NORMAL_IMAGE_MARGIN_VERTICAL;
             Bitmap image = getBitmapFromImageFile(imageFilename);
             Rect dest = getDestRectForAspectRatio(image, NORMAL_IMAGE_ASPECT_RATIO);

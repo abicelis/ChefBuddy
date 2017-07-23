@@ -72,7 +72,7 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
 
     private void attachRecipeToAdapters() {
         mEditRecipeIngredientAdapter.setItems(mRecipe.getRecipeIngredients());
-        mEditImageAdapter.setItems(mRecipe.getImageFilenames());
+        mEditImageAdapter.setItems(mRecipe.getImages());
     }
 
     @Override

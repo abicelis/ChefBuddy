@@ -53,7 +53,7 @@ public class SearchOnlineRecipeListViewHolder extends RecyclerView.ViewHolder im
         mPosition = position;
 
         Picasso.with(activity)
-                .load(mCurrent.getFeaturedImageFilename())
+                .load(mCurrent.getFeaturedImage())
                 .error(R.drawable.default_recipe_image)
                 .into(mImage);
 

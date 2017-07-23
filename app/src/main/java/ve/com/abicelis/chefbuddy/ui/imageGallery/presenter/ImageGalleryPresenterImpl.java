@@ -51,7 +51,7 @@ public class ImageGalleryPresenterImpl implements ImageGalleryPresenter {
             case ONLINE:
                 break;
         }
-        mView.showImages(mRecipeSource, mRecipe.getImageFilenames(), mPosition);
+        mView.showImages(mRecipeSource, mRecipe.getImages(), mPosition);
     }
 
 }

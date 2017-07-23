@@ -363,26 +363,26 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     @Override
     public void showRecipe(Recipe recipe, RecipeSource recipeSource) {
         mToolbarTitle.setText(recipe.getName());
-        //mToolbarLogo.setImageBitmap(recipe.getFeaturedImageFilename());
+        //mToolbarLogo.setImageBitmap(recipe.getFeaturedImage());
 
         switch (recipeSource) {
             case DATABASE:
                 Picasso.with(this)
-                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImage()))
                         .error(R.drawable.default_recipe_image)
                         .into(mTitleImage);
                 Picasso.with(this)
-                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImageFilename()))
+                        .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImage()))
                         .error(R.drawable.default_recipe_image)
                         .into(mImage);
                 break;
             case ONLINE:
                 Picasso.with(this)
-                        .load(recipe.getFeaturedImageFilename())
+                        .load(recipe.getFeaturedImage())
                         .error(R.drawable.default_recipe_image)
                         .into(mTitleImage);
                 Picasso.with(this)
-                        .load(recipe.getFeaturedImageFilename())
+                        .load(recipe.getFeaturedImage())
                         .error(R.drawable.default_recipe_image)
                         .into(mImage);
                 break;
@@ -414,7 +414,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
         //Images recyclerView
         mImageAdapter.getItems().clear();
-        mImageAdapter.getItems().addAll(recipe.getImageFilenames());
+        mImageAdapter.getItems().addAll(recipe.getImages());
         mImageAdapter.notifyDataSetChanged();
 
         if(mImageAdapter.getItems().size() == 0) {

@@ -22,7 +22,7 @@ public class Recipe implements Serializable {
     private PreparationTime preparationTime;
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     private String directions;
-    private List<String> imageFilenames = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
 
 
     /* When creating a new recipe */
@@ -45,24 +45,21 @@ public class Recipe implements Serializable {
         if(imageFilenamesStr != null && !imageFilenamesStr.isEmpty()) {
             for( String filename : imageFilenamesStr.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
                 if(!filename.isEmpty())
-                    this.imageFilenames.add(filename);
+                    this.images.add(filename);
             }
         }
     }
 
     /* When fetching recipes online */
-    public Recipe(@NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, String imageFilenamesStr) {
+    public Recipe(@NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, List<String> imageUrls) {
         id = -1;
         this.name = name;
         this.servings = servings;
         this.preparationTime = preparationTime;
         this.directions = directions;
 
-        if(imageFilenamesStr != null && !imageFilenamesStr.isEmpty()) {
-            for( String filename : imageFilenamesStr.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
-                if(!filename.isEmpty())
-                    this.imageFilenames.add(filename);
-            }
+        if(imageUrls != null) {
+            this.images = imageUrls;
         }
     }
 
@@ -115,17 +112,17 @@ public class Recipe implements Serializable {
     public String getDirections() {
         return directions;
     }
-    public String getFeaturedImageFilename() {
-        if(imageFilenames.size() > 0)
-            return imageFilenames.get(0);
+    public String getFeaturedImage() {
+        if(images.size() > 0)
+            return images.get(0);
         else return "NOFEATUREDIMAGE";
     }
-    public List<String> getImageFilenames() {
-        return imageFilenames;
+    public List<String> getImages() {
+        return images;
     }
     public String getImageFilenamesStr() {
         StringBuilder sb = new StringBuilder();
-        for (String s : imageFilenames) {
+        for (String s : images) {
             sb.append(s);
             sb.append(Constants.IMAGE_FILENAMES_SEPARATOR);
         }

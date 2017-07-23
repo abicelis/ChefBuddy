@@ -23,7 +23,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     private RecipeSource mRecipeSource;
     private LayoutInflater mInflater;
     private ImageClickListener mListener;
-    private List<String> mImageFilenames = new ArrayList<>();
+    private List<String> mImages = new ArrayList<>();
 
     public ImageAdapter(Activity activity, @NonNull RecipeSource recipeSource) {
         mActivity = activity;
@@ -38,17 +38,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        holder.setData(this, mActivity, mRecipeSource, mImageFilenames.get(position), position);
+        holder.setData(this, mActivity, mRecipeSource, mImages.get(position), position);
         holder.setListeners();
     }
 
     public List<String> getItems() {
-        return mImageFilenames;
+        return mImages;
     }
 
     @Override
     public int getItemCount() {
-        return mImageFilenames.size();
+        return mImages.size();
     }
 
 

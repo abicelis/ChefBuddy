@@ -56,7 +56,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         mPosition = position;
 
         Picasso.with(activity)
-                .load(new File(FileUtil.getImageFilesDir(), mCurrent.getFeaturedImageFilename()))
+                .load(new File(FileUtil.getImageFilesDir(), mCurrent.getFeaturedImage()))
                 .error(R.drawable.default_recipe_image)
                 .into(mImage);
 
