@@ -64,8 +64,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:gravity="bottom|center"
                         android:text="Hummus"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:textColor="@android:color/white"
                         android:textSize="30sp"
                         />
@@ -77,6 +78,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:text="2 servings and no calories!"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:textColor="@android:color/white"
                         />
 
