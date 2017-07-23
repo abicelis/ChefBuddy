@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.home_history.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
@@ -190,8 +192,24 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addRecipeIntent = new Intent(HomeActivity.this, AddEditRecipeActivity.class);
-                startActivity(addRecipeIntent);
+                FragmentManager fm = getSupportFragmentManager();
+                SelectRecipeSourceDialogFragment dialog = SelectRecipeSourceDialogFragment.newInstance();
+                dialog.setListener(new SelectRecipeSourceDialogFragment.RecipeSourceSelectedListener() {
+                    @Override
+                    public void onSourceSelected(RecipeSource recipeSource) {
+                        switch (recipeSource) {
+                            case DATABASE:
+                                Intent addRecipeIntent = new Intent(HomeActivity.this, AddEditRecipeActivity.class);
+                                startActivity(addRecipeIntent);
+                                break;
+                            case ONLINE:
+                                Intent goToSearchIntent = new Intent(HomeActivity.this, SearchOnlineRecipeActivity.class);
+                                startActivity(goToSearchIntent);
+                                break;
+                        }
+                    }
+                });
+                dialog.show(fm, "dialog");
             }
         });
     }
@@ -233,9 +251,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_home_about:
-                //Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
-                Intent goToSearchIntent = new Intent(this, SearchOnlineRecipeActivity.class);
-                startActivity(goToSearchIntent);
+                Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.menu_home_settings:

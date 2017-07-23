@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="@color/gray_background"
+
+    >
+    <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-24dp"
+        android:layout_marginStart="-24dp"
+        android:text="@string/dialog_select_recipe_source_title"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/dialog_select_recipe_source_manual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                app:elevation="0dp"
+                app:backgroundTint="@color/primary"
+                android:src="@drawable/ic_edit"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp"
+                android:lines="1"
+                android:text="@string/dialog_select_recipe_source_manual"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/dialog_select_recipe_source_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                app:elevation="0dp"
+                app:backgroundTint="@color/primary"
+                android:src="@drawable/ic_search"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp"
+                android:text="@string/dialog_select_recipe_source_online"/>
+        </LinearLayout>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-24dp"
+        android:layout_marginEnd="-24dp"
+        android:padding="8dp"
+        >
+
+        <Button
+            android:id="@+id/dialog_select_recipe_source_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/dialog_cancel"
+            android:textColor="@color/primary_text"
+
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="?attr/borderlessButtonStyle"/>
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
