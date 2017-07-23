@@ -298,7 +298,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
      */
 
     @Override
-    public void initViews(RecipeSource recipeSource) {
+    public void initViews(final RecipeSource recipeSource) {
         //Hide upper toolbar (toolbarContainer)
         startAlphaAnimation(mToolbar, 0, View.INVISIBLE);
 
@@ -348,8 +348,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
             @Override
             public void onImageClicked(int position) {
                 Intent openImageGalleryIntent = new Intent(RecipeDetailActivity.this, ImageGalleryActivity.class);
-                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID, mPresenter.getLoadedRecipe().getId());
-                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION, position);
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, recipeSource);
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE, mPresenter.getLoadedRecipe());
+                openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_IMAGE_POSITION, position);
                 startActivity(openImageGalleryIntent);
             }
         });

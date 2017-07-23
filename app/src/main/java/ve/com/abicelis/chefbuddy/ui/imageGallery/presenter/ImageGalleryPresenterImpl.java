@@ -4,6 +4,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.view.ImageGalleryView;
 
 /**
@@ -15,7 +16,9 @@ public class ImageGalleryPresenterImpl implements ImageGalleryPresenter {
     //DATA
     private ChefBuddyDAO mDao;
     private ImageGalleryView mView;
+    private RecipeSource mRecipeSource;
     private Recipe mRecipe;
+    private int mPosition;
 
     public ImageGalleryPresenterImpl(ChefBuddyDAO dao) {
         mDao = dao;
@@ -32,14 +35,23 @@ public class ImageGalleryPresenterImpl implements ImageGalleryPresenter {
     }
 
     @Override
-    public void getImages(long recipeId) {
-        try{
-            mRecipe = mDao.getRecipe(recipeId);
-            if(mView != null)
-                mView.showImages(mRecipe.getImageFilenames());
-        } catch (CouldNotGetDataException e) {
-            if(mView != null)
-                mView.showErrorMessage(Message.ERROR_LOADING_IMAGES);
+    public void setSourceData(RecipeSource recipeSource, Recipe recipe, int position) {
+        mRecipeSource = recipeSource;
+        mRecipe = recipe;
+        mPosition = position;
+
+        switch (mRecipeSource) {
+            case DATABASE:
+                try{
+                    mRecipe = mDao.getRecipe(mRecipe.getId());
+                } catch (CouldNotGetDataException e) {
+                        mView.showErrorMessage(Message.ERROR_LOADING_IMAGES);
+                }
+                break;
+            case ONLINE:
+                break;
         }
+        mView.showImages(mRecipeSource, mRecipe.getImageFilenames(), mPosition);
     }
+
 }

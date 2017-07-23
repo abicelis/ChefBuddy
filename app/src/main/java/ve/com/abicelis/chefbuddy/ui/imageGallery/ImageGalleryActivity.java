@@ -21,6 +21,8 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.view.ImageGalleryView;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
@@ -36,8 +38,6 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
     @Inject
     ImageGalleryPresenter mPresenter;
 
-    //DATA
-    private int mPosition;
 
     @BindView(R.id.activity_image_gallery_view)
     ScrollGalleryView mGallery;
@@ -57,12 +57,16 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
         }
 
-        // TODO: 22/7/2017 GRAB RECIPE ID AND THEN LOAD PICASSO EITHER LINKS OR FILENAMES 
-        //Get list of images from intent
-        if(getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID) &&
-                getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION)) {
-            mPosition = getIntent().getIntExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_IMAGE_POSITION, -1);
-            mPresenter.getImages(getIntent().getLongExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_RECIPE_ID, -1));
+        //Get intent data
+        if(getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE) &&
+                getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE) &&
+                getIntent().hasExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_IMAGE_POSITION)) {
+
+            RecipeSource recipeSource = (RecipeSource) getIntent().getSerializableExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE);
+            Recipe recipe = (Recipe) getIntent().getSerializableExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE);
+            int position = getIntent().getIntExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_IMAGE_POSITION, -1);
+
+            mPresenter.setSourceData(recipeSource, recipe, position);
         } else
             showErrorMessage(Message.ERROR_LOADING_IMAGES);
 
@@ -70,19 +74,27 @@ public class ImageGalleryActivity extends AppCompatActivity implements ImageGall
 
 
 
+
     /* ImageGalleryView interface implementation */
 
     @Override
-    public void showImages(List<String> imageFilenames) {
-        mGallery
-                .setThumbnailSize(300)
+    public void showImages(RecipeSource recipeSource, List<String> images, int position) {
+        mGallery.setThumbnailSize(300)
                 .setZoom(true)
                 .setFragmentManager(getSupportFragmentManager());
 
-        for (String imageFilename : imageFilenames)
-            mGallery.addMedia(MediaInfo.mediaLoader(new PicassoImageLoader( new File(FileUtil.getImageFilesDir(), imageFilename) )));
+        for (String image : images) {
+            switch (recipeSource) {
+                case DATABASE:
+                    mGallery.addMedia(MediaInfo.mediaLoader(new PicassoImageLoader(new File(FileUtil.getImageFilesDir(), image))));
+                    break;
+                case ONLINE:
+                    mGallery.addMedia(MediaInfo.mediaLoader(new PicassoImageLoader(image)));        //URLs
+                    break;
+            }
+        }
 
-        mGallery.setCurrentItem(mPosition);
+        mGallery.setCurrentItem(position);
     }
 
     @Override

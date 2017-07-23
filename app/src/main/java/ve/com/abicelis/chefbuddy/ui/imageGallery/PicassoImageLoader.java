@@ -17,10 +17,15 @@ import ve.com.abicelis.chefbuddy.R;
 
 public class PicassoImageLoader implements MediaLoader {
 
-    private File mFile;
+    private File mFile = null;
+    private String mUrl = null;
 
     public PicassoImageLoader(File file) {
         this.mFile = file;
+    }
+
+    public PicassoImageLoader(String url) {
+        this.mUrl = url;
     }
 
     @Override
@@ -28,22 +33,37 @@ public class PicassoImageLoader implements MediaLoader {
         return true;
     }
 
+
     @Override
     public void loadMedia(Context context, final ImageView imageView, final MediaLoader.SuccessCallback callback) {
-        Picasso.with(context)
-                .load(mFile)
-                .placeholder(R.drawable.placeholder_image)
-                .into(imageView, new ImageCallback(callback));
+        if(mFile != null)
+            Picasso.with(context)
+                    .load(mFile)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(imageView, new ImageCallback(callback));
+        else
+            Picasso.with(context)
+                    .load(mUrl)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(imageView, new ImageCallback(callback));
     }
 
     @Override
     public void loadThumbnail(Context context, ImageView thumbnailView, MediaLoader.SuccessCallback callback) {
-        Picasso.with(context)
+        if(mFile != null)
+            Picasso.with(context)
                 .load(mFile)
                 .resize(100, 100)
                 .placeholder(R.drawable.placeholder_image)
                 .centerInside()
                 .into(thumbnailView, new ImageCallback(callback));
+        else
+            Picasso.with(context)
+                    .load(mUrl)
+                    .resize(100, 100)
+                    .placeholder(R.drawable.placeholder_image)
+                    .centerInside()
+                    .into(thumbnailView, new ImageCallback(callback));
     }
 
     private static class ImageCallback implements Callback {

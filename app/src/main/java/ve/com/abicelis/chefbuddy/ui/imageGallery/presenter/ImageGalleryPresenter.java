@@ -1,5 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.imageGallery.presenter;
 
+import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.view.ImageGalleryView;
 
 /**
@@ -10,5 +12,5 @@ public interface ImageGalleryPresenter {
     void attachView(ImageGalleryView view);
     void detachView();
 
-    void getImages(long recipeId);
+    void setSourceData(RecipeSource recipeSource, Recipe recipe, int position);
 }
