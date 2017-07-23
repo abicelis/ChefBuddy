@@ -58,6 +58,7 @@ public class RecipeListViewHolder extends RecyclerView.ViewHolder implements Vie
         Picasso.with(activity)
                 .load(new File(FileUtil.getImageFilesDir(), mCurrent.getFeaturedImage()))
                 .error(R.drawable.default_recipe_image)
+                .fit().centerCrop()
                 .into(mImage);
 
         mName.setText(mCurrent.getName());
