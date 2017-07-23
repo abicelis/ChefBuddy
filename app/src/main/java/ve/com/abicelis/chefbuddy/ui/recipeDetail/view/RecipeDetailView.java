@@ -13,5 +13,6 @@ public interface RecipeDetailView {
     void initViews(RecipeSource recipeSource);
     void showRecipe(Recipe recipe, RecipeSource recipeSource);
     void recipeDeletedSoFinish();
+    void recipeDownloadedSoFinish();
     void showErrorMessage(Message message);
 }

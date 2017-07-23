@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +32,7 @@ public class RecipeUtil {
             EdamamRecipe er = hit.getRecipe();
             String linkToPreparation = String.format(Locale.getDefault(), ChefBuddyApplication.getContext().getString(R.string.edamam_perparation), er.getUrl());
             Recipe newRecipe = new Recipe(er.getLabel(), Servings.getServingsForInt(er.getYield()), PreparationTime.HOUR_1,
-                    linkToPreparation, er.getImage());
+                    linkToPreparation, new ArrayList<>(Arrays.asList(er.getImage())));
 
             for (EdamamIngredient ei : er.getIngredients()) {
                 newRecipe.getRecipeIngredients().add(new RecipeIngredient(String.valueOf(ei.getQuantity()), Measurement.NONE, new Ingredient(ei.getFood())));

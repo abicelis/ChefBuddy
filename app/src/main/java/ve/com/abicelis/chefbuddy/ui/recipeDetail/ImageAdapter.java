@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     private RecipeSource mRecipeSource;
     private LayoutInflater mInflater;
     private ImageClickListener mListener;
+    private ImageDownloadListener mDownloadListener;
     private List<String> mImages = new ArrayList<>();
 
     public ImageAdapter(Activity activity, @NonNull RecipeSource recipeSource) {
@@ -64,5 +66,19 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     public interface ImageClickListener {
         void onImageClicked(int position);
+    }
+
+
+    /* Interface for notifying activity Picasso has downloaded a bitmap */
+    public void notifyImageDownloaded(Bitmap bitmap) {
+        mDownloadListener.onImageDownloaded(bitmap);
+    }
+
+    public void setImageDownloadedListener(ImageDownloadListener listener) {
+        mDownloadListener = listener;
+    }
+
+    public interface ImageDownloadListener {
+        void onImageDownloaded(Bitmap bitmap);
     }
 }

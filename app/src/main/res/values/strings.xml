@@ -41,6 +41,7 @@
     <string name="activity_recipe_detail_share_recipe_title">Share Recipe</string>
 
     <string name="activity_recipe_detail_success_deleting_recipe">Recipe deleted successfully</string>
+    <string name="activity_recipe_detail_success_downloading_recipe">Recipe downloaded successfully</string>
 
 
         <!--Add Edit Recipe Discard Dialog-->
@@ -96,7 +97,13 @@
         <string name="dialog_select_image_source_gallery">Gallery</string>
 
 
+    <!--Search Online Recipe Activity-->
 
+
+        <!--Select recipe source dialog-->
+        <string name="dialog_select_recipe_source_title">ADD A RECIPE</string>
+        <string name="dialog_select_recipe_source_manual">Enter manually</string>
+        <string name="dialog_select_recipe_source_online">Find online</string>
 
 
 
@@ -114,6 +121,7 @@
     <!--Message enum-->
     <string name="error_loading_recipes">Unexpected error loading recipe list</string>
     <string name="error_loading_recipe">Could not load recipe</string>
+    <string name="error_downloading_recipe">Unexpected error downloading recipe</string>
     <string name="error_deleting_recipe">Could not delete recipe</string>
     <string name="error_loading_ingredients">Could not load ingredients</string>
     <string name="error_loading_images">Could not load images</string>

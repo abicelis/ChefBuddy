@@ -11,6 +11,7 @@ import ve.com.abicelis.chefbuddy.R;
 public enum Message {
     ERROR_LOADING_RECIPES(R.string.error_loading_recipes),
     ERROR_LOADING_RECIPE(R.string.error_loading_recipe),
+    ERROR_DOWNLOADING_RECIPE(R.string.error_downloading_recipe),
     ERROR_DELETING_RECIPE(R.string.error_deleting_recipe),
     ERROR_SAVING_RECIPE(R.string.error_saving_recipe),
     ERROR_EXPORTING_RECIPE_TO_PDF(R.string.error_exporting_recipe_to_pdf),

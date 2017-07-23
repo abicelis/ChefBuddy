@@ -277,4 +277,13 @@
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_fab_share" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_recipe_detail_fab_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp" app:fabSize="normal"
+        app:layout_anchor="@id/activity_recipe_detail_appbar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_download" />
+
 </android.support.design.widget.CoordinatorLayout>

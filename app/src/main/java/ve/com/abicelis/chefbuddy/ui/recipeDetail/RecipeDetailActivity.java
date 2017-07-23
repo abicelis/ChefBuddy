@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
@@ -120,6 +121,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     FloatingActionButton mFabShare;
 
 
+    /* Download FAB */
+    @BindView(R.id.activity_recipe_detail_fab_download)
+    FloatingActionButton mFabDownload;
+
+
     /* NestedScrollView bottom content */
     @BindView(R.id.activity_recipe_detail_preparation)
     TextView mPreparation;
@@ -169,6 +175,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     protected void onResume() {
         super.onResume();
         mPresenter.reloadRecipe();
+        mPresenter.clearCachedBitmaps();
     }
 
     @Override
@@ -277,6 +284,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -308,6 +316,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
         //Setup FAB and toolbars
         switch (recipeSource) {
             case DATABASE:
+                mFabDownload.setVisibility(View.GONE);
                 mFabShare.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {handleRecipeShare();
@@ -324,6 +333,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
 
             case ONLINE:
                 mFabShare.setVisibility(View.GONE);
+                mFabDownload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPresenter.downloadRecipe();
+                    }
+                });
         }
 
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
@@ -352,6 +367,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                 openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_RECIPE, mPresenter.getLoadedRecipe());
                 openImageGalleryIntent.putExtra(Constants.IMAGE_GALLERY_ACTIVITY_INTENT_EXTRA_IMAGE_POSITION, position);
                 startActivity(openImageGalleryIntent);
+            }
+        });
+        mImageAdapter.setImageDownloadedListener(new ImageAdapter.ImageDownloadListener() {
+            @Override
+            public void onImageDownloaded(Bitmap bitmap) {
+                mPresenter.cacheBitmap(bitmap);
             }
         });
 
@@ -436,6 +457,18 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
             }
         };
         SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_success_deleting_recipe, SnackbarUtil.SnackbarDuration.SHORT, callback);
+    }
+
+    @Override
+    public void recipeDownloadedSoFinish() {
+        BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                onBackPressed();
+            }
+        };
+        SnackbarUtil.showSnackbar(mCoordinatorLayout, SnackbarUtil.SnackbarType.SUCCESS, R.string.activity_recipe_detail_success_downloading_recipe, SnackbarUtil.SnackbarDuration.SHORT, callback);
     }
 
     @Override

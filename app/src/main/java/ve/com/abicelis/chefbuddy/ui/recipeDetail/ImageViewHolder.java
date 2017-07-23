@@ -1,11 +1,14 @@
 package ve.com.abicelis.chefbuddy.ui.recipeDetail;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 
@@ -50,13 +53,29 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
                 Picasso.with(activity)
                         .load(new File(FileUtil.getImageFilesDir(), mCurrent))
                         .error(R.drawable.default_recipe_image)
+                        .fit().centerCrop()
                         .into(mImage);
                 break;
             case ONLINE:
                 Picasso.with(activity)
                         .load(mCurrent)
-                        .error(R.drawable.default_recipe_image)
-                        .into(mImage);
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                mAdapter.notifyImageDownloaded(bitmap);
+                                mImage.setImageBitmap(bitmap);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {}
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                        });
+//                Picasso.with(activity)
+//                        .load(mCurrent)
+//                        .error(R.drawable.default_recipe_image)
+//                        .into(mImage);
                 break;
 
         }
