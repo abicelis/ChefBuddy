@@ -128,37 +128,6 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
 
 
 
-
-
-//    private void saveThumbnailAsImageFile(Bitmap thumbnail) {
-//        File imageFile = new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename());
-//        try {
-//            ImageUtil.saveBitmapAsJpeg(imageFile, thumbnail, IMAGE_COMPRESSION_PERCENTAGE);
-//            SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.activity_edit_image_attachment_snackbar_error_image_deleted_from_device, SnackbarUtil.SnackbarDuration.LONG, null);
-//
-//        }catch (IOException e) {
-//            BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-//                @Override
-//                public void onDismissed(Snackbar transientBottomBar, int event) {
-//                    super.onDismissed(transientBottomBar, event);
-//                    setResult(RESULT_CANCELED);
-//                    finish();
-//                }
-//            };
-//            SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.error_unexpected, SnackbarUtil.SnackbarDuration.LONG, callback);
-//        }
-//    }
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        applyPendingRotation();
-//        outState.putSerializable(IMAGE_ATTACHMENT_EXTRA, mImageAttachment);
-//        outState.putInt(HOLDER_POSITION_EXTRA, mHolderPosition);
-//        outState.putBoolean(EDITING_ATTACHMENT_EXTRA, mEditingExistingImageAttachment);
-//    }
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
