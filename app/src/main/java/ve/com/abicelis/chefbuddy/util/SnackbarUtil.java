@@ -36,6 +36,22 @@ public class SnackbarUtil {
         snackbar.show();
     }
 
+    public static void showSnackbar(View container, @NonNull SnackbarType snackbarType,
+                                    @NonNull String textString, @Nullable SnackbarDuration duration,
+                                    @Nullable BaseTransientBottomBar.BaseCallback<Snackbar> callback) {
+
+        duration = (duration == null ? SnackbarDuration.LONG : duration);
+
+        Snackbar snackbar = Snackbar.make(container, textString, duration.getDuration());
+        snackbar.getView().setBackgroundResource(snackbarType.getColorRes());
+        TextView snackbarText = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+        snackbarText.setCompoundDrawablesWithIntrinsicBounds(0, 0,snackbarType.getIconRes(), 0);
+        snackbarText.setGravity(Gravity.CENTER);
+        if(callback != null)
+            snackbar.addCallback(callback);
+        snackbar.show();
+    }
+
 
     public enum SnackbarDuration {
         LONG(Snackbar.LENGTH_LONG),
