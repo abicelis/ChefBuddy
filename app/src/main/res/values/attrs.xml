@@ -18,6 +18,10 @@
         <attr name="icon"/>
     </declare-styleable>
 
+    <declare-styleable name="fancy_title_text_view">
+        <attr name="default_padding" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="fancy_auto_complete_text_view" parent="fancy_common">
         <attr name="text"/>
         <attr name="hint"/>

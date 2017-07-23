@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingTop="24dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:background="@color/gray_background"
@@ -12,9 +14,8 @@
     <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="-24dp"
-        android:layout_marginStart="-24dp"
         android:text="@string/dialog_select_recipe_source_title"
+        custom:default_padding="false"
         />
 
 
