@@ -98,7 +98,13 @@
 
 
     <!--Search Online Recipe Activity-->
+    <string name="activity_search_online_recipe_invalid_query">Please enter a recipe search keyword</string>
+    <string name="activity_search_online_recipe_menu_search">Search</string>
+    <string name="activity_search_online_recipe_menu_source">Source</string>
 
+    <string name="activity_search_online_recipe_api_changed">Recipe search changed to %1$s</string>
+    <string name="activity_search_online_recipe_api_name_edamam">Edamam</string>
+    <string name="activity_search_online_recipe_api_name_food_2_fork">Food2Fork</string>
 
         <!--Select recipe source dialog-->
         <string name="dialog_select_recipe_source_title">ADD A RECIPE</string>

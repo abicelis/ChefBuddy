@@ -7,6 +7,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
+import ve.com.abicelis.chefbuddy.model.OnlineSourceApi;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.edamam.EdamamResponse;
 import ve.com.abicelis.chefbuddy.network.EdamamApi;
@@ -21,6 +22,7 @@ public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresen
 
     //DATA
     SearchOnlineRecipeView mView;
+    OnlineSourceApi mOnlineSourceApi = OnlineSourceApi.EDAMAM;
 
     //Injected
     EdamamApi mEdamamApi;
@@ -47,6 +49,7 @@ public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresen
         if(mView != null)
             mView.showLoading();
 
+        //TODO implement some kind of interface for source apis based also on mOnlineSourceApi enum.
         mEdamamApi.searchRecipesByName(query).enqueue(new Callback<EdamamResponse>() {
             @Override
             public void onResponse(Call<EdamamResponse> call, Response<EdamamResponse> response) {
@@ -70,5 +73,11 @@ public class SearchOnlineRecipePresenterImpl implements SearchOnlineRecipePresen
                     mView.showErrorMessage(Message.ERROR_LOADING_ONLINE_RECIPES);
             }
         });
+    }
+
+    @Override
+    public void setSourceApi(OnlineSourceApi onlineSourceApi) {
+        mOnlineSourceApi = onlineSourceApi;
+        mView.clearRecipes();
     }
 }

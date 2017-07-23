@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_search_online_recipe_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/activity_search_online_recipe_menu_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_search_online_recipe_source"
+        android:icon="@drawable/ic_source"
+        android:title="@string/activity_search_online_recipe_menu_source"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:id="@+id/menu_search_online_recipe_source_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_search_online_recipe_source_edamam"
+                    android:title="@string/activity_search_online_recipe_api_name_edamam"
+                    android:checked="true"
+                    />
+                <item
+                    android:id="@+id/menu_search_online_recipe_source_food_2_fork"
+                    android:title="@string/activity_search_online_recipe_api_name_food_2_fork"
+                    />
+            </group>
+        </menu>
+
+    </item>
+
+</menu>

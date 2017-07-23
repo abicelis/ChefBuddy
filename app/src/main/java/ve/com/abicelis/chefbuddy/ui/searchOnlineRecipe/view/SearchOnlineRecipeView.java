@@ -12,6 +12,7 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 public interface SearchOnlineRecipeView {
     void showLoading();
     void hideLoading();
+    void clearRecipes();
     void showRecipes(List<Recipe> recipes);
     void showErrorMessage(Message message);
 }

@@ -1,5 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter;
 
+import ve.com.abicelis.chefbuddy.model.OnlineSourceApi;
 import ve.com.abicelis.chefbuddy.model.edamam.EdamamResponse;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.view.SearchOnlineRecipeView;
 
@@ -12,4 +13,5 @@ public interface SearchOnlineRecipePresenter {
     void detachView();
 
     void getRecipes(String query);
+    void setSourceApi(OnlineSourceApi onlineSourceApi);
 }
