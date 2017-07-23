@@ -12,7 +12,7 @@
         android:id="@+id/menu_recipe_detail_edit"
         android:icon="@drawable/ic_edit"
         android:title="@string/activity_recipe_detail_edit"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_recipe_detail_delete"
