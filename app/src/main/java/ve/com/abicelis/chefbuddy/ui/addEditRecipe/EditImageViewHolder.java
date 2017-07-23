@@ -58,6 +58,7 @@ public class EditImageViewHolder extends RecyclerView.ViewHolder implements View
 
         Picasso.with(activity)
                 .load(new File(FileUtil.getImageFilesDir(), mCurrent))
+                .fit().centerCrop()
                 .error(R.drawable.default_recipe_image)
                 .into(mImage);
     }
