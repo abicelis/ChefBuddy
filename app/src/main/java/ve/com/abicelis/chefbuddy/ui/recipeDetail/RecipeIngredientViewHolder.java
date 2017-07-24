@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
-import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 
@@ -60,7 +58,7 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
             mAmountMeasurement.setText(mCurrent.getAmount() + " " + mCurrent.getMeasurement().getAbbreviation());
         }
 
-        mIconImage.setImageDrawable(mCurrent.getMeasurement().getIcon());
+        mIconImage.setImageResource(mCurrent.getMeasurement().getIconRes());
     }
 
     public void setListeners() {
