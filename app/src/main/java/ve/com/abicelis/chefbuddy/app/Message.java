@@ -24,6 +24,7 @@ public enum Message {
     ERROR_SAVING_PDF(R.string.error_saving_pdf),
     ERROR_LOADING_ONLINE_RECIPES(R.string.error_loading_online_recipes),
 
+    NOTICE_LOADING_RECIPE_DETAILS(R.string.notice_loading_recipes_details),
 
     INVALID_RECIPE_NAME(R.string.invalid_recipe_name),
     INVALID_RECIPE_SERVINGS(R.string.invalid_recipe_servings),

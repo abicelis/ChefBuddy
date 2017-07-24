@@ -10,5 +10,5 @@ public interface HomePresenter {
     void attachView(HomeView view);
     void detachView();
 
-    //void getRecipes();
+    //void searchRecipes();
 }

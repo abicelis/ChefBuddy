@@ -7,5 +7,5 @@ package ve.com.abicelis.chefbuddy.ui.home.view;
 
 public interface HomeView {
     //void showRecipes(List<Recipe> recipes);
-    //void showErrorMessage(Message message);
+    //void showMessage(Message message);
 }

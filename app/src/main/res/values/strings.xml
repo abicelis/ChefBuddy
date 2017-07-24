@@ -24,6 +24,7 @@
 
 
     <!--Recipe detail activity-->
+    <string name="activity_recipe_detail_download">Download</string>
     <string name="activity_recipe_detail_edit">Edit</string>
     <string name="activity_recipe_detail_delete">Delete</string>
     <string name="activity_recipe_detail_share">Share</string>
@@ -140,6 +141,8 @@
     <string name="error_saving_pdf">Unexpected error saving the pdf</string>
     <string name="error_loading_online_recipes">Error loading online recipe list</string>
 
+    <string name="notice_loading_recipes_details">Loading recipe details</string>
+
     <string name="invalid_recipe_name">Please enter a valid recipe name</string>
     <string name="invalid_recipe_servings">Please enter a valid servings amount</string>
     <string name="invalid_recipe_preparation_time">Please enter a valid preparation time</string>
@@ -177,6 +180,14 @@
     <string name="measurement_liter">Liter</string>
     <string name="measurement_gram">Gram</string>
     <string name="measurement_kilogram">Kilogram</string>
+    <string name="measurement_pound">Pound</string>
+    <string name="measurement_can">Can</string>
+    <string name="measurement_nut">Nut</string>
+    <string name="measurement_clove">Clove</string>
+    <string name="measurement_jar">Clove</string>
+    <string name="measurement_package">Package</string>
+    <string name="measurement_box">Box</string>
+    <string name="measurement_sheet">Sheet</string>
 
     <string name="measurement_inch_abbr">in</string>
     <string name="measurement_tablespoon_abbr">tbsp</string>
@@ -194,6 +205,14 @@
     <string name="measurement_liter_abbr">L</string>
     <string name="measurement_gram_abbr">g</string>
     <string name="measurement_kilogram_abbr">Kg</string>
+    <string name="measurement_pound_abbr">lb</string>
+    <string name="measurement_can_abbr">can</string>
+    <string name="measurement_nut_abbr">nut</string>
+    <string name="measurement_clove_abbr">clv</string>
+    <string name="measurement_jar_abbr">clv</string>
+    <string name="measurement_package_abbr">pck</string>
+    <string name="measurement_box_abbr">box</string>
+    <string name="measurement_sheet_abbr">sht</string>
 
 
 
