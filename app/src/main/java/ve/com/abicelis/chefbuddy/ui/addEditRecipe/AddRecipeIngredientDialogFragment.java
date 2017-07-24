@@ -86,11 +86,6 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         mMeasurementList = Measurement.getFriendlyNames();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,10 +101,12 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         mAmount.setMaxLenght(Constants.MAX_LENGHT_RECIPE_INGREDIENT_AMOUNT);
 
         mMeasurement.setItems(mMeasurementList);
+        mMeasurement.setSelection(1);
         mMeasurement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSelectedMeasurement = Measurement.values()[position];
+                mMeasurement.setIcon(mSelectedMeasurement.getIconRes());
             }
 
             @Override
