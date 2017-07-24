@@ -339,6 +339,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                         mPresenter.downloadRecipe();
                     }
                 });
+                mToolbar.inflateMenu(R.menu.menu_recipe_detail_online_recipe);
+                mToolbar.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
         }
 
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
@@ -517,6 +519,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                     handleRecipeShare();
                     break;
 
+                case R.id.menu_recipe_detail_download:
+                    mPresenter.downloadRecipe();
+                    break;
             }
             return true;
         }
