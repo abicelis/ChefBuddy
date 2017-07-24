@@ -24,6 +24,8 @@ public class Recipe implements Serializable {
     private String directions;
     private List<String> images = new ArrayList<>();
 
+    private String extraId;     //This id is used in some cases for some online Apis when fetching recipes.
+
 
     /* When creating a new recipe */
     public Recipe() {
@@ -132,7 +134,9 @@ public class Recipe implements Serializable {
 
         return sb.toString();
     }
-
+    public String getExtraId() {
+        return extraId;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -167,6 +171,9 @@ public class Recipe implements Serializable {
             return Message.INVALID_RECIPE_DIRECTIONS;
 
         return null;
+    }
+    public void setExtraId(String extraId) {
+        this.extraId = extraId;
     }
 
     @Override

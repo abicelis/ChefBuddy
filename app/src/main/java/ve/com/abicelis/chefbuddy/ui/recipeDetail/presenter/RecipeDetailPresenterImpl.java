@@ -78,7 +78,7 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
 
             mDao.insertRecipe(mRecipe);
         } catch (CouldNotInsertDataException e) {
-            mView.showErrorMessage(Message.ERROR_LOADING_RECIPE);
+            mView.showErrorMessage(Message.ERROR_DOWNLOADING_RECIPE);
         } catch (IOException e) {
             mView.showErrorMessage(Message.ERROR_SAVING_IMAGE);
         }
