@@ -71,11 +71,7 @@ public class SearchOnlineRecipeListViewHolder extends RecyclerView.ViewHolder im
         int id = v.getId();
         switch (id) {
             case R.id.list_item_recipe_container:
-                mAdapter.forwardRecyclerViewClick();    //Forward click to adapter
-                Intent viewOnlineRecipeDetailIntent = new Intent(mActivity, RecipeDetailActivity.class);
-                viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE, mCurrent);
-                viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, RecipeSource.ONLINE);
-                mActivity.startActivity(viewOnlineRecipeDetailIntent);
+                mAdapter.forwardRecyclerViewClick(mPosition);    //Forward click to adapter
                 break;
         }
     }

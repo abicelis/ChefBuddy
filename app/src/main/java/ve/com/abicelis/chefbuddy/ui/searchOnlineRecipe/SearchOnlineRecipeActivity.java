@@ -1,5 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -9,14 +11,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,9 +31,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.OnlineSourceApi;
 import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.view.SearchOnlineRecipeView;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
@@ -112,8 +115,8 @@ public class SearchOnlineRecipeActivity extends AppCompatActivity implements Sea
         mRecyclerView.setAdapter(mSearchOnlineRecipeListAdapter);
         mSearchOnlineRecipeListAdapter.setOnRecyclerViewClickListener(new SearchOnlineRecipeListAdapter.RecyclerViewClickListener() {
             @Override
-            public void onRecyclerViewClicked() {
-                // TODO: 22/7/2017 hide search or something
+            public void onRecyclerViewClicked(int position) {
+                mPresenter.getRecipeDetail(position);
             }
         });
 
@@ -164,7 +167,11 @@ public class SearchOnlineRecipeActivity extends AppCompatActivity implements Sea
                 SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.NOTICE, R.string.activity_search_online_recipe_invalid_query, SnackbarUtil.SnackbarDuration.SHORT, null);
                 return;
             }
-            mPresenter.getRecipes(mQuery.getText().toString());
+            mPresenter.searchRecipes(mQuery.getText().toString());
+
+            //Hide keyboard
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(mQuery.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -197,7 +204,19 @@ public class SearchOnlineRecipeActivity extends AppCompatActivity implements Sea
     }
 
     @Override
-    public void showErrorMessage(Message message) {
-        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
+    public void showRecipeDetail(int position, Recipe recipe) {
+        //Update recipe data (with ingredients if it is Food2Fork)!
+        mSearchOnlineRecipeListAdapter.getItems().set(position, recipe);
+        mSearchOnlineRecipeListAdapter.notifyItemChanged(position);
+
+        Intent viewOnlineRecipeDetailIntent = new Intent(this, RecipeDetailActivity.class);
+        viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE, recipe);
+        viewOnlineRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, RecipeSource.ONLINE);
+        startActivity(viewOnlineRecipeDetailIntent);
+    }
+
+    @Override
+    public void showMessage(Message message, SnackbarUtil.SnackbarType snackbarType) {
+        SnackbarUtil.showSnackbar(mContainer, snackbarType, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 }

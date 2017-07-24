@@ -50,8 +50,8 @@ public class SearchOnlineRecipeListAdapter extends RecyclerView.Adapter<SearchOn
     }
 
 
-    public void forwardRecyclerViewClick() {
-        mListener.onRecyclerViewClicked();      //Forward click to RecyclerViewClickListener
+    public void forwardRecyclerViewClick(int position) {
+        mListener.onRecyclerViewClicked(position);      //Forward click to RecyclerViewClickListener
     }
 
 
@@ -60,6 +60,6 @@ public class SearchOnlineRecipeListAdapter extends RecyclerView.Adapter<SearchOn
     }
 
     interface RecyclerViewClickListener {
-        void onRecyclerViewClicked();
+        void onRecyclerViewClicked(int position);
     }
 }
