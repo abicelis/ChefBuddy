@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.network.EdamamApi;
+import ve.com.abicelis.chefbuddy.network.Food2ForkApi;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenter;
@@ -74,7 +75,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    SearchOnlineRecipePresenter provideSearchOnlineRecipePresenter(EdamamApi edamamApi, ChefBuddyDAO dao) {
-        return new SearchOnlineRecipePresenterImpl(edamamApi, dao);
+    SearchOnlineRecipePresenter provideSearchOnlineRecipePresenter(EdamamApi edamamApi, Food2ForkApi food2ForkApi, ChefBuddyDAO dao) {
+        return new SearchOnlineRecipePresenterImpl(edamamApi, food2ForkApi, dao);
     }
 }
