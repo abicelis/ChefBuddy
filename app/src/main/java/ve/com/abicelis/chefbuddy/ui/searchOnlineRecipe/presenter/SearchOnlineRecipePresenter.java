@@ -12,6 +12,7 @@ public interface SearchOnlineRecipePresenter {
     void attachView(SearchOnlineRecipeView view);
     void detachView();
 
-    void getRecipes(String query);
     void setSourceApi(OnlineSourceApi onlineSourceApi);
+    void searchRecipes(String query);
+    void getRecipeDetail(int position);
 }
