@@ -7,6 +7,8 @@
         android:layout_width="24dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:tint="@color/primary"
         android:visibility="gone"/>
 
@@ -14,11 +16,10 @@
         android:id="@+id/fancy_spinner_spinner"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginLeft="16dp"/>
-        <!--android:layout_marginStart="16dp"-->
-        <!--android:background="@color/white"-->
-        <!--android:textColor="@color/secondary_text"-->
-        <!--android:textColorHint="@color/hint_text"-->
-        <!--/>-->
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        />
 
 </merge>
