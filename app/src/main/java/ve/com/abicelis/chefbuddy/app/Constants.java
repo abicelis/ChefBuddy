@@ -49,12 +49,12 @@ public class Constants {
 
 
     /* WEB APIS */
-    public static final String EDAMAM_BASE_URL = "https://edamam-recipe-search-and-diet-v1.p.mashape.com";
+    public static final String EDAMAM_BASE_URL = "https://edamam-recipe-search-and-diet-v1.p.mashape.com/";
     private static final String EDAMAM_API_KEY_TESTING = "FgW2dpYzYzmshHbrNbwec3dlmvy6p1DHtBLjsn0iVf8VxE8zWS";
     public static final String EDAMAM_API_KEY = EDAMAM_API_KEY_TESTING;
 
 
-    public static final String FOOD2FORK_BASE_URL = "http://food2fork.com/api";
+    public static final String FOOD2FORK_BASE_URL = "http://food2fork.com/api/";
     public static final String FOOD2FORK_API_KEY = "544dce2bc365fff9a14505aa58c3731b";
 
 
