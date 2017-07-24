@@ -1,123 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="@color/gray_background"
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    >
+    <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:background="@color/gray_background"
+        android:text="@string/dialog_add_recipe_ingredient_title"
+        custom:default_padding="false"
+        />
 
-        >
-        <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+
+        <ve.com.abicelis.chefbuddy.views.FancyEditText
+            android:id="@+id/dialog_add_recipe_ingredient_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="@string/dialog_add_recipe_ingredient_title"
+            custom:icon="@drawable/ic_amount"
+            custom:hint="@string/dialog_add_recipe_ingredient_amount_hint"
+            custom:maxLines="2"
+            />
+        <ve.com.abicelis.chefbuddy.views.FancySpinner
+            android:id="@+id/dialog_add_recipe_ingredient_measurement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            custom:icon="@drawable/ic_measurement_cup"
+
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_add_recipe_ingredient_amount_hint"/>
-                <ve.com.abicelis.chefbuddy.views.FancyEditText
-                    android:id="@+id/dialog_add_recipe_ingredient_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    custom:maxLines="1"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_add_recipe_ingredient_measurement_hint"/>
-                <ve.com.abicelis.chefbuddy.views.FancySpinner
-                    android:id="@+id/dialog_add_recipe_ingredient_measurement"
-                    android:layout_width="110dp"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_add_recipe_ingredient_ingredient_hint"/>
-                <ve.com.abicelis.chefbuddy.views.FancyAutoCompleteTextView
-                    android:id="@+id/dialog_add_recipe_ingredient_ingredient"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    custom:maxLines="1"
-                    />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-
-        <RelativeLayout
+        <ve.com.abicelis.chefbuddy.views.FancyAutoCompleteTextView
+            android:id="@+id/dialog_add_recipe_ingredient_ingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="-24dp"
-            android:layout_marginEnd="-24dp"
-            android:padding="8dp"
-            >
+            android:layout_marginTop="8dp"
+            custom:maxLines="1"
+            custom:icon="@drawable/ic_food"
+            custom:hint="@string/dialog_add_recipe_ingredient_ingredient_hint"
+            />
 
-            <Button
-                android:id="@+id/dialog_add_recipe_ingredient_ok"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="@string/dialog_done"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                style="?attr/borderlessButtonStyle"/>
 
-            <Button
-                android:id="@+id/dialog_add_recipe_ingredient_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_toStartOf="@id/dialog_add_recipe_ingredient_ok"
-                android:layout_toLeftOf="@id/dialog_add_recipe_ingredient_ok"
-                android:text="@string/dialog_cancel"
-                style="?attr/borderlessButtonStyle"/>
-
-        </RelativeLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-24dp"
+        android:layout_marginEnd="-24dp"
+        android:padding="8dp">
+        <Button
+            android:id="@+id/dialog_add_recipe_ingredient_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/dialog_done"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="?attr/borderlessButtonStyle"/>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/dialog_add_recipe_ingredient_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_toStartOf="@id/dialog_add_recipe_ingredient_ok"
+            android:layout_toLeftOf="@id/dialog_add_recipe_ingredient_ok"
+            android:text="@string/dialog_cancel"
+            style="?attr/borderlessButtonStyle"/>
+    </RelativeLayout>
+</LinearLayout>
