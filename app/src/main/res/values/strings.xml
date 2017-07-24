@@ -81,9 +81,8 @@
         <!--Add Recipe Ingredient Dialog-->
         <string name="dialog_add_recipe_ingredient_title">ADD INGREDIENT</string>
 
-        <string name="dialog_add_recipe_ingredient_amount_hint">Amount</string>
-        <string name="dialog_add_recipe_ingredient_measurement_hint">Measurement</string>
-        <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient</string>
+        <string name="dialog_add_recipe_ingredient_amount_hint">Amount&#8230;</string>
+        <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient&#8230;</string>
 
         <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
 
@@ -176,52 +175,67 @@
 
     <!--Measurements enum-->
     <string name="measurement_none">NONE</string>
-    <string name="measurement_inch">Inch</string>
+
     <string name="measurement_tablespoon">Tablespoon</string>
     <string name="measurement_teaspoon">Teaspoon</string>
     <string name="measurement_cup">Cup</string>
+
+    <string name="measurement_ounce">Ounce</string>
+    <string name="measurement_pound">Pound</string>
+    <string name="measurement_gram">Gram</string>
+    <string name="measurement_kilogram">Kilogram</string>
+
+    <string name="measurement_fluid_ounce">Fluid ounce</string>
     <string name="measurement_pint">Pint</string>
     <string name="measurement_quart">Quart</string>
     <string name="measurement_gallon">Gallon</string>
-    <string name="measurement_ounce">Ounce</string>
-    <string name="measurement_fluid_ounce">Fluid ounce</string>
+
+    <string name="measurement_inch">Inch</string>
     <string name="measurement_centimeter">Centimeter</string>
     <string name="measurement_meter">Meter</string>
+
     <string name="measurement_cubic_centimeter">Cubic centimeter</string>
     <string name="measurement_mililiter">Mililiter</string>
     <string name="measurement_liter">Liter</string>
-    <string name="measurement_gram">Gram</string>
-    <string name="measurement_kilogram">Kilogram</string>
-    <string name="measurement_pound">Pound</string>
+
     <string name="measurement_can">Can</string>
     <string name="measurement_nut">Nut</string>
     <string name="measurement_clove">Clove</string>
-    <string name="measurement_jar">Clove</string>
+    <string name="measurement_jar">Jar</string>
     <string name="measurement_package">Package</string>
     <string name="measurement_box">Box</string>
     <string name="measurement_sheet">Sheet</string>
 
-    <string name="measurement_inch_abbr">in</string>
+
+
+
     <string name="measurement_tablespoon_abbr">tbsp</string>
     <string name="measurement_teaspoon_abbr">tsp</string>
     <string name="measurement_cup_abbr">cp</string>
+
+    <string name="measurement_ounce_abbr">oz</string>
+    <string name="measurement_pound_abbr">lb</string>
+    <string name="measurement_gram_abbr">g</string>
+    <string name="measurement_kilogram_abbr">Kg</string>
+
+    <string name="measurement_fluid_ounce_abbr">fl oz</string>
     <string name="measurement_pint_abbr">pt</string>
     <string name="measurement_quart_abbr">qt</string>
     <string name="measurement_gallon_abbr">gal</string>
-    <string name="measurement_ounce_abbr">oz</string>
-    <string name="measurement_fluid_ounce_abbr">fl oz</string>
+
+    <string name="measurement_inch_abbr">in</string>
     <string name="measurement_centimeter_abbr">cm</string>
     <string name="measurement_meter_abbr">m</string>
+
+
     <string name="measurement_cubic_centimeter_abbr">cc</string>
     <string name="measurement_mililiter_abbr">ml</string>
     <string name="measurement_liter_abbr">L</string>
-    <string name="measurement_gram_abbr">g</string>
-    <string name="measurement_kilogram_abbr">Kg</string>
-    <string name="measurement_pound_abbr">lb</string>
+
     <string name="measurement_can_abbr">can</string>
     <string name="measurement_nut_abbr">nut</string>
     <string name="measurement_clove_abbr">clv</string>
-    <string name="measurement_jar_abbr">clv</string>
+    <string name="measurement_jar_abbr">jar</string>
     <string name="measurement_package_abbr">pck</string>
     <string name="measurement_box_abbr">box</string>
     <string name="measurement_sheet_abbr">sht</string>
