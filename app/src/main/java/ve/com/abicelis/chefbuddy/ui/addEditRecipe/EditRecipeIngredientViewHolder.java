@@ -1,6 +1,8 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -8,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +26,6 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
 
     //DATA
     private EditRecipeIngredientAdapter mAdapter;
-    private EditRecipeIngredientAdapter.OnDragStartListener mDragStartListener;
     private Activity mActivity;
     private RecipeIngredient mCurrent;
     private int mPosition;
@@ -91,9 +91,23 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
         int id = v.getId();
         switch (id) {
             case R.id.list_item_edit_recipe_ingredient_delete_container:
-
-                Toast.makeText(mActivity, "Are you sure...?" + mPosition, Toast.LENGTH_SHORT).show();
-                mAdapter.removeItem(mPosition);
+                AlertDialog dialog = new AlertDialog.Builder(mActivity)
+                        .setTitle(mActivity.getString(R.string.dialog_add_edit_recipe_delete_ingredient_title))
+                        .setMessage(mActivity.getString(R.string.dialog_add_edit_recipe_delete_ingredient_message))
+                        .setPositiveButton(mActivity.getString(R.string.dialog_delete),  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mAdapter.removeItem(mPosition);
+                            }
+                        })
+                        .setNegativeButton(mActivity.getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                dialog.show();
                 break;
         }
     }
