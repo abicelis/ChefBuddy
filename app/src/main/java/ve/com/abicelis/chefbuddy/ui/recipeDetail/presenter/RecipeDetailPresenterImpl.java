@@ -110,14 +110,10 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
             case DATABASE:
                 try {
                     mDao.deleteRecipe(mRecipe.getId());
-                    mView.showRecipe(mRecipe, mRecipeSource);
+                    mView.recipeDeletedSoFinish();
                 } catch (CouldNotDeleteDataException e) {
                     mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
-                    mView.recipeDeletedSoFinish();
                 }
-                break;
-            case ONLINE:
-                mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
                 break;
         }
     }
