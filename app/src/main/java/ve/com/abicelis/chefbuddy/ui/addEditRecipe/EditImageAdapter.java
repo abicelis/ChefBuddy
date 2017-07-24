@@ -21,6 +21,7 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
     private LayoutInflater mInflater;
     private List<String> mImageFilenames;
     private OnDragStartListener mDragStartListener;
+    private DeleteImageListener mDeleteImageListener;
 
 
     public EditImageAdapter(Activity activity, OnDragStartListener dragStartListener) {
@@ -82,6 +83,21 @@ public class EditImageAdapter extends RecyclerView.Adapter<EditImageViewHolder> 
 
     public interface OnDragStartListener {
         void onDragStarted(RecyclerView.ViewHolder viewHolder);
+    }
+
+
+
+    /* Interface for onDelete */
+    public void notifyImageDeleted(int position, String imageFilename) {
+        mDeleteImageListener.onImageDeleted(position, imageFilename);
+    }
+
+    public void setOnDeleteImageListener(DeleteImageListener listener) {
+        mDeleteImageListener = listener;
+    }
+
+    public interface DeleteImageListener {
+        void onImageDeleted(int position, String imageFilename);
     }
 }
 

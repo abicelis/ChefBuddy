@@ -222,6 +222,12 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         //Images RecyclerView
         mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mEditImageAdapter = new EditImageAdapter(this, this);
+        mEditImageAdapter.setOnDeleteImageListener(new EditImageAdapter.DeleteImageListener() {
+            @Override
+            public void onImageDeleted(int position, String imageFilename) {
+                mPresenter.deleteImage(position, imageFilename);
+            }
+        });
 
         mImagesRecyclerView.setLayoutManager(mImagesLayoutManager);
         mImagesRecyclerView.setAdapter(mEditImageAdapter);

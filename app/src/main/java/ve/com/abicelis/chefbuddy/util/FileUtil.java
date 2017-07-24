@@ -72,6 +72,11 @@ public class FileUtil {
         }
     }
 
+    public static boolean deleteFile(File directory, String filename) {
+        File file = new File(directory, filename);
+        return file.delete();
+    }
+
 
     /**
      * Creates an empty file at the specified directory, with the given name if it doesn't already exist

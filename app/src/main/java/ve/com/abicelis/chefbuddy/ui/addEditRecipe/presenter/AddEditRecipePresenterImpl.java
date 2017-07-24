@@ -1,5 +1,8 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.database.ChefBuddyDAO;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
@@ -12,6 +15,7 @@ import ve.com.abicelis.chefbuddy.model.Servings;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditImageAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.EditRecipeIngredientAdapter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 
 /**
  * Created by abicelis on 16/7/2017.
@@ -23,6 +27,7 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
     private boolean mEditingExistingRecipe = false;
     private Recipe mRecipe;
     private ChefBuddyDAO mDao;
+    private List<String> imagesMarkedAsDeleted = new ArrayList<>();
 
     private AddEditRecipeView mView;
     private EditRecipeIngredientAdapter mEditRecipeIngredientAdapter;
@@ -88,6 +93,11 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
                 else
                     mDao.insertRecipe(mRecipe);
 
+                //Delete images marked as deleted
+                for(String imageFile : imagesMarkedAsDeleted) {
+                    FileUtil.deleteFile(FileUtil.getImageFilesDir(), imageFile);
+                }
+
                 if(mView != null)
                     mView.recipeSavedSoFinish();
             } catch (CouldNotInsertDataException | CouldNotUpdateDataException e) {
@@ -136,6 +146,12 @@ public class AddEditRecipePresenterImpl implements AddEditRecipePresenter {
     @Override
     public void addImage(String imageFilename) {
         mEditImageAdapter.addItem(imageFilename);
+    }
+
+    @Override
+    public void deleteImage(int position, String imageFilename) {
+        imagesMarkedAsDeleted.add(imageFilename);
+        mEditImageAdapter.removeItem(position);
     }
 
 

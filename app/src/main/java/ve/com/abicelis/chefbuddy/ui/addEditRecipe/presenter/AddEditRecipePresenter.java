@@ -29,4 +29,5 @@ public interface AddEditRecipePresenter {
 
     void addRecipeIngredient(RecipeIngredient recipeIngredient);
     void addImage(String imageFilename);
+    void deleteImage(int position, String imageFilename);
 }

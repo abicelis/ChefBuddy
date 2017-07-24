@@ -51,6 +51,8 @@
 
 
 
+
+
     <!--Add Edit Recipe activity-->
     <string name="activity_add_edit_recipe_title_add">Add recipe</string>
     <string name="activity_add_edit_recipe_title_edit">Edit recipe</string>
@@ -85,6 +87,14 @@
 
         <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
 
+        <!--Delete Image Dialog-->
+        <string name="dialog_add_edit_recipe_delete_image_title">Delete Image</string>
+        <string name="dialog_add_edit_recipe_delete_image_message">Are you sure you want to delete this image?</string>
+
+        <!--Delete RecipeIngredient Dialog-->
+        <string name="dialog_add_edit_recipe_delete_ingredient_title">Delete Ingredient</string>
+        <string name="dialog_add_edit_recipe_delete_ingredient_message">Are you sure you want to delete this ingredient?</string>
+
 
 
 
@@ -96,6 +106,8 @@
         <string name="dialog_select_image_source_title">IMAGE SOURCE</string>
         <string name="dialog_select_image_source_camera">Camera</string>
         <string name="dialog_select_image_source_gallery">Gallery</string>
+
+
 
 
     <!--Search Online Recipe Activity-->
