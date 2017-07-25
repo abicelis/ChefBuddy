@@ -1,7 +1,5 @@
 package ve.com.abicelis.chefbuddy.util;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -103,24 +101,11 @@ public class RecipeUtil {
                     amountTokens.add(token);
                 } else {
                     gotAmount = true;
-
-
-
                     measurement = getMeasurementFromString(token);
                     if (measurement.equals(Measurement.NONE))       //Token not a measurement, store it as ingredientName
                         ingredientNameTokens.add(token);
                     else                                            //Found measurement, build ingredient name with ingredientNameTokens and remaining tokens
                         ingredientName = getStringFromListOfString(ingredientNameTokens) + " " + getStringFromRemainingTokens(tokenizer);
-
-
-
-
-//
-//                        measurement = getMeasurementFromString(token);
-//                    if(!measurement.equals(Measurement.NONE))
-//                        ingredientName = getStringFromRemainingTokens(tokenizer);
-//                    else
-//                        ingredientName = token + " " + getStringFromRemainingTokens(tokenizer);
                 }
             }
 
