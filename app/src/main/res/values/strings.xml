@@ -4,6 +4,21 @@
     <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \n \n \nEND END END</string>
 
 
+    <!-- About Activity -->
+    <string name="activity_about_toolbar_title">About</string>
+    <string name="activity_about_version">Version %1$s</string>
+    <string name="activity_about_author" translatable="false">Alejandro Bicelis %1$d</string>
+    <string name="activity_about_market_link">Rate app</string>
+    <string name="activity_about_github_link">View GitHub Project</string>
+    <string name="activity_about_website_link" translatable="false">www.alejandrobicelis.com.ve</string>
+
+    <!-- Links -->
+    <string name="url_market" translatable="false">market://details?id=ve.com.abicelis.chefbuddy</string>
+    <string name="url_github" translatable="false">github.com/abicelis/</string>
+    <string name="url_website" translatable="false">www.alejandrobicelis.com.ve</string>
+    <string name="address_email" translatable="false">alejandro@alejandrobicelis.com.ve</string>
+
+
     <!--Home activity-->
 
     <string name="activity_home_tab_recipe_title">Recipes</string>
@@ -84,7 +99,6 @@
         <string name="dialog_add_recipe_ingredient_amount_hint">Amount&#8230;</string>
         <string name="dialog_add_recipe_ingredient_ingredient_hint">Ingredient&#8230;</string>
 
-        <string name="dialog_add_recipe_ingredient_error_ingredient">Please enter a valid ingredient name</string>
 
         <!--Delete Image Dialog-->
         <string name="dialog_add_edit_recipe_delete_image_title">Delete Image</string>
@@ -158,6 +172,8 @@
     <string name="invalid_recipe_servings">Please enter a valid servings amount</string>
     <string name="invalid_recipe_preparation_time">Please enter a valid preparation time</string>
     <string name="invalid_recipe_directions">Please enter a valid preparation text</string>
+    <string name="invalid_recipe_ingredient_name">Please enter a valid ingredient name</string>
+
 
     <string name="permissions_write_storage_not_granted">Please grant storage permissions</string>
     <string name="permissions_not_granted">Chef Buddy needs all permissions granted</string>

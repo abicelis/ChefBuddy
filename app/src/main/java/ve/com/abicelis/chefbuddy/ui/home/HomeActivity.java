@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.model.RecipeSource;
+import ve.com.abicelis.chefbuddy.ui.about.AboutActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.home_history.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
@@ -251,7 +252,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_home_about:
-                Toast.makeText(this, "About screen under construction", Toast.LENGTH_SHORT).show();
+                Intent goToAboutPage = new Intent(this, AboutActivity.class);
+                startActivity(goToAboutPage);
                 break;
 
             case R.id.menu_home_settings:
