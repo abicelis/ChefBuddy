@@ -80,7 +80,7 @@ public class PdfUtil {
 
         Paint whiteTextPaintLarge = new Paint();
         whiteTextPaintLarge.setColor(ContextCompat.getColor(ChefBuddyApplication.getContext(), R.color.white));
-        whiteTextPaintLarge.setTextSize(50);
+        whiteTextPaintLarge.setTextSize(40);
         whiteTextPaintLarge.setTextAlign(Paint.Align.CENTER);
 
         Paint whiteTextPaint = new Paint();
@@ -94,7 +94,7 @@ public class PdfUtil {
 
         Paint secondaryTextPaint = new Paint();
         secondaryTextPaint.setColor(ContextCompat.getColor(ChefBuddyApplication.getContext(), R.color.secondary_text));
-        secondaryTextPaint.setTextSize(28);
+        secondaryTextPaint.setTextSize(20);
 
         Paint backgroundPaint = new Paint();
         backgroundPaint.setColor(ContextCompat.getColor(ChefBuddyApplication.getContext(), R.color.gray_background));
@@ -108,10 +108,11 @@ public class PdfUtil {
 
         //Featured image
         Bitmap featuredImage = getBitmapFromImageFile(recipe.getFeaturedImage());
-        Rect destRect = getDestRectForAspectRatio(featuredImage, FEATURED_IMAGE_ASPECT_RATIO);
-        featuredImage = ThumbnailUtils.extractThumbnail(featuredImage, destRect.width(), destRect.height());
-        pageCanvas.drawBitmap(featuredImage, null, new Rect(0, 0, (int)PDF_WIDTH, (int)FEATURED_IMAGE_HEIGHT), null);
-
+        if(featuredImage != null) {
+            Rect destRect = getDestRectForAspectRatio(featuredImage, FEATURED_IMAGE_ASPECT_RATIO);
+            featuredImage = ThumbnailUtils.extractThumbnail(featuredImage, destRect.width(), destRect.height());
+            pageCanvas.drawBitmap(featuredImage, null, new Rect(0, 0, (int) PDF_WIDTH, (int) FEATURED_IMAGE_HEIGHT), null);
+        }
 
         //Header background, title and subtitle
         pageCanvas.drawRect(0, FEATURED_IMAGE_HEIGHT, PDF_WIDTH, HEADER_TOP+HEADER_HEIGHT, primaryPaint);
@@ -181,8 +182,18 @@ public class PdfUtil {
         for (String imageFilename : recipe.getImages()) {
             cursorY+=NORMAL_IMAGE_MARGIN_VERTICAL;
             Bitmap image = getBitmapFromImageFile(imageFilename);
+            if(image == null)
+                continue;
+
             Rect dest = getDestRectForAspectRatio(image, NORMAL_IMAGE_ASPECT_RATIO);
-            image = ThumbnailUtils.extractThumbnail(image, dest.width()/3, dest.height()/3);
+
+            while(true) {
+                if(dest.width() > PDF_WIDTH || dest.height() > NORMAL_IMAGE_HEIGHT){
+                    dest.set(0, 0, (int)((float)dest.right*0.9), (int)((float)dest.bottom*0.9));
+                } else break;
+            }
+
+            image = ThumbnailUtils.extractThumbnail(image, dest.width(), dest.height());
             pageCanvas.drawBitmap(image,
                     null,
                     new Rect((int)NORMAL_IMAGE_MARGIN_HORIZONTAL,
