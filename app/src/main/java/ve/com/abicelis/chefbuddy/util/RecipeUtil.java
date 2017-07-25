@@ -57,7 +57,7 @@ public class RecipeUtil {
         String amount = df.format(ei.getQuantity());
         amount = (amount.equals("0") ? "" : amount);
 
-        return new RecipeIngredient(amount, getMeasurementFromString(ei.getMeasure()), new Ingredient(startWithUppercase(ei.getFood())));
+        return new RecipeIngredient(amount, getMeasurementFromString(ei.getMeasure()), new Ingredient(StringUtil.startWithUppercase(ei.getFood())));
     }
 
 
@@ -114,7 +114,7 @@ public class RecipeUtil {
                 ingredientName = getStringFromListOfString(ingredientNameTokens);
 
             String amountStr = getStringFromListOfString(amountTokens);
-            ingredients.add(new RecipeIngredient(amountStr, measurement, new Ingredient(startWithUppercase(ingredientName))));
+            ingredients.add(new RecipeIngredient(amountStr, measurement, new Ingredient(StringUtil.startWithUppercase(ingredientName))));
         }
 
 
@@ -194,15 +194,4 @@ public class RecipeUtil {
         return (minScore <= ACCEPTABLE_MIN_LEVENSHTEIN_DISTANCE ? closestMeasurement : Measurement.NONE);
     }
 
-    private static String startWithUppercase(String string) {
-        string = string.trim();
-
-        if(string.length() == 0)
-            return string;
-
-        if(string.length() == 1)
-            return string.toUpperCase();
-
-        else return string.substring(0, 1).toUpperCase() + string.substring(1);
-    }
 }
