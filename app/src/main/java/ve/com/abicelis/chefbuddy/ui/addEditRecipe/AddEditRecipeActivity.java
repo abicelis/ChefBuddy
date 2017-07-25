@@ -166,6 +166,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
 
 
         //Basic: FancySpinners
+        mName.setMaxLenght(Constants.MAX_LENGTH_RECIPE_NAME);
         mServingsList.addAll(Servings.getFriendlyNames());
         mServings.setItems(mServingsList);
         mServings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

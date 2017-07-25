@@ -17,8 +17,9 @@ public class Constants {
 
     public static final String RECIPE_INGREDIENT_STRING_FORMAT = "%1$s%2$s %3$s";
 
-    public static final int MAX_LENGHT_RECIPE_INGREDIENT_AMOUNT = 5;
-    public static final int MAX_LENGHT_RECIPE_INGREDIENT_INGREDIENT = 30;
+    public static final int MAX_LENGTH_RECIPE_NAME = 30;
+    public static final int MAX_LENGTH_RECIPE_INGREDIENT_AMOUNT = 5;
+    public static final int MAX_LENGTH_RECIPE_INGREDIENT_INGREDIENT = 30;
 
 
 

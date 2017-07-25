@@ -92,7 +92,8 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         ButterKnife.bind(this, dialogView);
         mPresenter.getIngredients();
 
-        mAmount.setMaxLenght(Constants.MAX_LENGHT_RECIPE_INGREDIENT_AMOUNT);
+        mAmount.setMaxLenght(Constants.MAX_LENGTH_RECIPE_INGREDIENT_AMOUNT);
+        mIngredient.setMaxLenght(Constants.MAX_LENGTH_RECIPE_INGREDIENT_INGREDIENT);
 
         mMeasurement.setItems(Measurement.getFriendlyNames());
         mMeasurement.setSelection(1);
@@ -138,7 +139,6 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
             ingredientsStrList.add(i.getName());
         mIngredient.setItems(ingredientsStrList);
 
-        mIngredient.setMaxLenght(Constants.MAX_LENGHT_RECIPE_INGREDIENT_INGREDIENT);
 
         mIngredient.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
