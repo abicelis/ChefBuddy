@@ -5,80 +5,91 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="24dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
     android:background="@color/gray_background"
-
     >
-    <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dialog_add_recipe_ingredient_title"
-        custom:default_padding="false"
-        />
-
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-
-        <ve.com.abicelis.chefbuddy.views.FancyEditText
-            android:id="@+id/dialog_add_recipe_ingredient_amount"
-            android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        >
+        <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            custom:icon="@drawable/ic_amount"
-            custom:hint="@string/dialog_add_recipe_ingredient_amount_hint"
-            custom:maxLines="2"
-            />
-        <ve.com.abicelis.chefbuddy.views.FancySpinner
-            android:id="@+id/dialog_add_recipe_ingredient_measurement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            custom:icon="@drawable/ic_measurement_cup"
-
+            android:text="@string/dialog_add_recipe_ingredient_title"
+            custom:default_padding="false"
             />
 
 
-        <ve.com.abicelis.chefbuddy.views.FancyAutoCompleteTextView
-            android:id="@+id/dialog_add_recipe_ingredient_ingredient"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            custom:maxLines="1"
-            custom:icon="@drawable/ic_food"
-            custom:hint="@string/dialog_add_recipe_ingredient_ingredient_hint"
-            />
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
 
+            <ve.com.abicelis.chefbuddy.views.FancyEditText
+                android:id="@+id/dialog_add_recipe_ingredient_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:icon="@drawable/ic_amount"
+                custom:hint="@string/dialog_add_recipe_ingredient_amount_hint"
+                custom:maxLines="2"
+                />
+            <ve.com.abicelis.chefbuddy.views.FancySpinner
+                android:id="@+id/dialog_add_recipe_ingredient_measurement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                custom:icon="@drawable/ic_measurement_cup"
+
+                />
+
+
+            <ve.com.abicelis.chefbuddy.views.FancyAutoCompleteTextView
+                android:id="@+id/dialog_add_recipe_ingredient_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                custom:maxLines="1"
+                custom:icon="@drawable/ic_food"
+                custom:hint="@string/dialog_add_recipe_ingredient_ingredient_hint"
+                />
+
+
+        </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="-24dp"
-        android:layout_marginEnd="-24dp"
-        android:padding="8dp">
-        <Button
-            android:id="@+id/dialog_add_recipe_ingredient_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="@string/dialog_done"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            style="?attr/borderlessButtonStyle"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:paddingStart="24dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingEnd="8dp"
+            >
+            <Button
+                android:id="@+id/dialog_add_recipe_ingredient_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_done"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                style="?attr/borderlessButtonStyle"/>
 
-        <Button
-            android:id="@+id/dialog_add_recipe_ingredient_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_toStartOf="@id/dialog_add_recipe_ingredient_ok"
-            android:layout_toLeftOf="@id/dialog_add_recipe_ingredient_ok"
-            android:text="@string/dialog_cancel"
-            style="?attr/borderlessButtonStyle"/>
-    </RelativeLayout>
+            <Button
+                android:id="@+id/dialog_add_recipe_ingredient_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@id/dialog_add_recipe_ingredient_ok"
+                android:layout_toLeftOf="@id/dialog_add_recipe_ingredient_ok"
+                android:text="@string/dialog_cancel"
+                style="?attr/borderlessButtonStyle"/>
+        </RelativeLayout>
+
+
 </LinearLayout>
