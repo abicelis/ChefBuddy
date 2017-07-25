@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,7 +56,6 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     //CONSTS
     private static String [] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
     //DATA
     private int mRotation = 0;
 
@@ -100,17 +100,30 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
         mPresenter.attachView(this);
 
-        //Check for camera and storage write permissions
-        if(!permissionsGranted()) {
-            requestAllPermissions();
-            return;
-        }
 
-        mPresenter.startImageCapture();
+        //Yes this is kind of a hack..
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!permissionsGranted())
+                    requestAllPermissions();
+                else
+                    mPresenter.startImageCapture();
+
+            }
+        }, 300);
+
     }
 
 
+    private boolean permissionsGranted() {
+        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
+    }
 
+    private void requestAllPermissions() {
+        ActivityCompat.requestPermissions(this, permissions, Constants.EDIT_IMAGE_ACTIVITY_PERMISSIONS);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -120,12 +133,18 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
                 mPresenter.startImageCapture();
             else {
-                showErrorMessage(Message.PERMISSIONS_NOT_GRANTED);
+                //Show error and exit
+                BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finish();
+                    }
+                };
+                SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, Message.PERMISSIONS_NOT_GRANTED.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, callback);
             }
         }
     }
-
-
 
 
     @Override
@@ -133,15 +152,19 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         int id = v.getId();
         switch (id) {
             case R.id.activity_edit_image_crop:
-                Bitmap bitmap = mImage.getCroppedImage();
-                mImage.setImageBitmap(bitmap);
-                mPresenter.setTempImage(bitmap);
-                mRotation = 0;
+                if(mPresenter.getTempImage() != null) {
+                    Bitmap bitmap = mImage.getCroppedImage();
+                    mImage.setImageBitmap(bitmap);
+                    mPresenter.setTempImage(bitmap);
+                    mRotation = 0;
+                }
                 break;
 
             case R.id.activity_edit_image_rotate:
-                mRotation-=90;
-                mImage.rotateImage(-90);
+                if(mPresenter.getTempImage() != null) {
+                    mRotation -= 90;
+                    mImage.rotateImage(-90);
+                }
                 break;
 
             case R.id.activity_edit_image_camera:
@@ -150,8 +173,10 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.activity_edit_image_done:
-                applyPendingRotation();
-                mPresenter.saveImage();
+                if(mPresenter.getTempImage() != null) {
+                    applyPendingRotation();
+                    mPresenter.saveImage();
+                }
                 break;
 
             case R.id.activity_edit_image_cancel:
@@ -183,13 +208,6 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mRotation = 0;
         }
     }
-
-
-
-
-
-
-
 
     private void handleImageCapture(String imageFileName) {
         File imageFile = new File(FileUtil.getImageFilesDir(), imageFileName);
@@ -283,13 +301,6 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
 
 
 
-    private boolean permissionsGranted() {
-        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
-    }
-    private void requestAllPermissions() {
-        ActivityCompat.requestPermissions(this, permissions, Constants.EDIT_IMAGE_ACTIVITY_PERMISSIONS);
-    }
 
     @Override
     public void showSelectImageSourceDialog() {
