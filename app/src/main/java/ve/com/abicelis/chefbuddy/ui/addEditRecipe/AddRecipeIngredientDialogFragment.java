@@ -36,13 +36,8 @@ import ve.com.abicelis.chefbuddy.views.FancySpinner;
 
 public class AddRecipeIngredientDialogFragment extends DialogFragment implements View.OnClickListener, AddRecipeIngredientView {
 
-    //DATA
-    private List<String> mMeasurementList;
-    private Measurement mSelectedMeasurement;
-    private List<Ingredient> mIngredients;
-    private Ingredient mSelectedIngredient;
     @Inject
-    AddRecipeIngredientPresenter presenter;
+    AddRecipeIngredientPresenter mPresenter;
 
     //UI
     private AddRecipeIngredientListener mListener;
@@ -81,9 +76,8 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
-        presenter.attachView(this);
+        mPresenter.attachView(this);
 
-        mMeasurementList = Measurement.getFriendlyNames();
     }
 
 
@@ -96,17 +90,18 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
 
         View dialogView =  inflater.inflate(R.layout.dialog_add_recipe_ingredient, container);
         ButterKnife.bind(this, dialogView);
-        presenter.getIngredients();
+        mPresenter.getIngredients();
 
         mAmount.setMaxLenght(Constants.MAX_LENGHT_RECIPE_INGREDIENT_AMOUNT);
 
-        mMeasurement.setItems(mMeasurementList);
+        mMeasurement.setItems(Measurement.getFriendlyNames());
         mMeasurement.setSelection(1);
         mMeasurement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSelectedMeasurement = Measurement.values()[position];
-                mMeasurement.setIcon(mSelectedMeasurement.getIconRes());
+                Measurement selectedMeasurement = Measurement.values()[position];
+                mPresenter.setSelectedMeasurement(selectedMeasurement);
+                mMeasurement.setIcon(selectedMeasurement.getIconRes());
             }
 
             @Override
@@ -129,17 +124,7 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
                 break;
 
             case R.id.dialog_add_recipe_ingredient_ok:
-                if(mIngredient.getText().isEmpty()) {
-                    Toast.makeText(getActivity(), R.string.dialog_add_recipe_ingredient_error_ingredient, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(mSelectedIngredient == null || !mSelectedIngredient.getName().equals(mIngredient.getText()) ) //Ingredient is new
-                    mListener.onRecipeIngredientAdded(new RecipeIngredient(mAmount.getText(), mSelectedMeasurement, new Ingredient(mIngredient.getText())));
-                else
-                    mListener.onRecipeIngredientAdded(new RecipeIngredient(mAmount.getText(), mSelectedMeasurement, mSelectedIngredient));
-
-                dismiss();
+                mPresenter.checkRecipeIngredientValues(mAmount.getText(), mIngredient.getText());
                 break;
         }
     }
@@ -148,9 +133,8 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
     /* AddRecipeIngredientView interface implementation */
     @Override
     public void populateIngredientSpinner(List<Ingredient> ingredients) {
-        mIngredients = ingredients;
         List<String> ingredientsStrList = new ArrayList<>();
-        for (Ingredient i : mIngredients)
+        for (Ingredient i : ingredients)
             ingredientsStrList.add(i.getName());
         mIngredient.setItems(ingredientsStrList);
 
@@ -160,7 +144,7 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
 
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
-                mSelectedIngredient = mIngredients.get(pos);
+                mPresenter.setSelectedIngredient(pos);
             }
         });
 
@@ -168,15 +152,22 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
 
     @Override
     public void showErrorMessage(Message message) {
-        //TODO: Error!!
+        Toast.makeText(getActivity(), message.getFriendlyName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void recipeIngredientSelectedSoDismiss(RecipeIngredient recipeIngredient) {
+        mListener.onRecipeIngredientAdded(recipeIngredient);
+        dismiss();
     }
 
 
 
+
+    /* Listener to relay data to calling class */
     public void setListener(AddRecipeIngredientListener listener) {
         mListener = listener;
     }
-
 
     public interface AddRecipeIngredientListener {
         void onRecipeIngredientAdded(RecipeIngredient recipeIngredient);

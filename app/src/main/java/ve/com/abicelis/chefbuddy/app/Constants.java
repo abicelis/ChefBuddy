@@ -13,13 +13,12 @@ public class Constants {
     public static final String  IMAGE_FILES_DIR = "recipe/image";
     public static final String  IMAGE_FILENAMES_SEPARATOR = "|";
     public static final int     IMAGE_JPEG_COMPRESSION_PERCENTAGE = 30;
-    public static final int     THUMBNAIL_LARGER_DIMENSION = 480;
 
 
     public static final String RECIPE_INGREDIENT_STRING_FORMAT = "%1$s%2$s %3$s";
 
     public static final int MAX_LENGHT_RECIPE_INGREDIENT_AMOUNT = 5;
-    public static final int MAX_LENGHT_RECIPE_INGREDIENT_INGREDIENT = 15;
+    public static final int MAX_LENGHT_RECIPE_INGREDIENT_INGREDIENT = 30;
 
 
 

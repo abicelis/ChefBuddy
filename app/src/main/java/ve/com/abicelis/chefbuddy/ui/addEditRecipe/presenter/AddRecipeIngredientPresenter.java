@@ -1,5 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter;
 
+import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddEditRecipeView;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.view.AddRecipeIngredientView;
 
@@ -12,4 +13,8 @@ public interface AddRecipeIngredientPresenter {
     void detachView();
 
     void getIngredients();
+    void setSelectedIngredient(int position);
+    void setSelectedMeasurement(Measurement measurement);
+
+    void checkRecipeIngredientValues(String amount, String ingredientName);
 }

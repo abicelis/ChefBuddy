@@ -30,6 +30,7 @@ public enum Message {
     INVALID_RECIPE_SERVINGS(R.string.invalid_recipe_servings),
     INVALID_RECIPE_PREPARATION_TIME(R.string.invalid_recipe_preparation_time),
     INVALID_RECIPE_DIRECTIONS(R.string.invalid_recipe_directions),
+    INVALID_RECIPE_INGREDIENT_NAME(R.string.invalid_recipe_ingredient_name),
 
     PERMISSIONS_WRITE_STORAGE_NOT_GRANTED(R.string.permissions_write_storage_not_granted),
     PERMISSIONS_NOT_GRANTED(R.string.permissions_not_granted)
