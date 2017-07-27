@@ -21,8 +21,16 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/abicelis/android-libraries/'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 've.com.abicelis:prizewheelview:1.0.1'
 
 
     // Dependency Injection
