@@ -52,4 +52,12 @@ final class ChefBuddyContract {
         static final TableColumn COLUMN_RECIPE_FK = new TableColumn(DataType.INTEGER, "fk_recipe");
     }
 
+    /* Wheel Recipe Table */
+    static abstract class WheelRecipeTable {
+        static final String TABLE_NAME = "wheel_recipe";
+
+        static final TableColumn COLUMN_ID = new TableColumn(DataType.INTEGER, "wheel_recipe_id");
+        static final TableColumn COLUMN_RECIPE = new TableColumn(DataType.INTEGER, "recipe_fk");
+    }
+
 }

@@ -277,6 +277,14 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + ") " +
                 " ); " ;
         sqLiteDatabase.execSQL(statement);
+
+
+        statement = "CREATE TABLE " + ChefBuddyContract.WheelRecipeTable.TABLE_NAME + " (" +
+                ChefBuddyContract.WheelRecipeTable.COLUMN_ID.getName() + " " + ChefBuddyContract.WheelRecipeTable.COLUMN_ID.getDataType() + " PRIMARY KEY AUTOINCREMENT, " +
+                ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName() + " " + ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getDataType() +
+                " REFERENCES " + ChefBuddyContract.RecipeTable.TABLE_NAME + "(" + ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + ") " +
+                " ); " ;
+        sqLiteDatabase.execSQL(statement);
     }
 
     private void deleteDatabase(SQLiteDatabase sqLiteDatabase) {
@@ -289,6 +297,9 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(statement);
 
         statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.RecipeIngredientTable.TABLE_NAME + "; ";
+        sqLiteDatabase.execSQL(statement);
+
+        statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.WheelRecipeTable.TABLE_NAME + "; ";
         sqLiteDatabase.execSQL(statement);
 
         statement = "DROP TABLE IF EXISTS " + ChefBuddyContract.RecipeTable.TABLE_NAME + "; ";
