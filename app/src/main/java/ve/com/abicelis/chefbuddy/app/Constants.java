@@ -22,6 +22,9 @@ public class Constants {
     public static final int MAX_LENGTH_RECIPE_INGREDIENT_INGREDIENT = 30;
 
 
+    public static final int DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT = 8;
+
+
 
     /* INTENT EXTRAS */
     public static final String RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE = "RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE";
