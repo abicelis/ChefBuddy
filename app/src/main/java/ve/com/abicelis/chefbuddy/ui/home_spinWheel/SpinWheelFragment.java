@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.transitionseverywhere.TransitionManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -83,6 +85,13 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     @BindView(R.id.fragment_spinwheel_recipe_ingredients)
     TextView mRecipeIngredients;
 
+    @BindView(R.id.fragment_spinwheel_no_items_container)
+    RelativeLayout mNoItemsContainer;
+
+    @BindView(R.id.fragment_spinwheel_no_items_text)
+    TextView mNoItemsText;
+
+
 
     @Nullable
     @Override
@@ -92,6 +101,23 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
 
         ButterKnife.bind(this, view);
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
+
+        //Set edit button listener
+        mEditWheel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                EditSpinWheelRecipesDialogFragment dialog = EditSpinWheelRecipesDialogFragment.newInstance();
+                dialog.setListener(new EditSpinWheelRecipesDialogFragment.WheelRecipesEditedListener() {
+                    @Override
+                    public void onWheelRecipesEdited() {
+                        refreshWheel();
+                    }
+                });
+                dialog.show(fm, "EditSpinWheelRecipesDialogFragment");
+            }
+        });
+
 
         mPresenter.attachView(this);
         refreshWheel();
@@ -111,6 +137,8 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
 
     @Override
     public void refreshView(final List<Recipe> recipes) {
+        mNoItemsContainer.setVisibility(View.INVISIBLE);
+        mEditWheel.setVisibility(View.VISIBLE);
         mWheelView.setVisibility(View.INVISIBLE);
 
         //Reset fancyCards
@@ -124,8 +152,16 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     }
 
     @Override
-    public void noRecipesAvailable() {
-        // TODO: 27/7/2017 Show a noItemsContainer thing
+    public void notEnoughRecipesAvailable() {
+        //Hide everything
+        mWheelView.setVisibility(View.INVISIBLE);
+        mEditWheel.setVisibility(View.INVISIBLE);
+        mRecipeContainer.setVisibility(View.INVISIBLE);
+        mTutorialContainer.setVisibility(View.INVISIBLE);
+
+        //Show noItemsContainer
+        mNoItemsText.setText(String.format(Locale.getDefault(), getString(R.string.fragment_spinwheel_no_items), Constants.MIN_SPIN_WHEEL_RECIPE_AMOUNT));
+        mNoItemsContainer.setVisibility(View.VISIBLE);
     }
 
     @Override

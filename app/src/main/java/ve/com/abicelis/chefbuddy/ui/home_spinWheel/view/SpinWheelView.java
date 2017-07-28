@@ -11,7 +11,7 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 
 public interface SpinWheelView {
     void refreshView(List<Recipe> recipes);
-    void noRecipesAvailable();
+    void notEnoughRecipesAvailable();
     void updateBottomRecipe(Recipe recipe);
 
     void showErrorMessage(Message message);
