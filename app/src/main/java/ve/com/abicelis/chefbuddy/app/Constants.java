@@ -23,6 +23,8 @@ public class Constants {
 
 
     public static final int DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT = 8;
+    public static final int MIN_SPIN_WHEEL_RECIPE_AMOUNT = 2;
+    public static final int MAX_SPIN_WHEEL_RECIPE_AMOUNT = 10;
 
 
 
