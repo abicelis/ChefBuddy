@@ -39,8 +39,12 @@
     <!--Spinwheel Fragment-->
     <string name="fragment_spinwheel_tutorial_title">Spin the wheel for a random Recipe</string>
     <string name="fragment_spinwheel_tutorial_subtitle">Set the recipes on the wheel by clicking the top-right edit button</string>
+    <string name="fragment_spinwheel_no_items">Not enough recipes to show spin wheel. Need at least %1$d</string>
 
 
+        <!--Edit Spin Wheel Recipes Dialog-->
+        <string name="dialog_edit_spin_wheel_recipes_title">SET WHEEL RECIPES</string>
+        <string name="dialog_edit_spin_wheel_recipes_subtitle">Select at least %1$d recipes and at most %2$d</string>
 
 
     <!--Recipe detail activity-->
@@ -147,6 +151,7 @@
     <!--Dialog-->
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_done">DONE</string>
+    <string name="dialog_set">SET</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="dialog_discard">DISCARD</string>
@@ -178,6 +183,8 @@
     <string name="invalid_recipe_preparation_time">Please enter a valid preparation time</string>
     <string name="invalid_recipe_directions">Please enter a valid preparation text</string>
     <string name="invalid_recipe_ingredient_name">Please enter a valid ingredient name</string>
+    <string name="invalid_wheel_recipe_amount_too_many">Please select at most %1$d recipes</string>
+    <string name="invalid_wheel_recipe_amount_too_few">Please select at least %1$d recipes</string>
 
 
     <string name="permissions_write_storage_not_granted">Please grant storage permissions</string>

@@ -31,6 +31,8 @@ public enum Message {
     INVALID_RECIPE_PREPARATION_TIME(R.string.invalid_recipe_preparation_time),
     INVALID_RECIPE_DIRECTIONS(R.string.invalid_recipe_directions),
     INVALID_RECIPE_INGREDIENT_NAME(R.string.invalid_recipe_ingredient_name),
+    INVALID_WHEEL_RECIPE_AMOUNT_TOO_MANY(R.string.invalid_wheel_recipe_amount_too_many),
+    INVALID_WHEEL_RECIPE_AMOUNT_TOO_FEW(R.string.invalid_wheel_recipe_amount_too_few),
 
     PERMISSIONS_WRITE_STORAGE_NOT_GRANTED(R.string.permissions_write_storage_not_granted),
     PERMISSIONS_NOT_GRANTED(R.string.permissions_not_granted)
