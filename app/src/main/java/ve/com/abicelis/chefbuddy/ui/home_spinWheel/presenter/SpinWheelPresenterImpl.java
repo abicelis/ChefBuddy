@@ -19,7 +19,7 @@ public class SpinWheelPresenterImpl implements SpinWheelPresenter {
     //DATA
     private SpinWheelView mView;
     private ChefBuddyDAO mDao;
-    private List<Recipe> mWheelRecipes;
+    private List<Recipe> mWheelRecipes = new ArrayList<>();
 
     public SpinWheelPresenterImpl(ChefBuddyDAO dao) {
         mDao = dao;
@@ -39,15 +39,16 @@ public class SpinWheelPresenterImpl implements SpinWheelPresenter {
 
     @Override
     public void getWheelRecipes() {
+
         //Check if the user already selected recipes to go on the wheel
-        mWheelRecipes = new ArrayList<>();
+        try {
+            mWheelRecipes = mDao.getWheelRecipes();
+        } catch (CouldNotGetDataException e) {
+            mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
+            return;
+        }
 
-        // TODO: 27/7/2017 implement this
-        //mWheelRecipes = mDao.getWheelRecipes();
-        // TODO: 27/7/2017 make sure the recipes exist in the db and the user did not just delete a recipe
-        // TODO: In this dao method grab the ids of the recipes, grab recipes and if not exist dont send them here to this presenter
-
-        if(mWheelRecipes.size() > 0) {
+        if(mWheelRecipes.size() >= Constants.MIN_SPIN_WHEEL_RECIPE_AMOUNT) {
             mView.refreshView(mWheelRecipes);
         } else {
 
@@ -56,20 +57,21 @@ public class SpinWheelPresenterImpl implements SpinWheelPresenter {
                 mWheelRecipes = mDao.getRecipes();
             } catch (CouldNotGetDataException e) {
                 mView.showErrorMessage(Message.ERROR_LOADING_RECIPES);
+                return;
             }
 
-            if(mWheelRecipes.size() > 0) {
+
+            if(mWheelRecipes.size() >= Constants.MIN_SPIN_WHEEL_RECIPE_AMOUNT) {
 
                 //Grab the first 6 recipes if list is too long
                 if(mWheelRecipes.size() > Constants.DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT)
-                    mWheelRecipes = new ArrayList<>(mWheelRecipes.subList(0, Constants.DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT-1));
+                    mWheelRecipes = new ArrayList<>(mWheelRecipes.subList(0, Constants.DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT));
 
-                //Save the wheel recipes and populate wheel
-                // TODO: 27/7/2017 implement this
-                //mWheelRecipes = mDao.saveWheelRecipes(mWheelRecipes);
+                //Update the wheel recipes and populate wheel
+                mDao.updateWheelRecipes(mWheelRecipes);
                 mView.refreshView(mWheelRecipes);
             } else {
-                mView.noRecipesAvailable();
+                mView.notEnoughRecipesAvailable();
             }
         }
     }
