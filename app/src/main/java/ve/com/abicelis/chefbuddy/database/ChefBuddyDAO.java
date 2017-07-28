@@ -158,6 +158,67 @@ public class ChefBuddyDAO {
     }
 
 
+    /**
+     * Returns the complete list of recipe IDs in the wheel_recipe table
+     * @return An array of recipe IDs
+     */
+    public long[] getWheelRecipeIds() throws CouldNotGetDataException {
+        long[] ids;
+        int i = 0;
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+
+        Cursor cursor = db.query(ChefBuddyContract.WheelRecipeTable.TABLE_NAME, null, null, null, null, null, null);
+        ids = new long[cursor.getCount()];
+        try {
+            while (cursor.moveToNext()) {
+                long recipeId = getRecipeIdFromWheelRecipeCursor(cursor);
+                ids[i] = recipeId;
+                i++;
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return ids;
+    }
+
+
+    /**
+     * Returns the complete list of recipes in the wheel_recipe table
+     * @return A list of Recipes
+     */
+    public List<Recipe> getWheelRecipes() throws CouldNotGetDataException {
+        List<Recipe> recipes = new ArrayList<>();
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+
+        String tables = String.format("%1$s INNER JOIN %2$s ON %1$s.%3$s = %2$s.%4$s",
+                ChefBuddyContract.WheelRecipeTable.TABLE_NAME,
+                ChefBuddyContract.RecipeTable.TABLE_NAME,
+                ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName(),
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName());
+
+        Cursor cursor = db.query(tables, null, null, null, null, null, null);
+
+
+        try {
+            while (cursor.moveToNext()) {
+                Recipe recipe = getRecipeFromCursor(cursor);
+                recipe.setRecipeIngredients(getRecipeIngredientsOfRecipe(recipe.getId()));
+                recipes.add(recipe);
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return recipes;
+    }
+
+
+
+
+
 
 
 
@@ -943,6 +1004,23 @@ public class ChefBuddyDAO {
     }
 
 
+    /**
+     * Updates the information on WheelRecipeTable
+     * @param recipes The Recipe IDs to insert into table
+     */
+    public void updateWheelRecipes(List<Recipe> recipes)  {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        //Dump the whole table
+        db.delete(ChefBuddyContract.WheelRecipeTable.TABLE_NAME, null, null);
+
+        for (Recipe r : recipes) {
+            ContentValues values = getWheelRecipeValuesForRecipe(r);
+            db.insert(ChefBuddyContract.WheelRecipeTable.TABLE_NAME, null, values);
+        }
+    }
+
+
 
 
 
@@ -1233,6 +1311,12 @@ public class ChefBuddyDAO {
         return values;
     }
 
+    private ContentValues getWheelRecipeValuesForRecipe(Recipe recipe) {
+        ContentValues values = new ContentValues();
+        values.put(ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName(), recipe.getId());
+        return values;
+    }
+
     private ContentValues getValuesForRecipeIngredient(long recipeId, RecipeIngredient recipeIngredient) {
         ContentValues values = new ContentValues();
         values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName(), recipeId);
@@ -1424,6 +1508,11 @@ public class ChefBuddyDAO {
         String ingredientName = cursor.getString(cursor.getColumnIndex(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName()));
 
         return new Ingredient(ingredientId, ingredientName);
+    }
+
+    private long getRecipeIdFromWheelRecipeCursor(Cursor cursor) {
+        long recipeId = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName()));
+        return recipeId;
     }
 
 
