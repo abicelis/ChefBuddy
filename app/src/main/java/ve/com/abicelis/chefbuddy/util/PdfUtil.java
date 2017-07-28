@@ -113,6 +113,7 @@ public class PdfUtil {
             featuredImage = ThumbnailUtils.extractThumbnail(featuredImage, destRect.width(), destRect.height());
             pageCanvas.drawBitmap(featuredImage, null, new Rect(0, 0, (int) PDF_WIDTH, (int) FEATURED_IMAGE_HEIGHT), null);
         }
+        // TODO: 28/7/2017 ELSE LOAD ""NO IMAGE"" DRAWABLE OR SOMETHING
 
         //Header background, title and subtitle
         pageCanvas.drawRect(0, FEATURED_IMAGE_HEIGHT, PDF_WIDTH, HEADER_TOP+HEADER_HEIGHT, primaryPaint);
