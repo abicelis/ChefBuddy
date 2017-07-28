@@ -12,6 +12,8 @@ import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
+import ve.com.abicelis.chefbuddy.ui.home_spinWheel.presenter.SpinWheelPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
@@ -35,6 +37,9 @@ public interface AppComponent {
     void inject(RecipeListFragment target);
     void inject(RecipeListPresenterImpl target);
 
+    void inject(SpinWheelFragment target);
+    void inject(SpinWheelPresenterImpl target);
+
     void inject(RecipeDetailActivity target);
     void inject(RecipeDetailPresenterImpl target);
 
@@ -47,7 +52,6 @@ public interface AppComponent {
 
     void inject(EditImageActivity target);
     void inject(EditImagePresenterImpl target);
-
 
     void inject(SearchOnlineRecipeActivity target);
     void inject(SearchOnlineRecipePresenterImpl target);
