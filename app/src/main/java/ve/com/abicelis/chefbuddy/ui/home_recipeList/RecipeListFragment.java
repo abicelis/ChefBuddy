@@ -29,6 +29,7 @@ import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.ui.home.SearchViewListener;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.view.RecipeListView;
+import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -172,12 +173,6 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     @Override
     public void showErrorMessage(Message message) {
         mSwipeRefreshLayout.setRefreshing(false);
-
-        switch (message) {
-            case ERROR_LOADING_RECIPES:
-                Log.d(TAG, Message.ERROR_LOADING_RECIPES.getFriendlyName());
-            default:
-                Log.d(TAG, "Unexpected unknown error.");
-        }
+        SnackbarUtil.showSnackbar(mSwipeRefreshLayout, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 }
