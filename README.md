@@ -40,6 +40,8 @@ TODO
 ## Code dependencies
 
 This Project uses external dependencies and SDK's
+
+* [PrizeWheelView](https://github.com/abicelis/PrizeWheelView) - PrizeWheel custom view by **me :D** 
 * [Butterknife](https://github.com/JakeWharton/butterknife) - Android view binder library by JakeWharton
 * [Dagger 2](https://github.com/google/dagger) - Dependency Injection library by Square
 * [TransitionsEverywhere](https://github.com/andkulikov/Transitions-Everywhere) - Backported Transitions library by andkulikov
