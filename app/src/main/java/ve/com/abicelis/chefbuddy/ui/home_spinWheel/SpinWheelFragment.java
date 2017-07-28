@@ -243,7 +243,10 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
             mWheelView.setWheelSeparatorLineThickness(5);
 
             //Set onSettled listener
-            mWheelView.setWheelSettledListener(new WheelEventsListener() {
+            mWheelView.setWheelEventsListener(new WheelEventsListener() {
+                @Override
+                public void onWheelStopped() {}
+
                 @Override
                 public void onWheelFlung() {
                     //Hide fancyCards
