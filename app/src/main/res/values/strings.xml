@@ -36,6 +36,11 @@
     <string name="fragment_recipe_list_no_items">No recipes here</string>
 
 
+    <!--Spinwheel Fragment-->
+    <string name="fragment_spinwheel_tutorial_title">Spin the wheel for a random Recipe</string>
+    <string name="fragment_spinwheel_tutorial_subtitle">Set the recipes on the wheel by clicking the top-right edit button</string>
+
+
 
 
     <!--Recipe detail activity-->

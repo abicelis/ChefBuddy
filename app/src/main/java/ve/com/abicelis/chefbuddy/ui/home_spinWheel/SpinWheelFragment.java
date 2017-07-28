@@ -1,25 +1,106 @@
 package ve.com.abicelis.chefbuddy.ui.home_spinWheel;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.transitionseverywhere.Fade;
+import com.transitionseverywhere.Slide;
+import com.transitionseverywhere.Transition;
+import com.transitionseverywhere.TransitionManager;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
+import ve.com.abicelis.chefbuddy.app.Constants;
+import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.Recipe;
+import ve.com.abicelis.chefbuddy.model.RecipeSource;
+import ve.com.abicelis.chefbuddy.ui.home_spinWheel.presenter.SpinWheelPresenter;
+import ve.com.abicelis.chefbuddy.ui.home_spinWheel.view.SpinWheelView;
+import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
+import ve.com.abicelis.chefbuddy.util.ImageUtil;
+import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
+import ve.com.abicelis.chefbuddy.views.FancyCardView;
+import ve.com.abicelis.prizewheellib.PrizeWheelView;
+import ve.com.abicelis.prizewheellib.WheelEventsListener;
+import ve.com.abicelis.prizewheellib.model.WheelBitmapSection;
+import ve.com.abicelis.prizewheellib.model.WheelDrawableSection;
+import ve.com.abicelis.prizewheellib.model.WheelSection;
 
 /**
  * Created by abicelis on 9/7/2017.
  */
 
-public class SpinWheelFragment extends Fragment {
+public class SpinWheelFragment extends Fragment implements SpinWheelView {
 
 
+    @Inject
+    SpinWheelPresenter mPresenter;
+
+    @BindView(R.id.fragment_spinwheel_container)
+    RelativeLayout mContainer;
+
+    @BindView(R.id.fragment_spinwheel_wheel)
+    PrizeWheelView mWheelView;
+
+    @BindView(R.id.fragment_spinwheel_edit)
+    ImageView mEditWheel;
+
+    @BindView(R.id.fragment_spinwheel_recipe_container)
+    FancyCardView mRecipeContainer;
+
+    @BindView(R.id.fragment_spinwheel_tutorial_container)
+    FancyCardView mTutorialContainer;
+
+    @BindView(R.id.fragment_spinwheel_recipe_image)
+    ImageView mRecipeImage;
+
+    @BindView(R.id.fragment_spinwheel_recipe_name)
+    TextView mRecipeName;
+
+    @BindView(R.id.fragment_spinwheel_recipe_ingredients)
+    TextView mRecipeIngredients;
+
+
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_spinwheel, container, false);
         setHasOptionsMenu(true);
 
+        ButterKnife.bind(this, view);
+        ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
+
+        mPresenter.attachView(this);
+        refreshWheel();
+
+        return view;
+    }
+
+    public void refreshWheel() {
+        mPresenter.getWheelRecipes();
     }
 
     @Override
@@ -27,4 +108,130 @@ public class SpinWheelFragment extends Fragment {
         //Hide search menu item
         menu.findItem(R.id.menu_home_search).setVisible(false);
     }
+
+    @Override
+    public void refreshView(final List<Recipe> recipes) {
+        mWheelView.setVisibility(View.INVISIBLE);
+
+        //Reset fancyCards
+        TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+        mRecipeContainer.setVisibility(View.INVISIBLE);
+        mTutorialContainer.setVisibility(View.VISIBLE);
+
+
+        //Handle the loading of the wheel in an asyncTask since this is processor-intensive
+        new WheelLoaderTask().execute(recipes);
+    }
+
+    @Override
+    public void noRecipesAvailable() {
+        // TODO: 27/7/2017 Show a noItemsContainer thing
+    }
+
+    @Override
+    public void updateBottomRecipe(final Recipe recipe) {
+        TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+
+        if(recipe.getImages().size() > 0) {
+            Picasso.with(getActivity())
+                    .load(new File(FileUtil.getImageFilesDir(), recipe.getImages().get(0)))
+                    .error(R.drawable.default_recipe_image)
+                    .fit().centerCrop()
+                    .into(mRecipeImage);
+        } else {
+            Picasso.with(getActivity())
+                    .load(R.drawable.default_recipe_image)
+                    .fit().centerCrop()
+                    .into(mRecipeImage);
+        }
+        mRecipeName.setText(recipe.getName());
+        mRecipeIngredients.setText(recipe.getSimpleIngredientsString());
+        mRecipeContainer.setVisibility(View.VISIBLE);
+
+        mRecipeContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewRecipeDetailIntent = new Intent(getActivity(), RecipeDetailActivity.class);
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE, recipe);
+                viewRecipeDetailIntent.putExtra(Constants.RECIPE_DETAIL_ACTIVITY_INTENT_EXTRA_RECIPE_SOURCE, RecipeSource.DATABASE);
+                getActivity().startActivity(viewRecipeDetailIntent);
+            }
+        });
+
+    }
+
+    @Override
+    public void showErrorMessage(Message message) {
+        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
+    }
+
+
+
+
+
+    private class WheelLoaderTask extends AsyncTask<List<Recipe>, String, List<WheelSection>> {
+
+        @Override
+        protected List<WheelSection> doInBackground(List<Recipe>... params) {
+
+            //Init WheelSection list
+            final List<WheelSection> wheelSections = new ArrayList<>();
+
+            for (Recipe r : params[0]) {
+                Bitmap image = null;
+                if(r.getImages().size() > 0)
+                    image = ImageUtil.getBitmap(FileUtil.getImageFilesDir(), r.getImages().get(0));
+
+                if(image == null) {
+                    wheelSections.add(new WheelDrawableSection(R.drawable.default_recipe_image));
+                } else {
+                    wheelSections.add(new WheelBitmapSection(image));
+
+                }
+            }
+            return wheelSections;
+        }
+
+        @Override
+        protected void onPostExecute(List<WheelSection> wheelSections) {
+            super.onPostExecute(wheelSections);
+
+
+            //Init mWheelView and set parameters
+            mWheelView.setWheelSections(wheelSections);
+
+            mWheelView.setWheelBorderLineColor(R.color.icons);
+            mWheelView.setWheelBorderLineThickness(5);
+
+            mWheelView.setWheelSeparatorLineColor(R.color.icons);
+            mWheelView.setWheelSeparatorLineThickness(5);
+
+            //Set onSettled listener
+            mWheelView.setWheelSettledListener(new WheelEventsListener() {
+                @Override
+                public void onWheelFlung() {
+                    //Hide fancyCards
+                    TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+                    mRecipeContainer.setVisibility(View.INVISIBLE);
+                    mTutorialContainer.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onWheelSettled(int sectionIndex, double angle) {
+                    mPresenter.wheelSettledAtPosition(sectionIndex);
+                }
+            });
+
+            //Finally, generate wheel background
+            mWheelView.generateWheel();
+
+            TransitionManager.beginDelayedTransition(mContainer, new Fade());
+            mWheelView.setVisibility(View.VISIBLE);
+
+        }
+
+
+    }
+
+
 }
