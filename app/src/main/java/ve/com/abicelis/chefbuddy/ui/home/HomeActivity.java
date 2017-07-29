@@ -147,7 +147,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
 
                 if(position == SPINWHEEL_TAB_POSITION) {
                     //Notify fragment
-                    ((SpinWheelFragment)mHomeViewPagerAdapter.getRegisteredFragment(SPINWHEEL_TAB_POSITION)).refreshWheel();
+                    SpinWheelFragment f = ((SpinWheelFragment)mHomeViewPagerAdapter.getRegisteredFragment(SPINWHEEL_TAB_POSITION));
+                    if(f != null)
+                        f.refreshWheel();
                 }
             }
 
