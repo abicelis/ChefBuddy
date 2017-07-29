@@ -237,10 +237,10 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
             mWheelView.setWheelSections(wheelSections);
 
             mWheelView.setWheelBorderLineColor(R.color.icons);
-            mWheelView.setWheelBorderLineThickness(5);
+            mWheelView.setWheelBorderLineThickness(2);
 
             mWheelView.setWheelSeparatorLineColor(R.color.icons);
-            mWheelView.setWheelSeparatorLineThickness(5);
+            mWheelView.setWheelSeparatorLineThickness(2);
 
             //Set onSettled listener
             mWheelView.setWheelEventsListener(new WheelEventsListener() {
