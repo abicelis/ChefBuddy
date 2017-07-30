@@ -168,18 +168,12 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     public void updateBottomRecipe(final Recipe recipe) {
         TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
 
-        if(recipe.getImages().size() > 0) {
-            Picasso.with(getActivity())
-                    .load(new File(FileUtil.getImageFilesDir(), recipe.getImages().get(0)))
-                    .error(R.drawable.default_recipe_image)
-                    .fit().centerCrop()
-                    .into(mRecipeImage);
-        } else {
-            Picasso.with(getActivity())
-                    .load(R.drawable.default_recipe_image)
-                    .fit().centerCrop()
-                    .into(mRecipeImage);
-        }
+        Picasso.with(getActivity())
+                .load(new File(FileUtil.getImageFilesDir(), recipe.getFeaturedImage()))
+                .error(R.drawable.default_recipe_image)
+                .fit().centerCrop()
+                .into(mRecipeImage);
+
         mRecipeName.setText(recipe.getName());
         mRecipeIngredients.setText(recipe.getSimpleIngredientsString());
         mRecipeContainer.setVisibility(View.VISIBLE);
@@ -214,16 +208,13 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
             final List<WheelSection> wheelSections = new ArrayList<>();
 
             for (Recipe r : params[0]) {
-                Bitmap image = null;
-                if(r.getImages().size() > 0)
-                    image = ImageUtil.getBitmap(FileUtil.getImageFilesDir(), r.getImages().get(0));
 
-                if(image == null) {
-                    wheelSections.add(new WheelDrawableSection(R.drawable.default_recipe_image));
-                } else {
+                if(r.getImages().size() > 0) {
+                    Bitmap image = ImageUtil.getBitmap(FileUtil.getImageFilesDir(), r.getImages().get(0));
                     wheelSections.add(new WheelBitmapSection(image));
-
                 }
+                else
+                    wheelSections.add(new WheelDrawableSection(R.drawable.default_recipe_image));
             }
             return wheelSections;
         }

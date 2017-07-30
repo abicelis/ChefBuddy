@@ -52,18 +52,12 @@ public class EditSpinWheelRecipeListViewHolder extends RecyclerView.ViewHolder {
         mCurrent = current;
         mPosition = position;
 
-        if(current.getRecipe().getImages().size() > 0) {
-            Picasso.with(mActivity)
-                    .load(new File(FileUtil.getImageFilesDir(), current.getRecipe().getImages().get(0)))
-                    .fit().centerCrop()
-                    .error(R.drawable.default_recipe_image)
-                    .into(mImage);
-        } else {
-            Picasso.with(mActivity)
-                    .load(R.drawable.default_recipe_image)
-                    .fit().centerCrop()
-                    .into(mImage);
-        }
+        Picasso.with(mActivity)
+                .load(new File(FileUtil.getImageFilesDir(), current.getRecipe().getFeaturedImage()))
+                .fit().centerCrop()
+                .error(R.drawable.default_recipe_image)
+                .into(mImage);
+
 
         mName.setText(mCurrent.getRecipe().getName());
         mCheckbox.setChecked(mCurrent.getChecked());
