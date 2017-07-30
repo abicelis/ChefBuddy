@@ -201,6 +201,7 @@ public class SearchOnlineRecipeActivity extends AppCompatActivity implements Sea
         mSearchOnlineRecipeListAdapter.getItems().clear();
         mSearchOnlineRecipeListAdapter.getItems().addAll(recipes);
         mSearchOnlineRecipeListAdapter.notifyDataSetChanged();
+        mRecyclerView.scrollToPosition(0);
     }
 
     @Override
