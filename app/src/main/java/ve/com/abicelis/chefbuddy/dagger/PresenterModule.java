@@ -36,7 +36,6 @@ import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRec
 public class PresenterModule {
 
     @Provides
-    @Singleton
     HomePresenter provideHomePresenter(ChefBuddyDAO dao) {
         return new HomePresenterImpl(dao);
     }
@@ -48,13 +47,11 @@ public class PresenterModule {
     }
 
     @Provides
-    @Singleton
     SpinWheelPresenter provideSpinwheelPresenter(ChefBuddyDAO dao) {
         return new SpinWheelPresenterImpl(dao);
     }
 
     @Provides
-    @Singleton
     EditSpinWheelRecipesPresenter provideEditSpinwheelRecipesPresenter(ChefBuddyDAO dao) {
         return new EditSpinWheelRecipesPresenterImpl(dao);
     }
@@ -65,31 +62,26 @@ public class PresenterModule {
     }
 
     @Provides
-    @Singleton
     AddEditRecipePresenter provideAddEditRecipeDetailPresenter(ChefBuddyDAO dao) {
         return new AddEditRecipePresenterImpl(dao);
     }
 
     @Provides
-    @Singleton
     AddRecipeIngredientPresenter provideAddRecipeIngredientPresenter(ChefBuddyDAO dao) {
         return new AddRecipeIngredientPresenterImpl(dao);
     }
 
     @Provides
-    @Singleton
     ImageGalleryPresenter provideImageGalleryPresenter(ChefBuddyDAO dao) {
         return new ImageGalleryPresenterImpl(dao);
     }
 
     @Provides
-    @Singleton
     EditImagePresenter provideEditImagePresenter() {
         return new EditImagePresenterImpl();
     }
 
     @Provides
-    @Singleton
     SearchOnlineRecipePresenter provideSearchOnlineRecipePresenter(EdamamApi edamamApi, Food2ForkApi food2ForkApi, ChefBuddyDAO dao) {
         return new SearchOnlineRecipePresenterImpl(edamamApi, food2ForkApi, dao);
     }
