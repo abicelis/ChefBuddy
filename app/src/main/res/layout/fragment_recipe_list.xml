@@ -34,12 +34,13 @@ android:background="@color/gray_background">
             android:id="@+id/fragment_recipe_list_no_items_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/icon_chef_buddy"/>
         <TextView
             android:id="@+id/fragment_recipe_list_no_items_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:gravity="center"
             android:text="@string/fragment_recipe_list_no_items"/>
     </LinearLayout>
 </RelativeLayout>
