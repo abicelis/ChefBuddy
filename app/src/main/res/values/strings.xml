@@ -33,7 +33,7 @@
 
 
     <!--Recipe List Fragment-->
-    <string name="fragment_recipe_list_no_items">No recipes here</string>
+    <string name="fragment_recipe_list_no_items">There are no recipes. Add one using the + button</string>
 
 
     <!--Spinwheel Fragment-->
@@ -45,6 +45,12 @@
         <!--Edit Spin Wheel Recipes Dialog-->
         <string name="dialog_edit_spin_wheel_recipes_title">SET WHEEL RECIPES</string>
         <string name="dialog_edit_spin_wheel_recipes_subtitle">Select at least %1$d recipes and at most %2$d</string>
+
+
+    <!--History Fragment-->
+    <string name="fragment_history_no_items">This page is under construction!</string>
+
+
 
 
     <!--Recipe detail activity-->
