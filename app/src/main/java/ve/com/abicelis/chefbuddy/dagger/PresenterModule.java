@@ -60,7 +60,6 @@ public class PresenterModule {
     }
 
     @Provides
-    @Singleton
     RecipeDetailPresenter provideRecipeDetailPresenter(ChefBuddyDAO dao){
         return new RecipeDetailPresenterImpl(dao);
     }
