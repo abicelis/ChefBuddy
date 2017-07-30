@@ -182,7 +182,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
-
     }
 
 
@@ -409,7 +408,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                         .error(R.drawable.default_recipe_image)
                         .into(mImage);
                 break;
-
         }
 
         mTitleTitle.setText(recipe.getName());
