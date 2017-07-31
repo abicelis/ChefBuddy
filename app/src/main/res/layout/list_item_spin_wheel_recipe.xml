@@ -18,7 +18,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"        
-        android:src="@drawable/hummus"
+        android:src="@drawable/pizza"
         app:layout_anchor="@id/activity_recipe_detail_header_framelayout"
         app:layout_anchorGravity="center|top"
         />
