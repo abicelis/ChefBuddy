@@ -27,7 +27,7 @@ public class TestActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Poop");
-        getSupportActionBar().setLogo(R.drawable.hummus);
+        getSupportActionBar().setLogo(R.drawable.pizza);
 
     }
 }
