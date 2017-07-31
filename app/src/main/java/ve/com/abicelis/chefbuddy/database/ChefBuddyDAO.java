@@ -243,7 +243,7 @@ public class ChefBuddyDAO {
     public long insertRecipe(Recipe recipe) throws CouldNotInsertDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
-        ContentValues values = getValuesForRecipe(recipe);
+        ContentValues values = ContentValuesHelper.getValuesForRecipe(recipe);
 
         long newRowId;
         newRowId = db.insert(ChefBuddyContract.RecipeTable.TABLE_NAME, null, values);
@@ -277,7 +277,7 @@ public class ChefBuddyDAO {
 
 
         for (int i = 0; i < recipeIngredients.size(); i++) {
-            ContentValues values = getValuesForRecipeIngredient(recipeId, recipeIngredients.get(i));
+            ContentValues values = ContentValuesHelper.getValuesForRecipeIngredient(recipeId, recipeIngredients.get(i));
             newRowIds[i] = db.insert(ChefBuddyContract.RecipeIngredientTable.TABLE_NAME, null, values);
 
             if (newRowIds[i] == -1)
@@ -317,7 +317,7 @@ public class ChefBuddyDAO {
 
         long newRowId;
 
-        ContentValues values = getValuesForIngredient(ingredient);
+        ContentValues values = ContentValuesHelper.getValuesForIngredient(ingredient);
         newRowId = db.insert(ChefBuddyContract.IngredientTable.TABLE_NAME, null, values);
 
         if (newRowId == -1)
@@ -996,7 +996,7 @@ public class ChefBuddyDAO {
 
         int count = db.update(
                 ChefBuddyContract.RecipeTable.TABLE_NAME,
-                getValuesForRecipe(recipe),
+                ContentValuesHelper.getValuesForRecipe(recipe),
                 ChefBuddyContract.RecipeTable.COLUMN_ID.getName() + " =? ",
                 new String[] {String.valueOf(recipe.getId())} );
 
@@ -1015,7 +1015,7 @@ public class ChefBuddyDAO {
         db.delete(ChefBuddyContract.WheelRecipeTable.TABLE_NAME, null, null);
 
         for (Recipe r : recipes) {
-            ContentValues values = getWheelRecipeValuesForRecipe(r);
+            ContentValues values = ContentValuesHelper.getWheelRecipeValuesForRecipe(r);
             db.insert(ChefBuddyContract.WheelRecipeTable.TABLE_NAME, null, values);
         }
     }
@@ -1299,38 +1299,6 @@ public class ChefBuddyDAO {
 
 
 
-    /* Model to ContentValues */
-
-    private ContentValues getValuesForRecipe(Recipe recipe) {
-        ContentValues values = new ContentValues();
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_NAME.getName(), recipe.getName());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_SERVINGS.getName(), recipe.getServings().name());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_PREPARATION_TIME.getName(), recipe.getPreparationTime().name());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_DIRECTIONS.getName(), recipe.getDirections());
-        values.put(ChefBuddyContract.RecipeTable.COLUMN_IMAGE_FILENAMES.getName(), recipe.getImageFilenamesStr());
-        return values;
-    }
-
-    private ContentValues getWheelRecipeValuesForRecipe(Recipe recipe) {
-        ContentValues values = new ContentValues();
-        values.put(ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName(), recipe.getId());
-        return values;
-    }
-
-    private ContentValues getValuesForRecipeIngredient(long recipeId, RecipeIngredient recipeIngredient) {
-        ContentValues values = new ContentValues();
-        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_RECIPE_FK.getName(), recipeId);
-        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_INGREDIENT_FK.getName(), recipeIngredient.getIngredient().getId());
-        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_AMOUNT.getName(), recipeIngredient.getAmount());
-        values.put(ChefBuddyContract.RecipeIngredientTable.COLUMN_MEASUREMENT.getName(), recipeIngredient.getMeasurement().name());
-        return values;
-    }
-
-    private ContentValues getValuesForIngredient(Ingredient ingredient) {
-        ContentValues values = new ContentValues();
-        values.put(ChefBuddyContract.IngredientTable.COLUMN_NAME.getName(), ingredient.getName());
-        return values;
-    }
 
 
 
@@ -1340,112 +1308,6 @@ public class ChefBuddyDAO {
 
 
 
-
-
-
-
-//
-//
-//
-//
-//
-//
-//    /* Model to ContentValues */
-//
-//    private ContentValues getValuesFromTask(Task task) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_STATUS.getName(), task.getStatus().name());
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_TITLE.getName(), task.getTitle());
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_DESCRIPTION.getName(), task.getDescription());
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_CATEGORY.getName(), task.getCategory().name());
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_REMINDER_TYPE.getName(), task.getReminderType().name());
-//
-//        values.put(ChefBuddyContract.TaskTable.COLUMN_NAME_DONE_DATE.getName(), (task.getStatus() == TaskStatus.DONE ? task.getDoneDate().getTimeInMillis() : -1));
-//        return values;
-//    }
-//
-//
-//    private ContentValues getValuesFromOneTimeReminder(OneTimeReminder oneTimeReminder) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.OneTimeReminderTable.COLUMN_NAME_TASK_FK.getName(), oneTimeReminder.getTaskId());
-//        values.put(ChefBuddyContract.OneTimeReminderTable.COLUMN_NAME_DATE.getName(), oneTimeReminder.getDate().getTimeInMillis());
-//        values.put(ChefBuddyContract.OneTimeReminderTable.COLUMN_NAME_TIME.getName(), oneTimeReminder.getTime().getTimeInMinutes());
-//        return values;
-//    }
-//
-//
-//    private ContentValues getValuesFromRepeatingReminder(RepeatingReminder repeatingReminder) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_TASK_FK.getName(), repeatingReminder.getTaskId());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_DATE.getName(), repeatingReminder.getDate().getTimeInMillis());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_TIME.getName(), repeatingReminder.getTime().getTimeInMinutes());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_REPEAT_TYPE.getName(), repeatingReminder.getRepeatType().name());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_REPEAT_INTERVAL.getName(), repeatingReminder.getRepeatInterval());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_REPEAT_END_TYPE.getName(), repeatingReminder.getRepeatEndType().name());
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_REPEAT_END_NUMBER_OF_EVENTS.getName(), (repeatingReminder.getRepeatEndType() == ReminderRepeatEndType.FOR_X_EVENTS ? repeatingReminder.getRepeatEndNumberOfEvents() : -1));
-//        values.put(ChefBuddyContract.RepeatingReminderTable.COLUMN_NAME_REPEAT_END_DATE.getName(), (repeatingReminder.getRepeatEndType() == ReminderRepeatEndType.UNTIL_DATE ? repeatingReminder.getRepeatEndDate().getTimeInMillis() : -1));
-//        return values;
-//    }
-//
-//
-//    private ContentValues getValuesFromLocationBasedReminder(LocationBasedReminder locationBasedReminder) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.LocationBasedReminderTable.COLUMN_NAME_TASK_FK.getName(), locationBasedReminder.getTaskId());
-//        values.put(ChefBuddyContract.LocationBasedReminderTable.COLUMN_NAME_PLACE_FK.getName(), locationBasedReminder.getPlaceId());
-//        values.put(ChefBuddyContract.LocationBasedReminderTable.COLUMN_NAME_TRIGGER_ENTERING.getName(), String.valueOf(locationBasedReminder.getTriggerEntering()));
-//        values.put(ChefBuddyContract.LocationBasedReminderTable.COLUMN_NAME_TRIGGER_EXITING.getName(), String.valueOf(locationBasedReminder.getTriggerExiting()));
-//        return values;
-//    }
-//
-//
-//    private ContentValues getValuesFromPlace(Place place) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_ALIAS.getName(), place.getAlias());
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_ADDRESS.getName(), place.getAddress());
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_LATITUDE.getName(), place.getLatitude());
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_LONGITUDE.getName(), place.getLongitude());
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_RADIUS.getName(), place.getRadius());
-//        values.put(ChefBuddyContract.PlaceTable.COLUMN_NAME_IS_ONE_OFF.getName(), place.isOneOff());
-//        return values;
-//    }
-//
-//
-//    private ContentValues getValuesFromAttachment(Attachment attachment) {
-//        ContentValues values = new ContentValues();
-//        values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_TASK_FK.getName(), attachment.getTaskId());
-//        values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_TYPE.getName(), attachment.getType().name());
-//
-//        switch (attachment.getType()) {
-//            case AUDIO:
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_TEXT.getName(), ((AudioAttachment) attachment).getAudioFilename());
-//                break;
-//            case IMAGE:
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_BLOB.getName(), ((ImageAttachment) attachment).getThumbnail());
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_TEXT.getName(), ((ImageAttachment) attachment).getImageFilename());
-//                break;
-//            case TEXT:
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_TEXT.getName(), ((TextAttachment) attachment).getText());
-//                break;
-//            case LIST:
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_TEXT.getName(), ((ListAttachment) attachment).getItemsJson());
-//                break;
-//            case LINK:
-//                values.put(ChefBuddyContract.AttachmentTable.COLUMN_NAME_CONTENT_TEXT.getName(), ((LinkAttachment) attachment).getLink());
-//                break;
-//            default:
-//                throw new InvalidParameterException("AttachmentType is invalid. Value = " + attachment.getType());
-//        }
-//        return values;
-//    }
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
