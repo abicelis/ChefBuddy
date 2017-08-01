@@ -70,19 +70,19 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     @BindView(R.id.fragment_spinwheel_edit)
     ImageView mEditWheel;
 
-    @BindView(R.id.fragment_spinwheel_recipe_container)
-    FancyCardView mRecipeContainer;
-
     @BindView(R.id.fragment_spinwheel_tutorial_container)
     FancyCardView mTutorialContainer;
 
-    @BindView(R.id.fragment_spinwheel_recipe_image)
+    @BindView(R.id.recipe_card_container)
+    FancyCardView mRecipeContainer;
+
+    @BindView(R.id.recipe_card_image)
     ImageView mRecipeImage;
 
-    @BindView(R.id.fragment_spinwheel_recipe_name)
+    @BindView(R.id.recipe_card_name)
     TextView mRecipeName;
 
-    @BindView(R.id.fragment_spinwheel_recipe_ingredients)
+    @BindView(R.id.recipe_card_ingredients)
     TextView mRecipeIngredients;
 
     @BindView(R.id.fragment_spinwheel_no_items_container)

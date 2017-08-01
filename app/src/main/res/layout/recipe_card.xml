@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ve.com.abicelis.chefbuddy.views.FancyCardView
+    android:id="@+id/recipe_card_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_alignParentBottom="true"
+    android:layout_margin="8dp"
+    app:contentPadding="8dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/swipe_refresh_green">
+
+        <FrameLayout
+            android:id="@+id/recipe_card_image_container"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="@string/loading"
+                android:background="@color/gray_background"/>
+            <ImageView
+                android:id="@+id/recipe_card_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/burger"
+                />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/recipe_card_edit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_edit"
+            android:tint="@color/black"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/recipe_card_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@+id/recipe_card_image_container"
+            android:layout_toEndOf="@+id/recipe_card_image_container"
+            android:layout_toLeftOf="@+id/recipe_card_edit"
+            android:layout_toStartOf="@+id/recipe_card_edit"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Placeholder title of Recipe"/>
+
+        <TextView
+            android:id="@+id/recipe_card_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/recipe_card_image_container"
+            android:layout_toEndOf="@+id/recipe_card_image_container"
+            android:layout_toLeftOf="@+id/recipe_card_edit"
+            android:layout_toStartOf="@+id/recipe_card_edit"
+            android:layout_below="@+id/recipe_card_name"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Placeholder ingredients of recipe"/>
+
+
+    </RelativeLayout>
+
+
+</ve.com.abicelis.chefbuddy.views.FancyCardView>
