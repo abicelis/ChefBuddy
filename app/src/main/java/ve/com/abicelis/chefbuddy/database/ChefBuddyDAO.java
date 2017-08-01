@@ -70,8 +70,6 @@ public class ChefBuddyDAO {
             cursor.moveToNext();
             recipe = getRecipeFromCursor(cursor);
             recipe.setRecipeIngredients(getRecipeIngredientsOfRecipe(recipe.getId()));
-            // TODO: 7/7/2017 Add images!
-
         } finally {
             cursor.close();
         }
