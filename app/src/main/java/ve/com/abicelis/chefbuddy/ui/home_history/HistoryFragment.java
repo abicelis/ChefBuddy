@@ -22,6 +22,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.squareup.picasso.Picasso;
+import com.transitionseverywhere.Fade;
 import com.transitionseverywhere.Slide;
 import com.transitionseverywhere.TransitionManager;
 
@@ -142,13 +143,13 @@ public class HistoryFragment extends Fragment implements HistoryView {
 
     @Override
     public void displayDailyRecipeDetails(final DailyRecipe dailyRecipe) {
-        TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+        TransitionManager.beginDelayedTransition(mContainer, new Fade());
         mRecipeContainer.setVisibility(View.INVISIBLE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+                TransitionManager.beginDelayedTransition(mContainer, new Fade());
 
                 Picasso.with(getActivity())
                         .load(new File(FileUtil.getImageFilesDir(), dailyRecipe.getRecipe().getFeaturedImage()))
@@ -190,13 +191,13 @@ public class HistoryFragment extends Fragment implements HistoryView {
     @Override
     public void displayNoDailyRecipe(final Calendar date) {
 
-        TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+        TransitionManager.beginDelayedTransition(mContainer, new Fade());
         mRecipeContainer.setVisibility(View.INVISIBLE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
+                TransitionManager.beginDelayedTransition(mContainer, new Fade());
 
                 mRecipeImage.setImageResource(R.drawable.default_recipe_image);
                 mRecipeName.setText(getString(R.string.fragment_history_no_daily_recipe_title));
