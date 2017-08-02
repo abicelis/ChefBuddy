@@ -49,6 +49,7 @@ This Project uses external dependencies and SDK's
 * [Image Cropper](https://github.com/ArthurHub/Android-Image-Cropper) - Image Cropping Library by ArthurHub
 * [ScrollGalleryView](https://github.com/VEINHORN/ScrollGalleryView) - Image Gallery by VEINHORN
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView) - CircleImageView by hdodenhof
+* [Material Calendar View](https://github.com/prolificinteractive/material-calendarview) - Backported calendar view by prolificinteractive
 
 
 ## Software used
