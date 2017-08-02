@@ -15,6 +15,10 @@ import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresent
 import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home_history.presenter.EditDailyRecipePresenter;
+import ve.com.abicelis.chefbuddy.ui.home_history.presenter.EditDailyRecipePresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.home_history.presenter.HistoryPresenter;
+import ve.com.abicelis.chefbuddy.ui.home_history.presenter.HistoryPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenter;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.presenter.RecipeListPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.presenter.EditSpinWheelRecipesPresenter;
@@ -55,6 +59,17 @@ public class PresenterModule {
     EditSpinWheelRecipesPresenter provideEditSpinwheelRecipesPresenter(ChefBuddyDAO dao) {
         return new EditSpinWheelRecipesPresenterImpl(dao);
     }
+
+    @Provides
+    HistoryPresenter provideHistoryPresenter(ChefBuddyDAO dao) {
+        return new HistoryPresenterImpl(dao);
+    }
+
+    @Provides
+    EditDailyRecipePresenter provideEditDailyRecipePresenter(ChefBuddyDAO dao) {
+        return new EditDailyRecipePresenterImpl(dao);
+    }
+
 
     @Provides
     RecipeDetailPresenter provideRecipeDetailPresenter(ChefBuddyDAO dao){

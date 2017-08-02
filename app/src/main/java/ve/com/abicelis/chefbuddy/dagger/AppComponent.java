@@ -7,6 +7,8 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddRecipeIngredientDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.editImageActivity.EditImageActivity;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
+import ve.com.abicelis.chefbuddy.ui.home_history.EditDailyRecipeDialogFragment;
+import ve.com.abicelis.chefbuddy.ui.home_history.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.EditSpinWheelRecipesDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
@@ -24,29 +26,33 @@ import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivit
 public interface AppComponent {
     void inject(MainActivity target);
 
+
+
     void inject(HomeActivity target);
-    //void inject(HomePresenterImpl target);
-
     void inject(RecipeListFragment target);
-    //void inject(RecipeListPresenterImpl target);
-
     void inject(SpinWheelFragment target);
     void inject(EditSpinWheelRecipesDialogFragment target);
-    //void inject(SpinWheelPresenterImpl target);
+    void inject(HistoryFragment target);
+    void inject(EditDailyRecipeDialogFragment target);
+
+
 
     void inject(RecipeDetailActivity target);
-    //void inject(RecipeDetailPresenterImpl target);
+
+
 
     void inject(AddEditRecipeActivity target);
     void inject(AddRecipeIngredientDialogFragment target);
-    // void inject(AddEditRecipePresenterImpl target);
+
+
 
     void inject(ImageGalleryActivity target);
-    //void inject(ImageGalleryPresenterImpl target);
+
+
 
     void inject(EditImageActivity target);
-    //void inject(EditImagePresenterImpl target);
+
+
 
     void inject(SearchOnlineRecipeActivity target);
-    //void inject(SearchOnlineRecipePresenterImpl target);
 }
