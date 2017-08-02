@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="26dp"
-        android:layout_above="@+id/fragment_spinwheel_recipe_container"
+        android:layout_above="@+id/card_recipe_container"
         />
 
     <ImageView
@@ -32,132 +32,11 @@
         android:layout_marginEnd="12dp"
         android:layout_marginTop="12dp"/>
 
-    <ve.com.abicelis.chefbuddy.views.FancyCardView
-        android:id="@+id/fragment_spinwheel_tutorial_container"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
-        app:contentPadding="8dp"
-        android:visibility="visible"
-        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+    <include android:id="@+id/card_recipe_container" layout="@layout/card_recipe"/>
+    <include android:id="@+id/card_notice_container" layout="@layout/card_notice"/>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textAlignment="center"
-                android:text="@string/fragment_spinwheel_tutorial_title"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textAlignment="center"
-                android:text="@string/fragment_spinwheel_tutorial_subtitle"/>
-        </LinearLayout>
-
-    </ve.com.abicelis.chefbuddy.views.FancyCardView>
-
-
-    <ve.com.abicelis.chefbuddy.views.FancyCardView
-        android:id="@+id/fragment_spinwheel_recipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
-        app:contentPadding="8dp"
-        android:visibility="invisible"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:id="@+id/fragment_spinwheel_recipe_image_container"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="@string/loading"
-                    android:background="@color/gray_background"/>
-                <ImageView
-                    android:id="@+id/fragment_spinwheel_recipe_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/burger"
-                    />
-            </FrameLayout>
-
-
-            <TextView
-                android:id="@+id/fragment_spinwheel_recipe_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toRightOf="@+id/fragment_spinwheel_recipe_image_container"
-                android:layout_toEndOf="@+id/fragment_spinwheel_recipe_image_container"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="Placeholder title of Recipe"/>
-
-            <TextView
-                android:id="@+id/fragment_spinwheel_recipe_ingredients"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toRightOf="@+id/fragment_spinwheel_recipe_image_container"
-                android:layout_toEndOf="@+id/fragment_spinwheel_recipe_image_container"
-                android:layout_below="@+id/fragment_spinwheel_recipe_name"
-                android:textColor="@color/secondary_text"
-                android:textSize="14sp"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:text="Placeholder ingredients of recipe"/>
-
-
-        </RelativeLayout>
-
-
-    </ve.com.abicelis.chefbuddy.views.FancyCardView>
-
+    <!--No items-->
     <RelativeLayout
         android:id="@+id/fragment_spinwheel_no_items_container"
         android:layout_width="match_parent"
@@ -188,5 +67,4 @@
                 android:text="@string/fragment_spinwheel_no_items"/>
         </LinearLayout>
     </RelativeLayout>
-
 </RelativeLayout>
