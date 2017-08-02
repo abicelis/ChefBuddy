@@ -37,8 +37,8 @@
 
 
     <!--Spinwheel Fragment-->
-    <string name="fragment_spinwheel_tutorial_title">Spin the wheel for a random Recipe</string>
-    <string name="fragment_spinwheel_tutorial_subtitle">Set the recipes on the wheel by clicking the top-right edit button</string>
+    <string name="fragment_spinwheel_notice_card_title">Spin the wheel for a random Recipe</string>
+    <string name="fragment_spinwheel_notice_card_subtitle">Set the recipes on the wheel by clicking the top-right edit button</string>
     <string name="fragment_spinwheel_no_items">Not enough recipes to show spin wheel. Need at least %1$d</string>
 
 
@@ -48,7 +48,16 @@
 
 
     <!--History Fragment-->
+    <string name="fragment_history_no_daily_recipe_title">No recipe logged</string>
+    <string name="fragment_history_no_daily_recipe_subtitle">Click the edit button to set a recipe for this day</string>
     <string name="fragment_history_no_items">This page is under construction!</string>
+
+
+        <!--Edit Daily Recipe Dialog-->
+        <string name="dialog_edit_daily_recipe_title">SET RECIPE FOR DATE</string>
+        <string name="dialog_edit_daily_recipe_none">NONE</string>
+
+
 
 
 
