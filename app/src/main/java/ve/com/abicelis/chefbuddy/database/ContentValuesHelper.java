@@ -2,6 +2,8 @@ package ve.com.abicelis.chefbuddy.database;
 
 import android.content.ContentValues;
 
+import java.util.Calendar;
+
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
@@ -27,6 +29,16 @@ public class ContentValuesHelper {
         values.put(ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName(), recipe.getId());
         return values;
     }
+
+    public static ContentValues getDailyRecipeValues(Calendar date, long recipeId) {
+        ContentValues values = new ContentValues();
+        values.put(ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName(), date.get(Calendar.DAY_OF_MONTH));
+        values.put(ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName(), date.get(Calendar.MONTH));
+        values.put(ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName(), date.get(Calendar.YEAR));
+        values.put(ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName(), recipeId);
+        return values;
+    }
+
 
     public static ContentValues getValuesForRecipeIngredient(long recipeId, RecipeIngredient recipeIngredient) {
         ContentValues values = new ContentValues();

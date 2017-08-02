@@ -40,7 +40,7 @@ import ve.com.abicelis.chefbuddy.util.ImageUtil;
 public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ChefBuddy.db";
-    private static final int DATABASE_VERSION = 15;                               // If you change the database schema, you must increment the database version.
+    private static final int DATABASE_VERSION = 16;                               // If you change the database schema, you must increment the database version.
     private static final String COMMA_SEP = ", ";
 
     private String mAppDbFilepath;
@@ -295,13 +295,13 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
                 ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName() + COMMA_SEP +
                 ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName() +
                 ") VALUES " +
-                "(0, " + today.get(Calendar.YEAR) + ", " + today.get(Calendar.MONTH) + ", " + today.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(1, " + todayPlusOne.get(Calendar.YEAR) + ", " + todayPlusOne.get(Calendar.MONTH) + ", " + todayPlusOne.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(2, " + todayPlusTwo.get(Calendar.YEAR) + ", " + todayPlusTwo.get(Calendar.MONTH) + ", " + todayPlusTwo.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(3, " + todayPlusThree.get(Calendar.YEAR) + ", " + todayPlusThree.get(Calendar.MONTH) + ", " + todayPlusThree.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(4, " + todayPlusFour.get(Calendar.YEAR) + ", " + todayPlusFour.get(Calendar.MONTH) + ", " + todayPlusFour.get(Calendar.DAY_OF_MONTH) + ", 0)," +
-                "(5, " + todayPlusFive.get(Calendar.YEAR) + ", " + todayPlusFive.get(Calendar.MONTH) + ", " + todayPlusFive.get(Calendar.DAY_OF_MONTH) + ", 1)," +
-                "(6, " + todayPlusSix.get(Calendar.YEAR) + ", " + todayPlusSix.get(Calendar.MONTH) + ", " + todayPlusSix.get(Calendar.DAY_OF_MONTH) + ", 0)" +
+                "(0, " + today.get(Calendar.YEAR) + ", " + today.get(Calendar.MONTH) + ", " + today.get(Calendar.DAY_OF_MONTH) + ", 1)," +
+                "(1, " + todayPlusOne.get(Calendar.YEAR) + ", " + todayPlusOne.get(Calendar.MONTH) + ", " + todayPlusOne.get(Calendar.DAY_OF_MONTH) + ", 2)," +
+                "(2, " + todayPlusTwo.get(Calendar.YEAR) + ", " + todayPlusTwo.get(Calendar.MONTH) + ", " + todayPlusTwo.get(Calendar.DAY_OF_MONTH) + ", 3)," +
+                "(3, " + todayPlusThree.get(Calendar.YEAR) + ", " + todayPlusThree.get(Calendar.MONTH) + ", " + todayPlusThree.get(Calendar.DAY_OF_MONTH) + ", 4)," +
+                "(4, " + todayPlusFour.get(Calendar.YEAR) + ", " + todayPlusFour.get(Calendar.MONTH) + ", " + todayPlusFour.get(Calendar.DAY_OF_MONTH) + ", 4)," +
+                "(5, " + todayPlusFive.get(Calendar.YEAR) + ", " + todayPlusFive.get(Calendar.MONTH) + ", " + todayPlusFive.get(Calendar.DAY_OF_MONTH) + ", 3)," +
+                "(6, " + todayPlusSix.get(Calendar.YEAR) + ", " + todayPlusSix.get(Calendar.MONTH) + ", " + todayPlusSix.get(Calendar.DAY_OF_MONTH) + ", 3)" +
                 ";";
         sqLiteDatabase.execSQL(statement);
 
