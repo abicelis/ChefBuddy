@@ -53,6 +53,8 @@ dependencies {
     //Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    //Material Calendar View
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:2.1.0"
