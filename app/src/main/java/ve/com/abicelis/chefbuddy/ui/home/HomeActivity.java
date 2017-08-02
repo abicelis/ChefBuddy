@@ -48,6 +48,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
     private static final String TAG = HomeActivity.class.getSimpleName();
     private static final int RECIPE_TAB_POSITION = 0;
     private static final int SPINWHEEL_TAB_POSITION = 1;
+    private static final int HISTORY_TAB_POSITION = 2;
 
     //DATA
     @Inject
@@ -145,11 +146,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
                 if(position != RECIPE_TAB_POSITION)
                     mAppBarLayout.setExpanded(true, true);
 
+
                 if(position == SPINWHEEL_TAB_POSITION) {
                     //Notify fragment
                     SpinWheelFragment f = ((SpinWheelFragment)mHomeViewPagerAdapter.getRegisteredFragment(SPINWHEEL_TAB_POSITION));
                     if(f != null)
                         f.refreshWheel();
+                }
+
+                if(position == HISTORY_TAB_POSITION) {
+                    //Notify fragment
+                    HistoryFragment f = ((HistoryFragment)mHomeViewPagerAdapter.getRegisteredFragment(HISTORY_TAB_POSITION));
+                    if(f != null)
+                        f.refresh();
                 }
             }
 
