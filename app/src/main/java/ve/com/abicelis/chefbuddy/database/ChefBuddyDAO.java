@@ -5,18 +5,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotDeleteDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotGetDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotInsertDataException;
 import ve.com.abicelis.chefbuddy.database.exceptions.CouldNotUpdateDataException;
+import ve.com.abicelis.chefbuddy.model.DailyRecipe;
 import ve.com.abicelis.chefbuddy.model.Ingredient;
 import ve.com.abicelis.chefbuddy.model.Measurement;
 import ve.com.abicelis.chefbuddy.model.PreparationTime;
 import ve.com.abicelis.chefbuddy.model.RecipeIngredient;
 import ve.com.abicelis.chefbuddy.model.Recipe;
 import ve.com.abicelis.chefbuddy.model.Servings;
+import ve.com.abicelis.chefbuddy.util.CalendarUtil;
 
 
 /**
@@ -215,6 +218,75 @@ public class ChefBuddyDAO {
 
 
 
+    /**
+     * Returns the complete list of daily recipes in the daily_recipe table
+     * @return A list of Recipes
+     */
+    public List<DailyRecipe> getDailyRecipes() throws CouldNotGetDataException {
+        List<DailyRecipe> dailyRecipes = new ArrayList<>();
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+
+        String tables = String.format("%1$s INNER JOIN %2$s ON %1$s.%3$s = %2$s.%4$s",
+                ChefBuddyContract.DailyRecipeTable.TABLE_NAME,
+                ChefBuddyContract.RecipeTable.TABLE_NAME,
+                ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName(),
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName());
+
+        Cursor cursor = db.query(tables, null, null, null, null, null, null);
+
+
+        try {
+            while (cursor.moveToNext()) {
+                DailyRecipe dailyRecipe = getDailyRecipeFromCursor(cursor);
+                dailyRecipe.getRecipe().setRecipeIngredients(getRecipeIngredientsOfRecipe(dailyRecipe.getRecipe().getId()));
+                dailyRecipes.add(dailyRecipe);
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return dailyRecipes;
+    }
+
+
+    /**
+     * Returns the recipe made on a particular day, or none if none was made.
+     * @param date The date to check
+     * @return A Recipe or null
+     */
+    public DailyRecipe getDailyRecipeForDate(Calendar date) throws CouldNotGetDataException {
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+
+        String tables = String.format("%1$s INNER JOIN %2$s ON %1$s.%3$s = %2$s.%4$s",
+                ChefBuddyContract.DailyRecipeTable.TABLE_NAME,
+                ChefBuddyContract.RecipeTable.TABLE_NAME,
+                ChefBuddyContract.DailyRecipeTable.COLUMN_RECIPE_FK.getName(),
+                ChefBuddyContract.RecipeTable.COLUMN_ID.getName());
+
+        Cursor cursor = db.query(tables, null,
+                ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName() + "=? AND " +
+                        ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName() + "=? AND " +
+                        ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName() + "=?",
+                new String[] {String.valueOf(date.get(Calendar.YEAR)),
+                        String.valueOf(date.get(Calendar.MONTH)),
+                        String.valueOf(date.get(Calendar.DAY_OF_MONTH))}, null, null, null);
+
+
+
+        DailyRecipe dailyRecipe = null;
+        try {
+            while (cursor.moveToNext()) {
+                dailyRecipe = getDailyRecipeFromCursor(cursor);
+                dailyRecipe.getRecipe().setRecipeIngredients(getRecipeIngredientsOfRecipe(dailyRecipe.getRecipe().getId()));
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return dailyRecipe;
+    }
 
 
 
@@ -1020,6 +1092,29 @@ public class ChefBuddyDAO {
 
 
 
+    /**
+     * Updates the information stored about a daily recipe
+     * @param date The date to update
+     * @param recipeId The recipeId to set the daily recipe to
+     */
+    public void updateDailyRecipeForDate(Calendar date, long recipeId) {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        //Delete old data
+        int rows = db.delete(ChefBuddyContract.DailyRecipeTable.TABLE_NAME,
+                        ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName() + "=? AND " +
+                        ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName() + "=? AND " +
+                        ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName() + "=?",
+                new String[] {String.valueOf(date.get(Calendar.YEAR)),
+                        String.valueOf(date.get(Calendar.MONTH)),
+                        String.valueOf(date.get(Calendar.DAY_OF_MONTH))});
+
+        if(recipeId != -1) {
+            ContentValues contentValues = ContentValuesHelper.getDailyRecipeValues(date, recipeId);
+            db.insert(ChefBuddyContract.DailyRecipeTable.TABLE_NAME, null, contentValues);
+        }
+
+    }
 
 
 
@@ -1373,6 +1468,22 @@ public class ChefBuddyDAO {
     private long getRecipeIdFromWheelRecipeCursor(Cursor cursor) {
         long recipeId = cursor.getLong(cursor.getColumnIndex(ChefBuddyContract.WheelRecipeTable.COLUMN_RECIPE.getName()));
         return recipeId;
+    }
+
+
+    private DailyRecipe getDailyRecipeFromCursor(Cursor cursor) {
+        //This cursor will contain data from recipe and daily_recipe tables
+
+        //Grab the recipe
+        Recipe recipe = getRecipeFromCursor(cursor);
+
+        //Grab the daily_recipe data
+        int year = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.DailyRecipeTable.COLUMN_YEAR.getName()));
+        int month = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.DailyRecipeTable.COLUMN_MONTH.getName()));
+        int day = cursor.getInt(cursor.getColumnIndex(ChefBuddyContract.DailyRecipeTable.COLUMN_DAY.getName()));
+        Calendar cal = CalendarUtil.getZeroedCalendarFromYearMonthDay(year, month, day);
+
+        return new DailyRecipe(cal, recipe);
     }
 
 
