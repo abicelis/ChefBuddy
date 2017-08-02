@@ -140,7 +140,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
         //Setup toolbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.activity_add_edit_recipe_title_add);
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back));
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

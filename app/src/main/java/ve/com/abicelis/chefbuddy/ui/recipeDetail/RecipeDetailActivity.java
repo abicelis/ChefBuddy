@@ -342,9 +342,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
                 mToolbar.setOnMenuItemClickListener(new ToolbarMenuItemClickListener());
         }
 
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back));
         mToolbar.setNavigationOnClickListener(new NavigationBackListener());
-        mToolbarBottom.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbarBottom.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back));
         mToolbarBottom.setNavigationOnClickListener(new NavigationBackListener());
 
 

@@ -97,7 +97,7 @@ public class SearchOnlineRecipeActivity extends AppCompatActivity implements Sea
     private void setUpToolbar() {
         //Setup toolbar
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back));
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
