@@ -37,6 +37,7 @@ import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
 import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.settings.SettingsActivity;
 
 /**
  * Created by abicelis on 8/7/2017.
@@ -278,10 +279,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
                 break;
 
             case R.id.menu_home_settings:
-                Toast.makeText(this, "Settings screen under construction", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.menu_home_search:
-                Toast.makeText(this, "Search under construction", Toast.LENGTH_SHORT).show();
+                Intent goToSettingsPage = new Intent(this, SettingsActivity.class);
+                startActivity(goToSettingsPage);
                 break;
         }
 
