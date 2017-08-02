@@ -67,6 +67,14 @@ public class FancySpinner extends LinearLayout {
 
         this.setBackgroundResource(R.drawable.white_round_edges_background);
         this.setGravity(Gravity.CENTER_VERTICAL);
+
+        //Trigger spinner also when clicking outside the spinner but inside the fancySpinner linearLayout container!
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSpinner.performClick();
+            }
+        });
     }
 
 
