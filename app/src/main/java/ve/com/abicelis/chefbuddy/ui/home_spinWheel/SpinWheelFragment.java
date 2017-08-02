@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.transitionseverywhere.Fade;
 import com.transitionseverywhere.Slide;
-import com.transitionseverywhere.Transition;
 import com.transitionseverywhere.TransitionManager;
 
 import java.io.File;
@@ -70,9 +69,19 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     @BindView(R.id.fragment_spinwheel_edit)
     ImageView mEditWheel;
 
-    @BindView(R.id.fragment_spinwheel_tutorial_container)
-    FancyCardView mTutorialContainer;
 
+    //Notice card
+    @BindView(R.id.card_notice_container)
+    FancyCardView mNoticeContainer;
+
+    @BindView(R.id.card_notice_title)
+    TextView mNoticeTitle;
+
+    @BindView(R.id.card_notice_subtitle)
+    TextView mNoticeSubtitle;
+
+
+    //Recipe Card
     @BindView(R.id.card_recipe_container)
     FancyCardView mRecipeContainer;
 
@@ -85,6 +94,8 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
     @BindView(R.id.card_recipe_ingredients)
     TextView mRecipeIngredients;
 
+
+    //No items container
     @BindView(R.id.fragment_spinwheel_no_items_container)
     RelativeLayout mNoItemsContainer;
 
@@ -118,6 +129,9 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
             }
         });
 
+        //Init notice strings
+        mNoticeTitle.setText(getString(R.string.fragment_spinwheel_notice_card_title));
+        mNoticeSubtitle.setText(getString(R.string.fragment_spinwheel_notice_card_subtitle));
 
         mPresenter.attachView(this);
         refreshWheel();
@@ -144,7 +158,7 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
         //Reset fancyCards
         TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
         mRecipeContainer.setVisibility(View.INVISIBLE);
-        mTutorialContainer.setVisibility(View.VISIBLE);
+        mNoticeContainer.setVisibility(View.VISIBLE);
 
 
         //Handle the loading of the wheel in an asyncTask since this is processor-intensive
@@ -157,7 +171,7 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
         mWheelView.setVisibility(View.INVISIBLE);
         mEditWheel.setVisibility(View.INVISIBLE);
         mRecipeContainer.setVisibility(View.INVISIBLE);
-        mTutorialContainer.setVisibility(View.INVISIBLE);
+        mNoticeContainer.setVisibility(View.INVISIBLE);
 
         //Show noItemsContainer
         mNoItemsText.setText(String.format(Locale.getDefault(), getString(R.string.fragment_spinwheel_no_items), Constants.MIN_SPIN_WHEEL_RECIPE_AMOUNT));
@@ -243,7 +257,7 @@ public class SpinWheelFragment extends Fragment implements SpinWheelView {
                     //Hide fancyCards
                     TransitionManager.beginDelayedTransition(mContainer, new Slide(Gravity.BOTTOM));
                     mRecipeContainer.setVisibility(View.INVISIBLE);
-                    mTutorialContainer.setVisibility(View.INVISIBLE);
+                    mNoticeContainer.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
