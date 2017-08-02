@@ -27,6 +27,7 @@
         <activity android:name=".ui.editImageActivity.EditImageActivity"/>
         <activity android:name=".ui.searchOnlineRecipe.SearchOnlineRecipeActivity"/>
         <activity android:name=".ui.about.AboutActivity"/>
+        <activity android:name=".ui.settings.SettingsActivity" android:theme="@style/AppPreferenceTheme"/>
 
         <!--FILE PROVIDER FOR CAMERA-->
         <provider

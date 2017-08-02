@@ -41,6 +41,10 @@ dependencies {
     compile "com.jakewharton:butterknife:8.0.1"
     apt "com.jakewharton:butterknife-compiler:8.0.1"
 
+    //Preferences (Settings)
+    compile 'com.takisoft.fix:preference-v7:25.3.1.0'
+
+
     //Transitions
     compile 'com.andkulikov:transitionseverywhere:1.7.0'
 

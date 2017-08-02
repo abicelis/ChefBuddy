@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <PreferenceCategory android:title="@string/settings_category_settings_title"/>
+    <Preference
+        android:key="@string/settings_backup_key"
+        android:title="@string/settings_backup_title"
+        android:summary="@string/settings_backup_summary" />
+
+
+
+    <PreferenceCategory android:title="@string/settings_category_about_title"/>
+    <Preference
+        android:key="@string/settings_about_key"
+        android:title="@string/settings_about_title"
+        android:summary="@string/settings_about_summary"/>
+    <Preference
+        android:key="@string/settings_rate_key"
+        android:title="@string/settings_rate_title"
+        android:summary="@string/settings_rate_summary"/>
+    <Preference
+        android:key="@string/settings_contact_key"
+        android:title="@string/settings_contact_title"
+        android:summary="@string/settings_contact_summary"/>
+
+
+
+</PreferenceScreen>

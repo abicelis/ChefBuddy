@@ -163,6 +163,32 @@
 
 
 
+
+    <!--Settings Activity-->
+    <string name="activity_settings_toolbar_title">Settings</string>
+
+    <string name="settings_category_settings_title">App settings</string>
+    <string name="settings_backup_key" translatable="false">settings_backup</string>
+    <string name="settings_backup_title">Backup</string>
+    <string name="settings_backup_summary">Configure app data backup options</string>
+
+    <string name="settings_category_about_title">About</string>
+    <string name="settings_about_key" translatable="false">settings_about</string>
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_summary">Check app version, developer info&#8230;</string>
+    <string name="settings_rate_key" translatable="false">settings_rate</string>
+    <string name="settings_rate_title">Rate Chef Buddy</string>
+    <string name="settings_rate_summary">Like this app? A 5-star rating is gladly appreciated</string>
+    <string name="settings_contact_key" translatable="false">settings_contact</string>
+    <string name="settings_contact_title">Contact developer</string>
+    <string name="settings_contact_summary">Having trouble using this app? Questions? Email me at alejandro@alejandrobicelis.com.ve</string>
+
+
+
+
+
+
+
     <!--Dialog-->
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_done">DONE</string>
