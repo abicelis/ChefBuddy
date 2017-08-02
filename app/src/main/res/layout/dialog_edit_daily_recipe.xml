@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/gray_background">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        >
+        <ve.com.abicelis.chefbuddy.views.FancyTitleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_edit_daily_recipe_title"
+            custom:default_padding="false"
+            />
+
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ve.com.abicelis.chefbuddy.views.FancySpinner
+                android:id="@+id/dialog_edit_daily_recipe_recipe_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingStart="24dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        >
+        <Button
+            android:id="@+id/dialog_edit_daily_recipe_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_set"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="?attr/borderlessButtonStyle"/>
+
+        <Button
+            android:id="@+id/dialog_edit_daily_recipe_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/dialog_edit_daily_recipe_set"
+            android:layout_toLeftOf="@id/dialog_edit_daily_recipe_set"
+            android:text="@string/dialog_cancel"
+            style="?attr/borderlessButtonStyle"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
