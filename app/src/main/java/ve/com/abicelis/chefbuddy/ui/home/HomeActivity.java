@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -31,11 +30,11 @@ import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.model.RecipeSource;
 import ve.com.abicelis.chefbuddy.ui.about.AboutActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
+import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
+import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
 import ve.com.abicelis.chefbuddy.ui.home_history.HistoryFragment;
 import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
-import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
-import ve.com.abicelis.chefbuddy.ui.home.view.HomeView;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.settings.SettingsActivity;
 
