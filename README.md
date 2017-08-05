@@ -22,16 +22,13 @@ This app features:
 
 ## Screenshots
 
-<img src="https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png" alt="alt text" width="200">
-<img src="https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/2%20spinwheel%20start.png" alt="alt text" width="200">
 
-
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/2%20spinwheel%20start.png)
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/3%20recipe%20detail.png)
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/4%20recipe%20search.png)
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/5%20ingredient%20add.png)
-![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/6%20image%20edit.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/1%20chef%20buddy%20home.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/2%20spinwheel%20start.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/2%20spinwheel%20start.png.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/3%20recipe%20detail.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/3%20recipe%20detail.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/1%20chef%20buddy%20home.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/1%20chef%20buddy%20home.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
+[ ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/thumbs/1%20chef%20buddy%20home.png) ](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
 
 
 ## Skills learnt while building the app 
