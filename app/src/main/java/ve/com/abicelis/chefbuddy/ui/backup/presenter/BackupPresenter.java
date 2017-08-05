@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.backup.presenter;
 
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.BackupFrequencyType;
 import ve.com.abicelis.chefbuddy.ui.backup.view.BackupView;
 
 /**
@@ -13,4 +14,6 @@ public interface BackupPresenter {
 
     void start();
     void manualBackupComplete(boolean result, Message message);
+
+    void backupFrequencyUpdated(BackupFrequencyType backupFrequencyType);
 }

@@ -16,5 +16,8 @@ public interface BackupView {
     void updateBackupFrequencyType(BackupFrequencyType backupFrequencyType);
     void updateBackupConnectionType(BackupConnectionType backupConnectionType);
 
+    void triggerBackupServiceStarter();
+
+    void showInfo(String info);
     void showErrorMessage(Message message);
 }

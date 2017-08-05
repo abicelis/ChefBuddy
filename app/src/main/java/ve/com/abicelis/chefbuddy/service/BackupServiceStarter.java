@@ -19,21 +19,37 @@ public class BackupServiceStarter extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if ( intent.getAction().equals(Constants.BOOT_COMPLETED_ACTION) || intent.getAction().equals(Constants.APP_STARTED_ACTION) ) {
-            AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-            // TODO: 5/8/2017 check a sharedpreferences value like.. nextAlarm = 23989238
-            //imcrement value by SharedPreferenceUtil.getBackupFrequencyType().getMillis(), check if > currentMillis,
-            //when it is > current, save to sharedPref, set alarm etc.
-
-            Intent triggerBackupService = new Intent(context, BackupService.class);
-            PendingIntent triggerBackupServicePendingIntent = PendingIntent.getService(context, PENDING_INTENT_REQUEST_CODE, triggerBackupService, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-                    SystemClock.elapsedRealtime() + SharedPreferenceUtil.getBackupFrequencyType().getMillis(),
-                    SharedPreferenceUtil.getBackupFrequencyType().getMillis(),
-                    triggerBackupServicePendingIntent);
-
+        //If boot completed, set alarm
+        if ( intent.getAction().equals(Constants.BOOT_COMPLETED_ACTION)) {
+            setAlarmForBackup(alarmManager, context);
         }
+
+        //If starting app for the first time (such as when recently installed), set alarm
+        if (intent.getAction().equals(Constants.APP_STARTED_ACTION) && SharedPreferenceUtil.isFirstTimeLaunchingApp()) {
+            setAlarmForBackup(alarmManager, context);
+        }
+
+        //If backup frequency changed, set alarm
+        if (intent.getAction().equals(Constants.BACKUP_FREQUENCY_CHANGED_ACTION)) {
+            setAlarmForBackup(alarmManager, context);
+        }
+    }
+
+
+    private void setAlarmForBackup(AlarmManager alarmManager, Context context) {
+
+        //Set alarm to occur at nextAlarmTime, and repeat every intervalMillis
+        long intervalMillis = SharedPreferenceUtil.getBackupFrequencyType().getMillis();
+        long nextAlarmTime = SystemClock.elapsedRealtime() + intervalMillis;
+
+        //Create intent and pendingIntent
+        Intent triggerBackupService = new Intent(context, BackupService.class);
+        PendingIntent triggerBackupServicePendingIntent =
+                PendingIntent.getService(context, PENDING_INTENT_REQUEST_CODE, triggerBackupService, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Set alarm
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, nextAlarmTime, intervalMillis, triggerBackupServicePendingIntent);
     }
 }

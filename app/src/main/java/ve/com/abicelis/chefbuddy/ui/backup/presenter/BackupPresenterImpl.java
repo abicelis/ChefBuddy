@@ -1,10 +1,15 @@
 package ve.com.abicelis.chefbuddy.ui.backup.presenter;
 
+
 import java.io.File;
 import java.util.Arrays;
+import java.util.Locale;
 
+import ve.com.abicelis.chefbuddy.R;
+import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.BackupFrequencyType;
 import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.model.BackupType;
 import ve.com.abicelis.chefbuddy.ui.backup.view.BackupView;
@@ -49,6 +54,18 @@ public class BackupPresenterImpl implements BackupPresenter {
         mView.updateLastBackupInfo(mLastBackupInfo);
     }
 
+    @Override
+    public void backupFrequencyUpdated(BackupFrequencyType backupFrequencyType) {
+        //Save value, notify user
+        SharedPreferenceUtil.setBackupFrequencyType(backupFrequencyType);
+        mView.updateBackupFrequencyType(backupFrequencyType);
+
+        String message = String.format(Locale.getDefault(), ChefBuddyApplication.getContext().getString(R.string.dialog_set_backup_frequency_success), backupFrequencyType.getFriendlyName());
+        mView.showInfo(message);
+
+        mView.triggerBackupServiceStarter();
+    }
+
 
     private void updateLastBackupFileAndInfo() {
         File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
@@ -63,4 +80,6 @@ public class BackupPresenterImpl implements BackupPresenter {
             mLastBackupInfo = null;
         }
     }
+
+
 }
