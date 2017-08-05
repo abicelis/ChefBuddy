@@ -2,13 +2,15 @@ package ve.com.abicelis.chefbuddy.app;
 
 import android.support.annotation.StringRes;
 
+import java.io.Serializable;
+
 import ve.com.abicelis.chefbuddy.R;
 
 /**
  * Created by abicelis on 8/7/2017.
  */
 
-public enum Message {
+public enum Message implements Serializable {
     ERROR_LOADING_RECIPES(R.string.error_loading_recipes),
     ERROR_LOADING_RECIPE(R.string.error_loading_recipe),
     ERROR_DOWNLOADING_RECIPE(R.string.error_downloading_recipe),
@@ -35,7 +37,13 @@ public enum Message {
     INVALID_WHEEL_RECIPE_AMOUNT_TOO_FEW(R.string.invalid_wheel_recipe_amount_too_few),
 
     PERMISSIONS_WRITE_STORAGE_NOT_GRANTED(R.string.permissions_write_storage_not_granted),
-    PERMISSIONS_NOT_GRANTED(R.string.permissions_not_granted)
+    PERMISSIONS_NOT_GRANTED(R.string.permissions_not_granted),
+
+
+    // Backup Service
+    ERROR_CREATING_BACKUP_DIRECTORY(R.string.error_creating_backup_directory),
+
+
     ;
 
     @StringRes int friendlyName;
