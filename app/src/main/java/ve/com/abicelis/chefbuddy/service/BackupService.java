@@ -77,7 +77,7 @@ public class BackupService extends IntentService {
 
         //Get paths
         String zipFilePath = String.format(Locale.getDefault(),
-                "%1$s/%2$d_%3$d_%4$d.zip",
+                Constants.BACKUP_SERVICE_BACKUP_FILE_FORMAT,
                 Constants.BACKUP_SERVICE_BACKUP_DIR,
                 Calendar.getInstance().getTimeInMillis(),
                 recipeCount,
