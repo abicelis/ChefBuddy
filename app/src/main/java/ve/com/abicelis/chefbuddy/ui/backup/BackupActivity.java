@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ import android.widget.Toast;
 
 import com.transitionseverywhere.Fade;
 import com.transitionseverywhere.TransitionManager;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -45,6 +48,7 @@ import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.service.BackupService;
 import ve.com.abicelis.chefbuddy.ui.backup.presenter.BackupPresenter;
 import ve.com.abicelis.chefbuddy.ui.backup.view.BackupView;
+import ve.com.abicelis.chefbuddy.util.SharedPreferenceUtil;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
@@ -124,7 +128,17 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
         mBackupFrequencyContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BackupActivity.this, "TODO mBackupFrequencyContainer", Toast.LENGTH_SHORT).show();
+
+                CharSequence[] items = BackupFrequencyType.getFriendlyNames().toArray(new CharSequence[BackupFrequencyType.getFriendlyNames().size()]);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BackupActivity.this);
+                builder.setTitle(R.string.dialog_set_backup_frequency_title);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.backupFrequencyUpdated(BackupFrequencyType.values()[which]);
+                    }
+                });
+                builder.show();
             }
         });
         mAccountContainer.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +311,17 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
     @Override
     public void updateBackupConnectionType(BackupConnectionType backupConnectionType) {
         mBackupConnectionTypeValue.setText(backupConnectionType.getFriendlyName());
+    }
+
+    @Override
+    public void triggerBackupServiceStarter() {
+        Intent triggerBackupServiceStarter = new Intent(Constants.BACKUP_FREQUENCY_CHANGED_ACTION);
+        ChefBuddyApplication.getContext().sendBroadcast(triggerBackupServiceStarter);
+    }
+
+    @Override
+    public void showInfo(String info) {
+        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.SUCCESS, info, SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 
     @Override
