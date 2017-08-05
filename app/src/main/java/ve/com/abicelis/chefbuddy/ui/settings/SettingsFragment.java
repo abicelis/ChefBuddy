@@ -11,6 +11,7 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.ui.about.AboutActivity;
+import ve.com.abicelis.chefbuddy.ui.backup.BackupActivity;
 
 /**
  * Created by abicelis on 2/8/2017.
@@ -34,7 +35,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Toast.makeText(getActivity(), "Backing up!", Toast.LENGTH_SHORT).show();
+                Intent goToBackupActivity = new Intent(getActivity(), BackupActivity.class);
+                startActivity(goToBackupActivity);
                 return true;
             }
         });
