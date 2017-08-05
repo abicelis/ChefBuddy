@@ -93,7 +93,7 @@ public class AddRecipeIngredientDialogFragment extends DialogFragment implements
         mPresenter.getIngredients();
 
         mAmount.setMaxLenght(Constants.MAX_LENGTH_RECIPE_INGREDIENT_AMOUNT);
-        mIngredient.setMaxLenght(Constants.MAX_LENGTH_RECIPE_INGREDIENT_INGREDIENT);
+        mIngredient.setMaxLenght(Constants.MAX_LENGTH_INGREDIENT_NAME);
 
         mMeasurement.setItems(Measurement.getFriendlyNames());
         mMeasurement.setSelection(1);

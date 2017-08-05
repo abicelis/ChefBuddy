@@ -208,12 +208,17 @@
 
     <string name="activity_backup_restore_data_explanation">Note: You can restore your data when you reinstall Chef Buddy. Chef Buddy will try to find a local/Google Drive backup and restore the newest one</string>
 
+        <!--Grant storage permissions Dialog-->
+        <string name="dialog_grant_storage_permissions_title">Grant storage permission</string>
+        <string name="dialog_grant_storage_permissions_message">Chef Buddy needs storage permissions to create and restore backups</string>
+
 
 
     <!--Dialog-->
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_done">DONE</string>
     <string name="dialog_set">SET</string>
+    <string name="dialog_agree">AGREE</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="dialog_discard">DISCARD</string>
@@ -255,6 +260,7 @@
 
 
     <!--Backup Frecuency Type enum-->
+    <string name="backup_frecuency_minutes_5">Every 5 minutes</string>
     <string name="backup_frecuency_daily">Daily</string>
     <string name="backup_frecuency_weekly">Weekly</string>
     <string name="backup_frecuency_monthly">Monthly</string>
