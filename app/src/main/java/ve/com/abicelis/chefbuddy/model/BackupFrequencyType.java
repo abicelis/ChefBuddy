@@ -44,4 +44,5 @@ public enum BackupFrequencyType {
             friendlyValues.add(ChefBuddyApplication.getContext().getString(x.friendlyName));
         }
         return friendlyValues;
-    }}
+    }
+}
