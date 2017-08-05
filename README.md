@@ -19,10 +19,15 @@ This app features:
 - Ad-free-->
 
 
-<!---
+
 ## Screenshots
-TODO
---->
+
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1 chef buddy home.png)
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/2 spinwheel start.png)
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/3 recipe detail.png)
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/4 recipe search.png)
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/5 ingredient add.png)
+![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/6 image edit.png)
 
 
 ## Skills learnt while building the app 
