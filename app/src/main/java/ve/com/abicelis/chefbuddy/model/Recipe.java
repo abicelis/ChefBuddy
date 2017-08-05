@@ -39,10 +39,11 @@ public class Recipe implements Serializable {
     /* When fetching a recipe from db */
     public Recipe(long id, @NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, String imageFilenamesStr) {
         this.id = id;
-        this.name = name;
+
+        setName(name);
+        setDirections(directions);
         this.servings = servings;
         this.preparationTime = preparationTime;
-        this.directions = directions;
 
         if(imageFilenamesStr != null && !imageFilenamesStr.isEmpty()) {
             for( String filename : imageFilenamesStr.split("[" + Constants.IMAGE_FILENAMES_SEPARATOR + "]")) {
@@ -55,10 +56,11 @@ public class Recipe implements Serializable {
     /* When fetching recipes online */
     public Recipe(@NonNull String name, Servings servings, @NonNull PreparationTime preparationTime, @NonNull String directions, List<String> imageUrls) {
         id = -1;
-        this.name = name;
+
+        setName(name);
+        setDirections(directions);
         this.servings = servings;
         this.preparationTime = preparationTime;
-        this.directions = directions;
 
         if(imageUrls != null) {
             this.images = imageUrls;
@@ -142,7 +144,10 @@ public class Recipe implements Serializable {
         this.id = id;
     }
     public void setName(@NonNull String name) {
-        this.name = name;
+        if(name.length() > Constants.MAX_LENGTH_RECIPE_NAME)
+            this.name = name.substring(0, Constants.MAX_LENGTH_RECIPE_NAME);
+        else
+            this.name = name;
     }
     public void setServings(@NonNull Servings servings) {
         this.servings = servings;
@@ -154,7 +159,10 @@ public class Recipe implements Serializable {
         this.recipeIngredients = recipeIngredients;
     }
     public void setDirections(@NonNull String directions) {
-        this.directions = directions;
+        if(name.length() > Constants.MAX_LENGTH_RECIPE_NAME)
+            this.directions = directions.substring(0, Constants.MAX_LENGTH_RECIPE_DIRECTIONS);
+        else
+            this.directions = directions;
     }
 
     public Message checkIfValid() {

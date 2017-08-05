@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Locale;
 
+import ve.com.abicelis.chefbuddy.app.Constants;
+
 /**
  * Created by abicelis on 10/7/2017.
  */
@@ -19,7 +21,7 @@ public class Ingredient implements Serializable {
      */
     public Ingredient(@NonNull String name) {
         this.id = -1;
-        this.name = name;
+        setName(name);
     }
 
     /*
@@ -27,7 +29,7 @@ public class Ingredient implements Serializable {
      */
     public Ingredient(long id, @NonNull String name) {
         this.id = id;
-        this.name = name;
+        setName(name);
     }
 
 
@@ -41,6 +43,12 @@ public class Ingredient implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+    public void setName(String name) {
+        if(name.length() > Constants.MAX_LENGTH_INGREDIENT_NAME)
+            this.name = name.substring(0, Constants.MAX_LENGTH_INGREDIENT_NAME);
+        else
+            this.name = name;
     }
 
     @Override

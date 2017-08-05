@@ -11,25 +11,31 @@ public class Constants {
     public static final String  CHEFF_BUDDY = " - Chef Buddy";
     public static final String DATABASE_NAME = "ChefBuddy.db";
 
-
     public static final String  IMAGE_FILE_EXTENSION = ".jpg";
     public static final String  PDF_FILE_EXTENSION = ".pdf";
     public static final String  IMAGE_FILES_DIR = "recipe/image";
     public static final String  IMAGE_FILENAMES_SEPARATOR = "|";
     public static final int     IMAGE_JPEG_COMPRESSION_PERCENTAGE = 50;
 
-
     public static final String  RECIPE_INGREDIENT_STRING_FORMAT = "%1$s%2$s %3$s";
 
-    public static final int     MAX_LENGTH_RECIPE_NAME = 30;
-    public static final int     MAX_LENGTH_RECIPE_INGREDIENT_AMOUNT = 5;
-    public static final int     MAX_LENGTH_RECIPE_INGREDIENT_INGREDIENT = 30;
+
+    /* INTENT ACTIONS */
+    public static final String  BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
+    public static final String  APP_STARTED_ACTION = "ve.com.abicelis.chefbuddy.APP_STARTED";
 
 
+    /* SPIN WHEEL CONSTANTS */
     public static final int     DEFAULT_SPIN_WHEEL_RECIPE_AMOUNT = 8;
     public static final int     MIN_SPIN_WHEEL_RECIPE_AMOUNT = 2;
     public static final int     MAX_SPIN_WHEEL_RECIPE_AMOUNT = 10;
 
+
+    /* MAX LENGTH FIELDS */
+    public static final int     MAX_LENGTH_RECIPE_NAME = 30;
+    public static final int     MAX_LENGTH_RECIPE_DIRECTIONS = 10000;
+    public static final int     MAX_LENGTH_RECIPE_INGREDIENT_AMOUNT = 5;
+    public static final int     MAX_LENGTH_INGREDIENT_NAME = 30;
 
 
     /* INTENT EXTRAS */
@@ -49,6 +55,7 @@ public class Constants {
     public static final int     RECIPE_DETAIL_ACTIVITY_PERMISSIONS = 200;
     public static final int     EDIT_IMAGE_ACTIVITY_PERMISSIONS = 201;
     public static final int     BACKUP_ACTIVITY_PERMISSIONS = 202;
+    public static final int     BACKUP_ACTIVITY_HANDLE_BACKUP_PERMISSIONS = 203;
 
 
     /* START ACTIVITY REQUEST CODES */
@@ -61,7 +68,6 @@ public class Constants {
     public static final String  EDAMAM_BASE_URL = "https://edamam-recipe-search-and-diet-v1.p.mashape.com/";
     private static final String EDAMAM_API_KEY_TESTING = "FgW2dpYzYzmshHbrNbwec3dlmvy6p1DHtBLjsn0iVf8VxE8zWS";
     public static final String  EDAMAM_API_KEY = EDAMAM_API_KEY_TESTING;
-
 
     public static final String  FOOD2FORK_BASE_URL = "http://food2fork.com/api/";
     public static final String  FOOD2FORK_API_KEY = "544dce2bc365fff9a14505aa58c3731b";
@@ -79,6 +85,7 @@ public class Constants {
     public static final String  BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE = "BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE";
 
     public static final String  BACKUP_SERVICE_BACKUP_DIR = Environment.getExternalStorageDirectory().getPath() + "/Chef Buddy";
+    public static final String  BACKUP_SERVICE_BACKUP_FILE_FORMAT = "%1$s/%2$d_%3$d_%4$d.zip";
     public static final String  BACKUP_SERVICE_ZIP_IMAGES_DIR = "images/";
 
 
