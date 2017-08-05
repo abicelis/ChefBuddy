@@ -58,15 +58,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         >
+
                         <TextView
                             android:id="@+id/activity_backup_last_backup_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/backup_info_detail_string"
-                            android:textSize="16sp"
-                            />
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/activity_backup_last_backup_2"
                             android:layout_width="match_parent"
@@ -149,7 +150,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Daily"
                         android:textSize="14sp"
                         android:textColor="@color/secondary_text"
                         />
@@ -205,7 +205,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="example@domain.com"
                             android:textSize="14sp"
                             android:textColor="@color/secondary_text"
                             />
@@ -232,7 +231,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Wi-Fi only"
                             android:textSize="14sp"
                             android:textColor="@color/secondary_text"
                             />

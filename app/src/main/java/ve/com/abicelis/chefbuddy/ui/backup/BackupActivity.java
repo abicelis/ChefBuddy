@@ -3,6 +3,7 @@ package ve.com.abicelis.chefbuddy.ui.backup;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -102,8 +104,10 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backup);
-        ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
         ButterKnife.bind(this);
+
+        ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
+        mPresenter.attachView(this);
 
         //Setup toolbar
         setSupportActionBar(mToolbar);
@@ -142,8 +146,43 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
             }
         });
 
-        mPresenter.attachView(this);
-        mPresenter.start();
+        //Register receiver for service
+        BroadcastReceiver mBackupCompleteReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                boolean result = intent.getBooleanExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_RESULT, false);
+                Message message = (Message)intent.getSerializableExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE);
+                mPresenter.manualBackupComplete(result, message);
+            }
+        };
+        LocalBroadcastManager.getInstance(BackupActivity.this).registerReceiver(mBackupCompleteReceiver, new IntentFilter(Constants.BACKUP_SERVICE_BROADCAST_BACKUP_DONE));
+
+
+        //Check if WRITE_EXTERNAL_STORAGE permission is granted
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            mPresenter.start();
+        } else {
+            AlertDialog dialog = new AlertDialog.Builder(BackupActivity.this)
+                    .setCancelable(false)
+                    .setTitle(getResources().getString(R.string.dialog_grant_storage_permissions_title))
+                    .setMessage(getResources().getString(R.string.dialog_grant_storage_permissions_message))
+                    .setPositiveButton(getResources().getString(R.string.dialog_agree),  new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(BackupActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.BACKUP_ACTIVITY_PERMISSIONS);
+                        }
+                    })
+                    .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    })
+                    .create();
+            dialog.show();
+        }
+
     }
 
     @Override
@@ -168,11 +207,10 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == Constants.EDIT_IMAGE_ACTIVITY_PERMISSIONS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
-                runManualBackup();
+        if(requestCode == Constants.BACKUP_ACTIVITY_PERMISSIONS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                mPresenter.start();
             else {
-                //Show error and exit
                 BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
@@ -180,7 +218,22 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
                         finish();
                     }
                 };
-                SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, Message.PERMISSIONS_NOT_GRANTED.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, callback);
+                SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, Message.PERMISSIONS_WRITE_STORAGE_NOT_GRANTED.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, callback);
+            }
+        }
+
+        if(requestCode == Constants.BACKUP_ACTIVITY_HANDLE_BACKUP_PERMISSIONS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                runManualBackup();
+            else {
+                BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finish();
+                    }
+                };
+                SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, Message.PERMISSIONS_WRITE_STORAGE_NOT_GRANTED.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, callback);
             }
         }
     }
@@ -188,7 +241,7 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             runManualBackup();
         else
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.BACKUP_ACTIVITY_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.BACKUP_ACTIVITY_HANDLE_BACKUP_PERMISSIONS);
     }
 
 
@@ -203,17 +256,6 @@ public class BackupActivity  extends AppCompatActivity implements BackupView {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Register receiver for service
-                BroadcastReceiver mBackupCompleteReceiver = new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        boolean result = intent.getBooleanExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_RESULT, false);
-                        Message message = (Message)intent.getSerializableExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE);
-                        mPresenter.manualBackupComplete(result, message);
-                    }
-                };
-                LocalBroadcastManager.getInstance(BackupActivity.this).registerReceiver(mBackupCompleteReceiver, new IntentFilter(Constants.BACKUP_SERVICE_BROADCAST_BACKUP_DONE));
-
                 //Start the service
                 Intent startBackupService = new Intent(BackupActivity.this, BackupService.class);
                 startService(startBackupService);
