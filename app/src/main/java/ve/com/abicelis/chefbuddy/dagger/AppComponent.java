@@ -3,8 +3,10 @@ package ve.com.abicelis.chefbuddy.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ve.com.abicelis.chefbuddy.service.BackupService;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddRecipeIngredientDialogFragment;
+import ve.com.abicelis.chefbuddy.ui.backup.BackupActivity;
 import ve.com.abicelis.chefbuddy.ui.editImageActivity.EditImageActivity;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
 import ve.com.abicelis.chefbuddy.ui.home_history.EditDailyRecipeDialogFragment;
@@ -55,4 +57,9 @@ public interface AppComponent {
 
 
     void inject(SearchOnlineRecipeActivity target);
+
+
+
+    void inject(BackupActivity target);
+    void inject(BackupService target);
 }

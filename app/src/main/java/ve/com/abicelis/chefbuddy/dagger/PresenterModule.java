@@ -11,6 +11,8 @@ import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresent
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddEditRecipePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenter;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.presenter.AddRecipeIngredientPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.backup.presenter.BackupPresenter;
+import ve.com.abicelis.chefbuddy.ui.backup.presenter.BackupPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenter;
 import ve.com.abicelis.chefbuddy.ui.editImageActivity.presenter.EditImagePresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.home.presenter.HomePresenter;
@@ -70,7 +72,6 @@ public class PresenterModule {
         return new EditDailyRecipePresenterImpl(dao);
     }
 
-
     @Provides
     RecipeDetailPresenter provideRecipeDetailPresenter(ChefBuddyDAO dao){
         return new RecipeDetailPresenterImpl(dao);
@@ -99,5 +100,10 @@ public class PresenterModule {
     @Provides
     SearchOnlineRecipePresenter provideSearchOnlineRecipePresenter(EdamamApi edamamApi, Food2ForkApi food2ForkApi, ChefBuddyDAO dao) {
         return new SearchOnlineRecipePresenterImpl(edamamApi, food2ForkApi, dao);
+    }
+
+    @Provides
+    BackupPresenter provideBackupPresenter() {
+        return new BackupPresenterImpl();
     }
 }
