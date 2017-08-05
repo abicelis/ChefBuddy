@@ -33,14 +33,16 @@ import ve.com.abicelis.chefbuddy.util.CalendarUtil;
 import ve.com.abicelis.chefbuddy.util.FileUtil;
 import ve.com.abicelis.chefbuddy.util.ImageUtil;
 
+import static ve.com.abicelis.chefbuddy.app.Constants.DATABASE_NAME;
+
 
 /**
  * Created by abicelis on 3/7/2017.
  */
 public class ChefBuddyDbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "ChefBuddy.db";
-    private static final int DATABASE_VERSION = 16;                               // If you change the database schema, you must increment the database version.
+    //CONSTS
+    private static final int DATABASE_VERSION = 16;    // If you change the database schema, you must increment the database version.
     private static final String COMMA_SEP = ", ";
 
     private String mAppDbFilepath;
