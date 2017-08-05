@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
@@ -48,47 +49,61 @@ public class BackupService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
 
-        //Create backup dir if not exists
-        File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
-        if(!backupDir.exists()) {
-            backupDir.mkdir();
-
-            //If dir could not be made, publish error
+        try {
+            //Create backup dir if not exists
+            File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
             if(!backupDir.exists()) {
-                publishResults(false, Message.ERROR_CREATING_BACKUP_DIRECTORY);
+                backupDir.mkdir();
+
+                //If dir could not be made, publish error
+                if(!backupDir.exists()) {
+                    publishResults(false, Message.ERROR_CREATING_BACKUP_DIRECTORY);
+                    return;
+                }
+            }
+
+            //Get the amount of recipes stored in DB
+            int recipeCount;
+            try {
+                recipeCount = mDao.getRecipeCount();
+            }catch (CouldNotGetDataException e) {
+                publishResults(false, Message.ERROR_LOADING_RECIPES);
                 return;
             }
-        }
 
-        //Get the amount of recipes stored in DB
-        int recipeCount;
-        try {
-            recipeCount = mDao.getRecipeCount();
-        }catch (CouldNotGetDataException e) {
-            publishResults(false, Message.ERROR_CREATING_BACKUP_DIRECTORY);
+            //Get and count the list of images in app
+            File recipeImages = new File(FileUtil.getImageFilesDir().getPath());
+            int imageCount = recipeImages.listFiles().length;
+
+
+
+            //Get paths
+            String zipFilePath = String.format(Locale.getDefault(),
+                    Constants.BACKUP_SERVICE_BACKUP_FILE_FORMAT,
+                    Constants.BACKUP_SERVICE_BACKUP_DIR,
+                    Calendar.getInstance().getTimeInMillis(),
+                    recipeCount,
+                    imageCount);
+            String databasePath = this.getDatabasePath(Constants.DATABASE_NAME).getPath();
+            String zipFolderForImages = Constants.BACKUP_SERVICE_ZIP_IMAGES_DIR;
+
+            try {
+                createZipBackup(zipFilePath, databasePath, recipeImages.listFiles(), zipFolderForImages);
+            } catch (IOException e) {
+                publishResults(false, Message.ERROR_CREATING_ZIP_FILE);
+            }
+
+            //Delete old backups if exceeding BACKUP_SERVICE_MAXIMUM_BACKUPS
+            File[] backupZipFiles = backupDir.listFiles();
+            Arrays.sort(backupZipFiles);
+            int aux = backupDir.listFiles().length - Constants.BACKUP_SERVICE_MAXIMUM_BACKUPS;
+            for(int i = 0 ; i < aux ; i++ ) {
+                backupZipFiles[i].delete();
+            }
+
+        } catch (Exception e) {
+            publishResults(false, Message.ERROR_UNKNOWN_CREATING_BACKUP);
             return;
-        }
-
-        //Get and count the list of images in app
-        File recipeImages = new File(FileUtil.getImageFilesDir().getPath());
-        int imageCount = recipeImages.listFiles().length;
-
-
-
-        //Get paths
-        String zipFilePath = String.format(Locale.getDefault(),
-                Constants.BACKUP_SERVICE_BACKUP_FILE_FORMAT,
-                Constants.BACKUP_SERVICE_BACKUP_DIR,
-                Calendar.getInstance().getTimeInMillis(),
-                recipeCount,
-                imageCount);
-        String databasePath = this.getDatabasePath(Constants.DATABASE_NAME).getPath();
-        String zipFolderForImages = Constants.BACKUP_SERVICE_ZIP_IMAGES_DIR;
-
-        try {
-            createZipBackup(zipFilePath, databasePath, recipeImages.listFiles(), zipFolderForImages);
-        } catch (IOException e) {
-            publishResults(false, null);
         }
 
         publishResults(true, null);
