@@ -35,6 +35,18 @@ public class ChefBuddyDAO {
 
 
     /**
+     * Returns the number of recipes in the db
+     */
+    public int getRecipeCount() throws CouldNotGetDataException {
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(ChefBuddyContract.RecipeTable.TABLE_NAME, null, null, null, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+
+    /**
      * Returns the List of Recipes stored in the database without the
      */
     public List<Recipe> getRecipes() throws CouldNotGetDataException {
