@@ -23,8 +23,6 @@ public class BackupInfo {
     private BackupType backupType;
 
     public BackupInfo(String filename, BackupType backupType) {
-        //                "%2$d_R%3$d_I%4$d.zip",
-
         this.filename = filename;
         this.backupType = backupType;
 
