@@ -212,6 +212,10 @@
         <string name="dialog_grant_storage_permissions_title">Grant storage permission</string>
         <string name="dialog_grant_storage_permissions_message">Chef Buddy needs storage permissions to create and restore backups</string>
 
+        <!--Set backup frequency Dialog-->
+        <string name="dialog_set_backup_frequency_title">Set a backup frequency</string>
+        <string name="dialog_set_backup_frequency_success">Backup frequency successfully set to %1$s</string>
+
 
 
     <!--Dialog-->
@@ -257,6 +261,8 @@
     <string name="permissions_not_granted">Chef Buddy needs all permissions granted</string>
 
     <string name="error_creating_backup_directory">Error creating backup directory</string>
+    <string name="error_creating_zip_file">Error creating zip file</string>
+    <string name="error_unknown_creating_backup">Unexpected error creating backup</string>
 
 
     <!--Backup Frecuency Type enum-->

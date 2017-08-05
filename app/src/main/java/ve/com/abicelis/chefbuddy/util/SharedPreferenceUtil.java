@@ -1,6 +1,5 @@
 package ve.com.abicelis.chefbuddy.util;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
@@ -82,6 +81,35 @@ public class SharedPreferenceUtil {
     public static void setGoogleDriveBackupEnabled(boolean enabled) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext()).edit();
         editor.putBoolean(Constants.SHARED_PREFERENCE_GOOGLE_DRIVE_BACKUP_ENABLED, enabled);
+        editor.apply();
+    }
+
+
+
+    /* FIRST TIME LAUNCHING APP */
+    public static boolean isFirstTimeLaunchingApp() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext());
+        boolean firstTimeLaunchingApp = preferences.getBoolean(Constants.SHARED_PREFERENCE_FIRST_TIME_LAUNCHING_APP, true);
+
+        if(firstTimeLaunchingApp) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(Constants.SHARED_PREFERENCE_FIRST_TIME_LAUNCHING_APP, false);
+            editor.apply();
+        }
+
+        return firstTimeLaunchingApp;
+    }
+
+
+
+    /* BACKUP ALARM TIME */
+    public static long getNextBackupAlarmTime() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext());
+        return preferences.getLong(Constants.SHARED_PREFERENCE_BACKUP_ALARM_TIME, -1);
+    }
+    public static void setNextBackupAlarmTime(long alarmTime) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext()).edit();
+        editor.putLong(Constants.SHARED_PREFERENCE_BACKUP_ALARM_TIME, alarmTime);
         editor.apply();
     }
 

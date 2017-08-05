@@ -42,6 +42,8 @@ public enum Message implements Serializable {
 
     // Backup Service
     ERROR_CREATING_BACKUP_DIRECTORY(R.string.error_creating_backup_directory),
+    ERROR_CREATING_ZIP_FILE(R.string.error_creating_zip_file),
+    ERROR_UNKNOWN_CREATING_BACKUP(R.string.error_unknown_creating_backup),
 
 
     ;

@@ -23,6 +23,7 @@ public class Constants {
     /* INTENT ACTIONS */
     public static final String  BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
     public static final String  APP_STARTED_ACTION = "ve.com.abicelis.chefbuddy.APP_STARTED";
+    public static final String  BACKUP_FREQUENCY_CHANGED_ACTION = "ve.com.abicelis.chefbuddy.BACKUP_FREQUENCY_CHANGED";
 
 
     /* SPIN WHEEL CONSTANTS */
@@ -77,6 +78,8 @@ public class Constants {
     public static final String  SHARED_PREFERENCE_BACKUP_FREQUENCY_TYPE = "SHARED_PREFERENCE_BACKUP_FREQUENCY_TYPE";
     public static final String  SHARED_PREFERENCE_BACKUP_CONNECTION_TYPE = "SHARED_PREFERENCE_BACKUP_CONNECTION_TYPE";
     public static final String  SHARED_PREFERENCE_GOOGLE_DRIVE_BACKUP_ENABLED = "SHARED_PREFERENCE_GOOGLE_DRIVE_BACKUP_ENABLED";
+    public static final String  SHARED_PREFERENCE_BACKUP_ALARM_TIME = "SHARED_PREFERENCE_BACKUP_ALARM_TIME";
+    public static final String  SHARED_PREFERENCE_FIRST_TIME_LAUNCHING_APP = "SHARED_PREFERENCE_FIRST_TIME_LAUNCHING_APP";
 
 
     /* BACKUP SERVICE */
@@ -87,6 +90,7 @@ public class Constants {
     public static final String  BACKUP_SERVICE_BACKUP_DIR = Environment.getExternalStorageDirectory().getPath() + "/Chef Buddy";
     public static final String  BACKUP_SERVICE_BACKUP_FILE_FORMAT = "%1$s/%2$d_%3$d_%4$d.zip";
     public static final String  BACKUP_SERVICE_ZIP_IMAGES_DIR = "images/";
+    public static final int     BACKUP_SERVICE_MAXIMUM_BACKUPS = 5;
 
 
 
