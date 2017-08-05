@@ -4,6 +4,11 @@
     <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \n \n \nEND END END</string>
 
 
+    <!--Backup info model-->
+    <string name="backup_info_detail_string">%1$s backup. Done %2$s</string>                  <!--Local backup. Done 5 minutes ago-->
+    <string name="backup_info_detail_string_2">Backed up %1$d recipes, %2$d images.</string>
+
+
     <!-- About Activity -->
     <string name="activity_about_toolbar_title">About</string>
     <string name="activity_about_version">Version %1$s</string>
@@ -185,7 +190,23 @@
 
 
 
+    <!--Backup activity-->
+    <string name="activity_backup_toolbar_title">Backup</string>
+    <string name="activity_backup_menu_backup">BACKUP NOW</string>
 
+    <string name="activity_backup_title_last_backup">LAST BACKUP</string>
+    <string name="activity_backup_title_general">GENERAL</string>
+    <string name="activity_backup_title_google_drive">GOOGLE DRIVE</string>
+
+    <string name="activity_backup_backup_frequency_title">Backup Frequency</string>
+    <string name="activity_backup_account_title">Account</string>
+    <string name="activity_backup_backup_over_title">Back up over</string>
+
+    <string name="activity_backup_no_backups_found">No backups found</string>
+    <string name="activity_backup_backing_up_locally">Backing up locally only&#8230;</string>
+    <string name="activity_backup_backing_up_local_and_remote">Backing up locally and uploading to Google Drive</string>
+
+    <string name="activity_backup_restore_data_explanation">Note: You can restore your data when you reinstall Chef Buddy. Chef Buddy will try to find a local/Google Drive backup and restore the newest one</string>
 
 
 
@@ -227,9 +248,29 @@
     <string name="invalid_wheel_recipe_amount_too_many">Please select at most %1$d recipes</string>
     <string name="invalid_wheel_recipe_amount_too_few">Please select at least %1$d recipes</string>
 
-
     <string name="permissions_write_storage_not_granted">Please grant storage permissions</string>
     <string name="permissions_not_granted">Chef Buddy needs all permissions granted</string>
+
+    <string name="error_creating_backup_directory">Error creating backup directory</string>
+
+
+    <!--Backup Frecuency Type enum-->
+    <string name="backup_frecuency_daily">Daily</string>
+    <string name="backup_frecuency_weekly">Weekly</string>
+    <string name="backup_frecuency_monthly">Monthly</string>
+
+
+    <!--Backup Connection Type enum-->
+    <string name="backup_connection_wifi">Wi-Fi only</string>
+    <string name="backup_connection_all">Wi-Fi and data</string>
+
+
+    <!--Backup Type enum-->
+    <string name="backup_type_local">Local</string>
+    <string name="backup_type_google_drive">Google Drive</string>
+    <string name="backup_type_both">Local and Google Drive</string>
+
+
 
 
     <!--PreparationTime enum-->
