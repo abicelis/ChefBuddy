@@ -22,6 +22,8 @@ This app features:
 
 ## Screenshots
 
+<img src="https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png" alt="alt text" width="200">
+
 ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/1%20chef%20buddy%20home.png)
 ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/2%20spinwheel%20start.png)
 ![](https://github.com/abicelis/ChefBuddy/blob/master/graphics/play_store/screens/v1.0/nexus5X/3%20recipe%20detail.png)
