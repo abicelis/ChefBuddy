@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
 
     <application
         android:name=".app.ChefBuddyApplication"
@@ -45,6 +47,17 @@
 
         <!--SERVICES-->
         <service android:name=".service.BackupService"/>
+
+
+        <!--BROADCAST RECEIVERS-->
+        <receiver android:name=".service.BackupServiceStarter"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="ve.com.abicelis.chefbuddy.APP_STARTED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
