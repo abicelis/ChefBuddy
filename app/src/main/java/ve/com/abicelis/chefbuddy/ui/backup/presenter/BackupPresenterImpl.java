@@ -53,9 +53,9 @@ public class BackupPresenterImpl implements BackupPresenter {
     private void updateLastBackupFileAndInfo() {
         File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
         File[] backupZipFiles = backupDir.listFiles();
-        Arrays.sort(backupZipFiles);
 
-        if(backupZipFiles.length > 0) {
+        if(backupZipFiles != null && backupZipFiles.length > 0) {
+            Arrays.sort(backupZipFiles);
             mLastBackupFile = backupZipFiles[backupZipFiles.length-1];
             mLastBackupInfo = new BackupInfo(mLastBackupFile.getName(), BackupType.LOCAL);
         } else {
