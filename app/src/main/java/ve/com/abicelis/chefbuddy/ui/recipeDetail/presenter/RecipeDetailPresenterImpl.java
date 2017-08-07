@@ -109,7 +109,13 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
         switch (mRecipeSource) {
             case DATABASE:
                 try {
+                    //Delete image files of recipe
+                    for (String filename : mRecipe.getImages())
+                      FileUtil.deleteFile(FileUtil.getImageFilesDir(), filename);
+
                     mDao.deleteRecipe(mRecipe.getId());
+
+
                     mView.recipeDeletedSoFinish();
                 } catch (CouldNotDeleteDataException e) {
                     mView.showErrorMessage(Message.ERROR_DELETING_RECIPE);
