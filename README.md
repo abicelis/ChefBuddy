@@ -41,7 +41,7 @@ This app features:
 - Custom xml attributes for compound views
 - ItemTouchHelper implementation (for dragging/sorting items on a recyclerView) (thanks to [ItemTouchHelper-Demo](https://github.com/iPaulPro/Android-ItemTouchHelper-Demo))
 - Material design layouts: Coordinatorlayout, AppbarLayout, CollapsingToolbarLayout
-
+- Google Drive API with OAuth 2.0
 
 ## Code dependencies
 
