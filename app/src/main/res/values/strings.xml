@@ -203,10 +203,11 @@
     <string name="activity_backup_backup_over_title">Back up over</string>
 
     <string name="activity_backup_no_backups_found">No backups found</string>
-    <string name="activity_backup_backing_up_locally">Backing up locally only&#8230;</string>
-    <string name="activity_backup_backing_up_local_and_remote">Backing up locally and uploading to Google Drive</string>
+    <string name="activity_backup_backing_up">Backing up&#8230;</string>
 
-    <string name="activity_backup_restore_data_explanation">Note: You can restore your data when you reinstall Chef Buddy. Chef Buddy will try to find a local/Google Drive backup and restore the newest one</string>
+    <string name="activity_backup_google_drive_disabled">Disabled</string>
+
+    <string name="activity_backup_restore_data_explanation">Note: You can restore your data when you reinstall Chef Buddy. Chef Buddy will try to find a Local/Google Drive backup and restore the newest one</string>
 
         <!--Grant storage permissions Dialog-->
         <string name="dialog_grant_storage_permissions_title">Grant storage permission</string>
@@ -263,6 +264,14 @@
     <string name="error_creating_backup_directory">Error creating backup directory</string>
     <string name="error_creating_zip_file">Error creating zip file</string>
     <string name="error_unknown_creating_backup">Unexpected error creating backup</string>
+    <string name="success_creating_local_backup">Local backup created successfully</string>
+    <string name="error_connecting_google_api">Error connecting to Google Drive</string>
+    <string name="error_drive_creating_file_contents">Drive: Error creating new file contents</string>
+    <string name="error_drive_writing_file_contents">Drive: Error writing file contents</string>
+    <string name="error_drive_uploading_backup">Drive: Error uploading backup</string>
+    <string name="success_creating_local_and_google_drive_backup">Local and Google Drive backup created successfully</string>
+    <string name="error_drive_listing_files">Drive: Error listing drive files</string>
+    <string name="error_drive_deleting_old_backups">Drive: Error deleting old backups</string>
 
 
     <!--Backup Frecuency Type enum-->
