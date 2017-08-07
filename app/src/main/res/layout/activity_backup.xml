@@ -45,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_backup_title_last_backup"
                 />
-
             <ve.com.abicelis.chefbuddy.views.FancyCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,8 +52,20 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <!--LOADING STATE-->
+                    <ProgressBar
+                        android:id="@+id/activity_backup_last_backup_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        style="@style/Base.Widget.AppCompat.ProgressBar"
+                        android:visibility="visible"
+                        />
+
+                    <!--SHOW_BACKUP_INFO STATE-->
                     <LinearLayout
-                        android:id="@+id/activity_backup_last_backup"
+                        android:id="@+id/activity_backup_last_backup_info_container"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
@@ -62,14 +73,14 @@
                         >
 
                         <TextView
-                            android:id="@+id/activity_backup_last_backup_1"
+                            android:id="@+id/activity_backup_last_backup_info_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/backup_info_detail_string"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/activity_backup_last_backup_2"
+                            android:id="@+id/activity_backup_last_backup_info_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/backup_info_detail_string_2"
@@ -78,9 +89,9 @@
 
                     </LinearLayout>
 
-
+                    <!--NO_BACKUPS STATE-->
                     <TextView
-                        android:id="@+id/activity_backup_no_backups"
+                        android:id="@+id/activity_backup_last_backup_no_backups"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/activity_backup_no_backups_found"
@@ -88,19 +99,19 @@
                         android:visibility="gone"
                         />
 
-
+                    <!--BACKING_UP STATE-->
                     <LinearLayout
-                        android:id="@+id/activity_backup_backing_up_container"
+                        android:id="@+id/activity_backup_last_backup_backing_up_container"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:visibility="gone"
                         >
                         <TextView
-                            android:id="@+id/activity_backup_backing_up"
+                            android:id="@+id/activity_backup_last_backup_backing_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/activity_backup_backing_up_locally"
+                            android:text="@string/activity_backup_backing_up"
                             android:textSize="16sp"
                             />
 
@@ -113,7 +124,6 @@
                             />
                     </LinearLayout>
                 </FrameLayout>
-
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
 
 
@@ -125,7 +135,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_backup_title_general"
                 />
-
             <ve.com.abicelis.chefbuddy.views.FancyCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,7 +168,7 @@
 
 
 
-            <!-- GENERAL -->
+            <!-- GOOGLE DRIVE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,79 +185,111 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom"/>
             </LinearLayout>
-
             <ve.com.abicelis.chefbuddy.views.FancyCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <LinearLayout
+                android:layout_marginTop="8dp"
+                >
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:id="@+id/activity_backup_account_container"
+                    <!--LOADING STATE-->
+                    <ProgressBar
+                        android:id="@+id/activity_backup_google_drive_loading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/activity_backup_account_title"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"
-                            />
+                        android:indeterminate="true"
+                        style="@style/Base.Widget.AppCompat.ProgressBar"
+                        android:visibility="visible"
+                        />
 
-                        <TextView
-                            android:id="@+id/activity_backup_account_value"
+                    <!--DISABLED STATE-->
+                    <TextView
+                        android:id="@+id/activity_backup_google_drive_disabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_backup_google_drive_disabled"
+                        android:textColor="@color/hint_text"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        />
+
+                    <!--ENABLED STATE-->
+                    <LinearLayout
+                        android:id="@+id/activity_backup_google_drive_enabled_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/activity_backup_google_drive_enabled_account_container"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text"
-                            />
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/activity_backup_account_title"
+                                android:textSize="18sp"
+                                android:textColor="@color/primary_text"
+                                />
+
+                            <TextView
+                                android:id="@+id/activity_backup_google_drive_enabled_account_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textSize="14sp"
+                                android:textColor="@color/secondary_text"
+                                />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/activity_backup_google_drive_enabled_backup_connection_type_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/activity_backup_backup_over_title"
+                                android:textSize="18sp"
+                                android:textColor="@color/primary_text"
+                                />
+
+                            <TextView
+                                android:id="@+id/activity_backup_google_drive_enabled_backup_connection_type_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textSize="14sp"
+                                android:textColor="@color/secondary_text"
+                                />
+                        </LinearLayout>
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/activity_backup_backup_connection_type_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/activity_backup_backup_over_title"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"
-                            />
-
-                        <TextView
-                            android:id="@+id/activity_backup_backup_connection_type_value"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text"
-                            />
-                    </LinearLayout>
-
-                </LinearLayout>
+                </FrameLayout>
 
             </ve.com.abicelis.chefbuddy.views.FancyCardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textSize="16sp"
+                android:textColor="@color/hint_text"
+                android:textSize="14sp"
                 android:text="@string/activity_backup_restore_data_explanation"/>
 
         </LinearLayout>
