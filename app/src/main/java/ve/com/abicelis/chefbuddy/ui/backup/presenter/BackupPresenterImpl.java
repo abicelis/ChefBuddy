@@ -1,8 +1,8 @@
 package ve.com.abicelis.chefbuddy.ui.backup.presenter;
 
-
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import ve.com.abicelis.chefbuddy.R;
@@ -23,8 +23,9 @@ public class BackupPresenterImpl implements BackupPresenter {
 
     //DATA
     BackupView mView;
-    File mLastBackupFile = null;
-    BackupInfo mLastBackupInfo = null;
+    BackupInfo mLastBackupFileInfo = null;
+    boolean mGoogleApiClientEnabled = false;
+
 
 
     @Override
@@ -39,20 +40,47 @@ public class BackupPresenterImpl implements BackupPresenter {
 
     @Override
     public void start() {
-        updateLastBackupFileAndInfo();
-        mView.updateLastBackupInfo(mLastBackupInfo);
         mView.updateBackupFrequencyType(SharedPreferenceUtil.getBackupFrequencyType());
-        mView.updateBackupConnectionType(SharedPreferenceUtil.getBackupConnectionType());
+
+        if(SharedPreferenceUtil.getGoogleDriveBackupEnabled()) {
+            mView.updateLastBackupSection(BackupView.LastBackupState.LOADING, null);
+            mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.LOADING, null, null);
+            mView.startGoogleApiClient();
+        } else {
+            mGoogleApiClientEnabled = false;
+            mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.DISABLED, null, null);
+            updateLastBackupFileAndInfo();
+        }
+
+
+
+//        updateLastBackupFileAndInfo();
+//        mView.updateLastBackupSection(mLastBackupFileInfo);
+//        mView.updateBackupFrequencyType(SharedPreferenceUtil.getBackupFrequencyType());
+//        mView.updateBackupConnectionType(SharedPreferenceUtil.getBackupConnectionType());
+//
+//        if(SharedPreferenceUtil.getGoogleDriveBackupEnabled()) {
+//            mView.setGoogleDriveSwitch(true);
+//        }
     }
 
     @Override
-    public void manualBackupComplete(boolean result, Message message) {
-        if(!result)
-            mView.showErrorMessage(message);
-
-        updateLastBackupFileAndInfo();
-        mView.updateLastBackupInfo(mLastBackupInfo);
+    public void backupServiceProgressReport(Message message) {
+        switch (message.getMessageType()) {
+            case SUCCESS:
+                mView.showInfo(message.getFriendlyName());
+                updateLastBackupFileAndInfo();
+                break;
+            case ERROR:
+                mView.showErrorMessage(message);
+                updateLastBackupFileAndInfo();
+                break;
+            case NOTICE:
+                //TODO maybe update "backing up" text with notice message?
+                break;
+        }
     }
+
 
     @Override
     public void backupFrequencyUpdated(BackupFrequencyType backupFrequencyType) {
@@ -66,20 +94,106 @@ public class BackupPresenterImpl implements BackupPresenter {
         mView.triggerBackupServiceStarter();
     }
 
+    @Override
+    public void googleDriveSwitchToggled(boolean isChecked) {
+        mGoogleApiClientEnabled = false;
 
-    private void updateLastBackupFileAndInfo() {
-        File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
-        File[] backupZipFiles = backupDir.listFiles();
-
-        if(backupZipFiles != null && backupZipFiles.length > 0) {
-            Arrays.sort(backupZipFiles);
-            mLastBackupFile = backupZipFiles[backupZipFiles.length-1];
-            mLastBackupInfo = new BackupInfo(mLastBackupFile.getName(), BackupType.LOCAL);
+        if(isChecked) {
+            mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.LOADING, null, null);
+            mView.startGoogleApiClient();
         } else {
-            mLastBackupFile = null;
-            mLastBackupInfo = null;
+            SharedPreferenceUtil.setGoogleDriveBackupEnabled(false);
+            mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.DISABLED, null, null);
         }
     }
+
+    @Override
+    public void googleApiClientConnected() {
+        mGoogleApiClientEnabled = true;
+        SharedPreferenceUtil.setGoogleDriveBackupEnabled(true);
+
+        //TODO
+        SharedPreferenceUtil.setGoogleDriveBackupAccount("example@email.com");
+
+        mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.ENABLED, SharedPreferenceUtil.getGoogleDriveBackupAccount(), SharedPreferenceUtil.getBackupConnectionType());
+        updateLastBackupFileAndInfo();
+    }
+
+    @Override
+    public void googleApiClientNotConnected() {
+        mGoogleApiClientEnabled = false;
+        mView.updateGoogleDriveSection(BackupView.GoogleDriveBackupState.DISABLED, null, null);
+        updateLastBackupFileAndInfo();
+    }
+
+
+    private void updateLastBackupFileAndInfo() {
+        //Get local files
+        File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
+        final File[] backupZipFiles = backupDir.listFiles();
+        if(backupZipFiles != null) Arrays.sort(backupZipFiles);
+
+        if(mGoogleApiClientEnabled) {
+
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+
+                    //Get files from remote
+                    List<String> remoteFiles = mView.getGoogleDriveFileList();
+
+                    if(remoteFiles.size() > 0 && backupZipFiles!= null && backupZipFiles.length > 0) {
+                        String localFile = backupZipFiles[backupZipFiles.length-1].getName();
+                        String remoteFile = remoteFiles.get(remoteFiles.size()-1);
+
+                        int result = localFile.compareTo(remoteFile);
+
+                        if(result == 0)
+                            mLastBackupFileInfo = new BackupInfo(remoteFile, BackupType.BOTH);
+                        else if (result > 0)
+                            mLastBackupFileInfo = new BackupInfo(localFile, BackupType.LOCAL);
+                        else
+                            mLastBackupFileInfo = new BackupInfo(localFile, BackupType.GOOGLE_DRIVE);
+
+
+                    } else if(backupZipFiles != null && backupZipFiles.length > 0) {
+                        mLastBackupFileInfo = new BackupInfo(backupZipFiles[backupZipFiles.length-1].getName(), BackupType.LOCAL);
+
+                    } else if (remoteFiles.size() > 0) {
+                        mLastBackupFileInfo = new BackupInfo(remoteFiles.get(0), BackupType.GOOGLE_DRIVE);
+
+                    } else {
+                        mLastBackupFileInfo = null;
+                    }
+
+
+
+                    if(mLastBackupFileInfo == null)
+                        mView.updateLastBackupSection(BackupView.LastBackupState.NO_BACKUPS, null);
+                    else
+                        mView.updateLastBackupSection(BackupView.LastBackupState.SHOW_BACKUP_INFO, mLastBackupFileInfo);
+                }
+            }.start();
+
+
+
+
+
+        } else {
+
+            if(backupZipFiles != null && backupZipFiles.length > 0) {
+                Arrays.sort(backupZipFiles);
+                mLastBackupFileInfo = new BackupInfo(backupZipFiles[backupZipFiles.length-1].getName(), BackupType.LOCAL);
+                mView.updateLastBackupSection(BackupView.LastBackupState.SHOW_BACKUP_INFO, mLastBackupFileInfo);
+            } else {
+                mLastBackupFileInfo = null;
+                mView.updateLastBackupSection(BackupView.LastBackupState.NO_BACKUPS, null);
+            }
+        }
+    }
+
+
 
 
 }

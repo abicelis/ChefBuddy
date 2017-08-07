@@ -13,7 +13,11 @@ public interface BackupPresenter {
     void detachView();
 
     void start();
-    void manualBackupComplete(boolean result, Message message);
+    void backupServiceProgressReport(Message message);
 
     void backupFrequencyUpdated(BackupFrequencyType backupFrequencyType);
+    void googleDriveSwitchToggled(boolean isChecked);
+
+    void googleApiClientConnected();
+    void googleApiClientNotConnected();
 }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -35,6 +37,11 @@ public class BackupService extends IntentService {
     //CONSTS
     private static final String TAG = BackupService.class.getSimpleName();
     private static final int BUFFER_SIZE = 8192;
+    private static final int RESOLVE_CONNECTION_REQUEST_CODE = 193;
+
+
+    //DATA
+    GoogleApiClient mGoogleApiClient;
 
 
     @Inject
@@ -50,24 +57,21 @@ public class BackupService extends IntentService {
         ((ChefBuddyApplication)getApplication()).getAppComponent().inject(this);
 
         try {
-            //Create backup dir if not exists
-            File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
-            if(!backupDir.exists()) {
-                backupDir.mkdir();
 
-                //If dir could not be made, publish error
-                if(!backupDir.exists()) {
-                    publishResults(false, Message.ERROR_CREATING_BACKUP_DIRECTORY);
-                    return;
-                }
+            //Get the backup dir
+            File backupDir = getBackupDirCreateIfNotExists();
+            if (backupDir == null) {
+                publishResults(Message.ERROR_CREATING_BACKUP_DIRECTORY);
+                return;
             }
+
 
             //Get the amount of recipes stored in DB
             int recipeCount;
             try {
                 recipeCount = mDao.getRecipeCount();
             }catch (CouldNotGetDataException e) {
-                publishResults(false, Message.ERROR_LOADING_RECIPES);
+                publishResults(Message.ERROR_LOADING_RECIPES);
                 return;
             }
 
@@ -76,8 +80,7 @@ public class BackupService extends IntentService {
             int imageCount = recipeImages.listFiles().length;
 
 
-
-            //Get paths
+            //Get local paths
             String zipFilePath = String.format(Locale.getDefault(),
                     Constants.BACKUP_SERVICE_BACKUP_FILE_FORMAT,
                     Constants.BACKUP_SERVICE_BACKUP_DIR,
@@ -90,30 +93,58 @@ public class BackupService extends IntentService {
             try {
                 createZipBackup(zipFilePath, databasePath, recipeImages.listFiles(), zipFolderForImages);
             } catch (IOException e) {
-                publishResults(false, Message.ERROR_CREATING_ZIP_FILE);
+                publishResults(Message.ERROR_CREATING_ZIP_FILE);
+                return;
             }
 
-            //Delete old backups if exceeding BACKUP_SERVICE_MAXIMUM_BACKUPS
-            File[] backupZipFiles = backupDir.listFiles();
-            Arrays.sort(backupZipFiles);
-            int aux = backupDir.listFiles().length - Constants.BACKUP_SERVICE_MAXIMUM_BACKUPS;
-            for(int i = 0 ; i < aux ; i++ ) {
-                backupZipFiles[i].delete();
-            }
+            //Delete old local backups if exceeding BACKUP_SERVICE_MAXIMUM_BACKUPS
+            deleteOldLocalBackups(backupDir);
+
+
+
+
+
+
+            deleteOldRemoteBackups();
+
 
         } catch (Exception e) {
-            publishResults(false, Message.ERROR_UNKNOWN_CREATING_BACKUP);
+            publishResults(Message.ERROR_UNKNOWN_CREATING_BACKUP);
             return;
         }
 
-        publishResults(true, null);
+        publishResults(Message.SUCCESS_CREATING_LOCAL_BACKUP);
     }
 
 
+    @Nullable
+    private File getBackupDirCreateIfNotExists() {
+        File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
+        if(!backupDir.exists()) {
+            backupDir.mkdir();
 
-    private void publishResults(boolean success, @Nullable Message message) {
-        Intent intent = new Intent(Constants.BACKUP_SERVICE_BROADCAST_BACKUP_DONE);
-        intent.putExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_RESULT, success);
+            if(!backupDir.exists())
+                return null;
+        }
+        return backupDir;
+    }
+
+
+    private void deleteOldLocalBackups(File backupDir) {
+        File[] backupZipFiles = backupDir.listFiles();
+        Arrays.sort(backupZipFiles);
+        int aux = backupDir.listFiles().length - Constants.BACKUP_SERVICE_MAXIMUM_BACKUPS;
+        for(int i = 0 ; i < aux ; i++ ) {
+            backupZipFiles[i].delete();
+        }
+    }
+    private void deleteOldRemoteBackups() {
+        //TODO
+    }
+
+
+    private void publishResults(Message message) {
+        Intent intent = new Intent(Constants.BACKUP_SERVICE_BROADCAST_BACKUP_PROGRESS);
         intent.putExtra(Constants.BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE, message);
 
 
@@ -124,6 +155,10 @@ public class BackupService extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         //sendBroadcast(intent);
     }
+
+
+
+
 
 
 
