@@ -84,6 +84,17 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
+    /* GOOGLE DRIVE BACKUP ACCOUNT */
+    public static String getGoogleDriveBackupAccount() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext());
+        return preferences.getString(Constants.SHARED_PREFERENCE_GOOGLE_DRIVE_BACKUP_ACCOUNT, "");
+    }
+    public static void setGoogleDriveBackupAccount(String account) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ChefBuddyApplication.getContext()).edit();
+        editor.putString(Constants.SHARED_PREFERENCE_GOOGLE_DRIVE_BACKUP_ACCOUNT, account);
+        editor.apply();
+    }
+
 
 
     /* FIRST TIME LAUNCHING APP */
