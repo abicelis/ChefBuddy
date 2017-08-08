@@ -17,6 +17,11 @@
     <color name="transparent_background">#88000000</color>
 
 
+    <!--Intro colors-->
+    <color name="intro_blue">#2196F2</color>
+    <color name="intro_green">#4CAF50</color>
+    <color name="intro_amber">#FEC007</color>
+
 
     <!--Swipe refresh loading icon colors-->
     <color name="swipe_refresh_green">#7cb342</color>

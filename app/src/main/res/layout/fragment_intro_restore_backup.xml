@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/appIntroBottomBarHeight">
+
+
+    <!--Layout taken from https://github.com/apl-devs/AppIntro/blob/master/library/src/main/res/layout/fragment_intro_content.xml-->
+    <include layout="@layout/fragment_intro_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        >
+
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_backup_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/fragment_intro_restore_backup_google_drive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/IntroButtonTheme"
+                android:textColor="@color/white"
+                android:text="Find backups on Google Drive"
+                />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/fragment_intro_restore_backup_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/IntroButtonTheme"
+                android:textColor="@color/white"
+                android:text="Only show me local backups"
+                />
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>

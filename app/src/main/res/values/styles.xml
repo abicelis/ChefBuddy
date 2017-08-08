@@ -39,6 +39,10 @@
         <item name="colorButtonNormal">@color/primary</item>
     </style>
 
+    <!-- Style for Buttons on IntroActivity -->
+    <style name="IntroButtonTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/intro_blue</item>
+    </style>
 
     <!-- Style for searchView on HomeActivity -->
     <style name="MaterialSearchViewStyle">

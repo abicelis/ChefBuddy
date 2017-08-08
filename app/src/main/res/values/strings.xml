@@ -219,6 +219,17 @@
 
 
 
+    <!--Intro activity-->
+    <string name="activity_intro_slider_welcome_title">Welcome to Chef Buddy!</string>
+    <string name="activity_intro_slider_welcome_description">A place where you can store your recipes</string>
+    <string name="activity_intro_slider_storage_permission_title">We need your permission&#8230;</string>
+    <string name="activity_intro_slider_storage_permission_description">Please allow storage permissions to back up/restore Recipes</string>
+
+    <string name="activity_intro_slider_restore_backup_title">Restore a backup</string>
+    <string name="activity_intro_slider_restore_backup_description">Are you reinstalling Chef Buddy or installing Chef Buddy on a new phone? Restore a previously-made backup here</string>
+    <string name="activity_intro_slider_all_set_title">"All set!"</string>
+
+
     <!--Dialog-->
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_done">DONE</string>

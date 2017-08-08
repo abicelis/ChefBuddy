@@ -64,6 +64,7 @@ public class Constants {
     public static final int     REQUEST_IMAGE_CAPTURE = 123;
     public static final int     REQUEST_PICK_IMAGE_GALLERY = 124;
     public static final int     REQUEST_RESOLVE_GOOGLE_API_CONNECTION = 125;
+    public static final int     REQUEST_RESOLVE_GOOGLE_API_CONNECTION_INTRO = 126;
 
 
 
