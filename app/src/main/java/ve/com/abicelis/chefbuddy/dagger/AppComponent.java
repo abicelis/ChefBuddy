@@ -16,6 +16,7 @@ import ve.com.abicelis.chefbuddy.ui.home_recipeList.RecipeListFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.EditSpinWheelRecipesDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.SpinWheelFragment;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.ImageGalleryActivity;
+import ve.com.abicelis.chefbuddy.ui.intro.AppIntroRestoreBackupFragment;
 import ve.com.abicelis.chefbuddy.ui.main.MainActivity;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.RecipeDetailActivity;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivity;
@@ -28,6 +29,8 @@ import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.SearchOnlineRecipeActivit
 @Component(modules = {AppModule.class, PresenterModule.class, DatabaseModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(MainActivity target);
+
+    void inject(AppIntroRestoreBackupFragment target);
 
 
 
