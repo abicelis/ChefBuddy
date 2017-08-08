@@ -33,6 +33,8 @@ dependencies {
     //Prize wheel view!
     compile 've.com.abicelis:prizewheelview:1.0.6'
 
+    //AppIntro
+    compile 'com.github.apl-devs:appintro:v4.2.2'
 
     // Dependency Injection
     apt "com.google.dagger:dagger-compiler:2.2"
