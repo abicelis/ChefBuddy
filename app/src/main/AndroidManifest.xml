@@ -17,12 +17,13 @@
         android:theme="@style/AppTheme">
 
         <!--ACTIVITIES-->
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name=".ui.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.home.HomeActivity"/>
         <activity android:name=".ui.recipeDetail.RecipeDetailActivity"/>
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.addEditRecipe.AddEditRecipeActivity"/>
