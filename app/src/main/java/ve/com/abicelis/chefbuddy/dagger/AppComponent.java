@@ -4,7 +4,6 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import ve.com.abicelis.chefbuddy.service.BackupService;
-import ve.com.abicelis.chefbuddy.service.BackupServiceV2;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddEditRecipeActivity;
 import ve.com.abicelis.chefbuddy.ui.addEditRecipe.AddRecipeIngredientDialogFragment;
 import ve.com.abicelis.chefbuddy.ui.backup.BackupActivity;
@@ -66,5 +65,4 @@ public interface AppComponent {
 
     void inject(BackupActivity target);
     void inject(BackupService target);
-    void inject(BackupServiceV2 target);
 }
