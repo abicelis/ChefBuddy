@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.util;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +13,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
@@ -21,6 +26,46 @@ import ve.com.abicelis.chefbuddy.app.Constants;
  */
 
 public class FileUtil {
+
+    public static File getDatabaseFile() {
+        return ChefBuddyApplication.getContext().getDatabasePath(Constants.DATABASE_NAME);
+    }
+
+    public static File getImageFilesDir() {
+        return new File(ChefBuddyApplication.getContext().getExternalFilesDir(null), Constants.IMAGE_FILES_DIR);
+    }
+
+    public static File getExternalStorageDir() {
+        return Environment.getExternalStorageDirectory();
+    }
+
+    public static File getBackupDir() {
+        return new File(FileUtil.getExternalStorageDir().getPath() + Constants.BACKUP_SERVICE_BACKUP_DIR);
+    }
+
+    public static File getBackupTempDir() {
+        return new File(FileUtil.getExternalStorageDir().getPath() + Constants.BACKUP_SERVICE_BACKUP_TEMP_DIR);
+    }
+
+    public static List<File> getLocalBackupList(boolean sortAscending) {
+        List<File> localBackups = new ArrayList<>();
+        File backupDir = getBackupDir();
+        final File[] backupZipFiles = backupDir.listFiles();
+
+        if(backupZipFiles != null) {
+            if(sortAscending)
+                Arrays.sort(backupZipFiles);
+            else
+                Arrays.sort(backupZipFiles, Collections.reverseOrder());
+
+
+            for (File f : backupZipFiles)
+                if (BackupUtil.isValidBackupFilename(f.getName()))
+                    localBackups.add(f);
+        }
+        return localBackups;
+    }
+
 
 
     /**
@@ -57,14 +102,6 @@ public class FileUtil {
         }
     }
 
-    public static File getImageFilesDir() {
-        return new File(ChefBuddyApplication.getContext().getExternalFilesDir(null), Constants.IMAGE_FILES_DIR);
-    }
-
-    public static File getExternalStorageDir() {
-        return new File(Environment.getExternalStorageDirectory().getPath());
-    }
-
     public static void createDirIfNotExists(File directory) throws IOException, SecurityException  {
         if (directory.mkdirs()){
             File nomedia = new File(directory, ".nomedia");
@@ -80,7 +117,6 @@ public class FileUtil {
 
     /**
      * Creates an empty file at the specified directory, with the given name if it doesn't already exist
-     *
      */
     public static File createNewFileIfNotExistsInDir(File directory, String fileName) throws IOException {
         File file = new File(directory, fileName);
@@ -88,11 +124,23 @@ public class FileUtil {
         return file;
     }
 
-
     public static Uri getUriForFile(File file) {
         return FileProvider.getUriForFile(ChefBuddyApplication.getContext(), "ve.com.abicelis.chefbuddy.fileprovider", file);
     }
 
+
+
+    /**
+     * Saves a JPEG at the given quality to disk at the specified path of the given File
+     * @param file The file where the JPEG will be saved
+     * @param bitmapToSave The Bitmap to save into the file
+     * @param quality The percentage of JPEG compression
+     */
+    public static void saveBitmapAsJpeg(File file, Bitmap bitmapToSave, int quality) throws IOException {
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(ImageUtil.toCompressedByteArray(bitmapToSave, quality));
+        fos.close();
+    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static File savePdfDocumentToSD(PdfDocument pdfDocument, String filename) throws IOException {
@@ -101,15 +149,5 @@ public class FileUtil {
         return filePath;
     }
 
-
-//    public static File createTempImageFileInDir(File directory, String fileExtension) throws IOException, SecurityException {
-//        if(fileExtension.toCharArray()[0] != '.')
-//            fileExtension = "." + fileExtension;
-//
-//        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String fileName = "TEMP_" + UUID.randomUUID().toString() + "_";
-//        File file = File.createTempFile(fileName, fileExtension, directory);
-//        return file;
-//    }
 
 }
