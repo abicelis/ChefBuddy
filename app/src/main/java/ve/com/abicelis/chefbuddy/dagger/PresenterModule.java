@@ -29,6 +29,8 @@ import ve.com.abicelis.chefbuddy.ui.home_spinWheel.presenter.SpinWheelPresenter;
 import ve.com.abicelis.chefbuddy.ui.home_spinWheel.presenter.SpinWheelPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenter;
 import ve.com.abicelis.chefbuddy.ui.imageGallery.presenter.ImageGalleryPresenterImpl;
+import ve.com.abicelis.chefbuddy.ui.intro.presenter.AppIntroRestoreBackupPresenter;
+import ve.com.abicelis.chefbuddy.ui.intro.presenter.AppIntroRestoreBackupPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenter;
 import ve.com.abicelis.chefbuddy.ui.recipeDetail.presenter.RecipeDetailPresenterImpl;
 import ve.com.abicelis.chefbuddy.ui.searchOnlineRecipe.presenter.SearchOnlineRecipePresenter;
@@ -44,6 +46,11 @@ public class PresenterModule {
     @Provides
     HomePresenter provideHomePresenter(ChefBuddyDAO dao) {
         return new HomePresenterImpl(dao);
+    }
+
+    @Provides
+    AppIntroRestoreBackupPresenter provideAppIntroRestoreBackupPresenter(ChefBuddyDAO dao) {
+        return new AppIntroRestoreBackupPresenterImpl(dao);
     }
 
     @Provides

@@ -2,8 +2,10 @@ package ve.com.abicelis.chefbuddy.ui.intro;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
@@ -48,27 +50,17 @@ public class IntroActivity extends AppIntro {
             SliderPage storagePermissionSlider = new SliderPage();
             storagePermissionSlider.setTitle(getString(R.string.activity_intro_slider_storage_permission_title));
             storagePermissionSlider.setDescription(getString(R.string.activity_intro_slider_storage_permission_description));
-            storagePermissionSlider.setImageDrawable(R.drawable.ic_backup);
+            storagePermissionSlider.setImageDrawable(R.drawable.ic_cloud_upload);
             storagePermissionSlider.setBgColor(ContextCompat.getColor(this, R.color.intro_blue));
             addSlide(AppIntroFragment.newInstance(storagePermissionSlider));
 
-
-            //if permission write storage?
-            SliderPage restoreBackupSlider = new SliderPage();
-            restoreBackupSlider.setTitle(getString(R.string.activity_intro_slider_restore_backup_title));
-            restoreBackupSlider.setDescription(getString(R.string.activity_intro_slider_restore_backup_description));
-            restoreBackupSlider.setImageDrawable(R.drawable.ic_restore);
-            restoreBackupSlider.setBgColor(ContextCompat.getColor(this, R.color.intro_green));
-            addSlide(AppIntroRestoreBackupFragment.newInstance(restoreBackupSlider));
-
+            addSlide(AppIntroRestoreBackupFragment.newInstance());
 
             SliderPage allSetSlider = new SliderPage();
             allSetSlider.setTitle(getString(R.string.activity_intro_slider_all_set_title));
             allSetSlider.setImageDrawable(R.drawable.ic_all_set);
             allSetSlider.setBgColor(ContextCompat.getColor(this, R.color.intro_green));
             addSlide(AppIntroFragment.newInstance(allSetSlider));
-
-
 
             askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
 
@@ -97,14 +89,11 @@ public class IntroActivity extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
 
+        //Make sure permission is asked again if user denies permission and decides to go back to grant it
         if(newFragment instanceof AppIntroRestoreBackupFragment) {
-            ((AppIntroRestoreBackupFragment)newFragment).fragmentVisibilityChanged(true);
+            if(!(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED))
+                askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
         }
-
-        if(oldFragment instanceof AppIntroRestoreBackupFragment) {
-            ((AppIntroRestoreBackupFragment)oldFragment).fragmentVisibilityChanged(false);
-        }
-
     }
 
     @Override

@@ -1,26 +1,37 @@
 package ve.com.abicelis.chefbuddy.ui.intro;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.github.paolorotolo.appintro.AppIntroBaseFragment;
-import com.github.paolorotolo.appintro.model.SliderPage;
+import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
+import com.github.paolorotolo.appintro.ISlidePolicy;
+import com.github.paolorotolo.appintro.ISlideSelectionListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.Metadata;
 import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.drive.query.SortOrder;
@@ -37,8 +48,10 @@ import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.ChefBuddyApplication;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.app.Message;
+import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.ui.intro.presenter.AppIntroRestoreBackupPresenter;
 import ve.com.abicelis.chefbuddy.ui.intro.view.AppIntroRestoreBackupView;
+import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,33 +59,66 @@ import static android.app.Activity.RESULT_OK;
  * Created by abicelis on 7/8/2017.
  */
 
-public class AppIntroRestoreBackupFragment extends AppIntroBaseFragment implements AppIntroRestoreBackupView, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class AppIntroRestoreBackupFragment extends Fragment implements AppIntroRestoreBackupView,
+        ISlideSelectionListener,
+        ISlideBackgroundColorHolder,
+        ISlidePolicy,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
-    GoogleApiClient mGoogleApiClient;
+    //DATA
+    private int mBgColor;
+    private GoogleApiClient mGoogleApiClient;
+    private boolean mCanSlide;
 
     @Inject
     AppIntroRestoreBackupPresenter mPresenter;
 
+
+    @BindView(R.id.fragment_intro_restore_backup_container)
+    LinearLayout mContainer;
+
+    @BindView(R.id.fragment_intro_restore_backup_no_permissions_container)
+    LinearLayout mNoPermissionsContainer;
+
+    @BindView(R.id.fragment_intro_restore_backup_choose_restore_source_container)
+    LinearLayout mChooseRestoreSourceContainer;
     @BindView(R.id.fragment_intro_restore_backup_google_drive)
     Button mGoogleDrive;
     @BindView(R.id.fragment_intro_restore_backup_local)
     Button mLocal;
-    // TODO: 7/8/2017 missing a button here, RESTORE button.
+
+    @BindView(R.id.fragment_intro_restore_choose_backup_container)
+    LinearLayout mChooseBackupContainer;
+    @BindView(R.id.fragment_intro_restore_choose_backup_recycler)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_intro_restore_choose_backup_restore)
+    Button mRestore;
+    private LinearLayoutManager mLayoutManager;
+    private BackupAdapter mBackupAdapter;
 
 
-    public static AppIntroRestoreBackupFragment newInstance(SliderPage sliderPage) {
+    @BindView(R.id.fragment_intro_restore_backup_no_backups_found_container)
+    LinearLayout mNoBackupsFoundContainer;
+
+    @BindView(R.id.fragment_intro_restore_backup_restore_done_container)
+    LinearLayout mRestoreDoneContainer;
+
+    @BindView(R.id.fragment_intro_restore_backup_restore_canceled_container)
+    LinearLayout mRestoreCanceledContainer;
+
+    public static AppIntroRestoreBackupFragment newInstance() {
         AppIntroRestoreBackupFragment slide = new AppIntroRestoreBackupFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_TITLE, sliderPage.getTitleString());
-        args.putString(ARG_TITLE_TYPEFACE, sliderPage.getTitleTypeface());
-        args.putString(ARG_DESC, sliderPage.getDescriptionString());
-        args.putString(ARG_DESC_TYPEFACE, sliderPage.getDescTypeface());
-        args.putInt(ARG_DRAWABLE, sliderPage.getImageDrawable());
-        args.putInt(ARG_BG_COLOR, sliderPage.getBgColor());
-        args.putInt(ARG_TITLE_COLOR, sliderPage.getTitleColor());
-        args.putInt(ARG_DESC_COLOR, sliderPage.getDescColor());
-        slide.setArguments(args);
-
+//        Bundle args = new Bundle();
+//        args.putString(ARG_TITLE, sliderPage.getTitleString());
+//        args.putString(ARG_TITLE_TYPEFACE, sliderPage.getTitleTypeface());
+//        args.putString(ARG_DESC, sliderPage.getDescriptionString());
+//        args.putString(ARG_DESC_TYPEFACE, sliderPage.getDescTypeface());
+//        args.putInt(ARG_DRAWABLE, sliderPage.getImageDrawable());
+//        args.putInt(ARG_BG_COLOR, sliderPage.getBgColor());
+//        args.putInt(ARG_TITLE_COLOR, sliderPage.getTitleColor());
+//        args.putInt(ARG_DESC_COLOR, sliderPage.getDescColor());
+//        slide.setArguments(args);
         return slide;
     }
 
@@ -80,10 +126,14 @@ public class AppIntroRestoreBackupFragment extends AppIntroBaseFragment implemen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_intro_restore_backup, container, false);
         ButterKnife.bind(this, v);
         ((ChefBuddyApplication)getActivity().getApplication()).getAppComponent().inject(this);
         mPresenter.attachView(this);
+
+        mBgColor = ContextCompat.getColor(getContext(), R.color.primary);
+        setBackgroundColor(mBgColor);
+
 
         //Click listeners for buttons
         mGoogleDrive.setOnClickListener(new View.OnClickListener() {
@@ -98,38 +148,71 @@ public class AppIntroRestoreBackupFragment extends AppIntroBaseFragment implemen
                 mPresenter.restoreTypeChosen(true);
             }
         });
-        // TODO: 7/8/2017 missing a button here, RESTORE button.
+        mRestore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mPresenter.restoreBackup(mBackupAdapter.getSelectedBackup());
+            }
+        });
 
         return v;
     }
 
 
-    public void fragmentVisibilityChanged(boolean visible){
-        if(visible)
-            mPresenter.fragmentIsVisible(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        else
-            mPresenter.fragmentLostVisibility();
-    }
-
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_intro_restore_backup;
-    }
-
-
     @Override
     public void changeStatus(RestoreBackupState restoreBackupState) {
+        mChooseBackupContainer.setVisibility(View.GONE);
+        mNoPermissionsContainer.setVisibility(View.GONE);
+        mRestoreDoneContainer.setVisibility(View.GONE);
+        mChooseRestoreSourceContainer.setVisibility(View.GONE);
+        mNoBackupsFoundContainer.setVisibility(View.GONE);
+        mRestoreCanceledContainer.setVisibility(View.GONE);
+
         switch (restoreBackupState) {
             case NO_PERMISSIONS:
+                mNoPermissionsContainer.setVisibility(View.VISIBLE);
+                mCanSlide = true;
                 break;
-            case CHOOSING_LOCAL_AND_OR_GOOGLE:
+
+            case CHOOSE_RESTORE_SOURCE:
+                mChooseRestoreSourceContainer.setVisibility(View.VISIBLE);
+                mCanSlide = true;
                 break;
+
             case NO_BACKUPS_FOUND:
+                mNoBackupsFoundContainer.setVisibility(View.VISIBLE);
+                mCanSlide = true;
                 break;
-            case CHOOSING_BACKUP_TO_RESTORE:
+
+            case CHOOSE_BACKUP:
+                mChooseBackupContainer.setVisibility(View.VISIBLE);
+                mCanSlide = false;
                 break;
+
+            case RESTORE_DONE:
+                mRestoreDoneContainer.setVisibility(View.VISIBLE);
+                mCanSlide = true;
+                break;
+
+            case RESTORE_CANCELED:
+                mRestoreCanceledContainer.setVisibility(View.VISIBLE);
+                mCanSlide = true;
+                break;
+
         }
+    }
+
+    @Override
+    public void setUpBackupsList(List<BackupInfo> backupInfos) {
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mBackupAdapter = new BackupAdapter(getActivity(), backupInfos);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), mLayoutManager.getOrientation());
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_decoration_complete_line));
+        mRecyclerView.addItemDecoration(itemDecoration);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mBackupAdapter);
     }
 
     /* BackupView interface implementation */
@@ -179,8 +262,12 @@ public class AppIntroRestoreBackupFragment extends AppIntroBaseFragment implemen
     }
 
     @Override
+    public void downloadGoogleDriveBackupFile(BackupInfo backupInfo) {
+    }
+
+    @Override
     public void showErrorMessage(Message message) {
-        Toast.makeText(getActivity(), message.getFriendlyNameRes(), Toast.LENGTH_SHORT).show();
+        SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
 
 
@@ -229,5 +316,58 @@ public class AppIntroRestoreBackupFragment extends AppIntroBaseFragment implemen
     }
 
 
+    @Override
+    public int getDefaultBackgroundColor() {
+        return mBgColor;
+    }
+
+    @Override
+    public void setBackgroundColor(@ColorInt int backgroundColor) {
+        mContainer.setBackgroundColor(backgroundColor);
+
+    }
+
+    @Override
+    public void onSlideSelected() {
+        mPresenter.fragmentIsVisible(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+    }
+
+    @Override
+    public void onSlideDeselected() {
+        mPresenter.fragmentLostVisibility();
+    }
+
+
+
+
+
+
+    /* ISlidePolicy interface implementation */
+
+    @Override
+    public boolean isPolicyRespected() {
+        return mCanSlide;
+    }
+
+    @Override
+    public void onUserIllegallyRequestedNextPage() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getResources().getString(R.string.dialog_skip_restore_title))
+                .setMessage(getResources().getString(R.string.dialog_skip_restore_message))
+                .setPositiveButton(getResources().getString(R.string.dialog_skip),  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        changeStatus(RestoreBackupState.RESTORE_CANCELED);
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
+    }
 }
 

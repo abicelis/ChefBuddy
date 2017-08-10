@@ -1,46 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_intro_restore_backup_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/appIntroBottomBarHeight">
 
 
-    <!--Layout taken from https://github.com/apl-devs/AppIntro/blob/master/library/src/main/res/layout/fragment_intro_content.xml-->
-    <include layout="@layout/fragment_intro_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:textColor="@android:color/white"
+        android:text="@string/fragment_restore_backup_title"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        >
+        android:layout_weight="11">
 
+
+
+        <!-- NO PERMISSIONS SECTION -->
         <LinearLayout
-            android:id="@+id/fragment_intro_restore_backup_button_container"
+            android:id="@+id/fragment_intro_restore_backup_no_permissions_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
-            >
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/fragment_intro_restore_backup_google_drive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/IntroButtonTheme"
-                android:textColor="@color/white"
-                android:text="Find backups on Google Drive"
-                />
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/fragment_intro_restore_backup_local"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/IntroButtonTheme"
-                android:textColor="@color/white"
-                android:text="Only show me local backups"
-                />
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_cloud_off"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_no_permissions_description"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
 
 
+
+        <!-- CHOOSE RESTORE SOURCE SECTION -->
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_backup_choose_restore_source_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_cloud_download"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_choose_restore_source_description"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                >
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_intro_restore_backup_google_drive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/IntroButtonTheme"
+                    android:textColor="@color/white"
+                    android:text="@string/fragment_restore_backup_choose_restore_source_google_drive"
+                    />
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_intro_restore_backup_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/IntroButtonTheme"
+                    android:textColor="@color/white"
+                    android:text="@string/fragment_restore_backup_choose_restore_source_local"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <!--CHOOSE BACKUP SECTION-->
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_choose_backup_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_choose_backup_description"
+                    />
+
+            </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="6dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_intro_restore_choose_backup_recycler"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    />
+            </android.support.v7.widget.CardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_intro_restore_choose_backup_restore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:theme="@style/IntroButtonTheme"
+                    android:textColor="@color/white"
+                    android:text="@string/fragment_restore_backup_choose_backup_restore"
+                    />
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+
+        <!--NO BACKUPS FOUND SECTION-->
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_backup_no_backups_found_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_cloud_off"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_no_backups_found_description"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--RESTORE DONE SECTION-->
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_backup_restore_done_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_cloud_download"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_restore_done_description"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--RESTORE CANCELED SECTION-->
+        <LinearLayout
+            android:id="@+id/fragment_intro_restore_backup_restore_canceled_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_cloud_off"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="@string/fragment_restore_backup_restore_canceled_description"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
     </FrameLayout>
+
 </LinearLayout>

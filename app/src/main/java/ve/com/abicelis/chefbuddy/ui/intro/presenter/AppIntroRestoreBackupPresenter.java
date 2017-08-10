@@ -1,5 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.intro.presenter;
 
+import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.ui.intro.view.AppIntroRestoreBackupView;
 
 /**
@@ -14,6 +15,7 @@ public interface AppIntroRestoreBackupPresenter {
     void fragmentLostVisibility();
 
     void restoreTypeChosen(boolean localOnly);
+    void restoreBackup(BackupInfo backupInfo);
 
     void googleApiClientConnected();
     void googleApiClientNotConnected();
