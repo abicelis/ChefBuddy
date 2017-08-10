@@ -45,7 +45,7 @@ public class BackupServiceStarter extends BroadcastReceiver {
         long nextAlarmTime = SystemClock.elapsedRealtime() + intervalMillis;
 
         //Create intent and pendingIntent
-        Intent triggerBackupService = new Intent(context, BackupServiceV2.class);
+        Intent triggerBackupService = new Intent(context, BackupService.class);
         PendingIntent triggerBackupServicePendingIntent =
                 PendingIntent.getService(context, PENDING_INTENT_REQUEST_CODE, triggerBackupService, PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -1,7 +1,6 @@
 package ve.com.abicelis.chefbuddy.ui.backup;
 
 import android.Manifest;
-import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,10 +56,9 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.BackupConnectionType;
 import ve.com.abicelis.chefbuddy.model.BackupFrequencyType;
 import ve.com.abicelis.chefbuddy.model.BackupInfo;
-import ve.com.abicelis.chefbuddy.service.BackupServiceV2;
+import ve.com.abicelis.chefbuddy.service.BackupService;
 import ve.com.abicelis.chefbuddy.ui.backup.presenter.BackupPresenter;
 import ve.com.abicelis.chefbuddy.ui.backup.view.BackupView;
-import ve.com.abicelis.chefbuddy.util.SharedPreferenceUtil;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 /**
@@ -92,6 +90,8 @@ public class BackupActivity  extends AppCompatActivity implements BackupView, Go
     TextView mLastBackupInfoL1;
     @BindView(R.id.activity_backup_last_backup_info_2)
     TextView mLastBackupInfoL2;
+    @BindView(R.id.activity_backup_last_backup_info_3)
+    TextView mLastBackupInfoL3;
 
     @BindView(R.id.activity_backup_last_backup_no_backups)
     TextView mLastBackupNoBackups;
@@ -285,7 +285,7 @@ public class BackupActivity  extends AppCompatActivity implements BackupView, Go
             @Override
             public void run() {
                 //Start the service
-                Intent startBackupService = new Intent(BackupActivity.this, BackupServiceV2.class);
+                Intent startBackupService = new Intent(BackupActivity.this, BackupService.class);
                 startService(startBackupService);
             }
         }, 1000);
@@ -373,6 +373,7 @@ public class BackupActivity  extends AppCompatActivity implements BackupView, Go
                     case SHOW_BACKUP_INFO:
                         mLastBackupInfoL1.setText(backupInfo.getBackupDetailStr());
                         mLastBackupInfoL2.setText(backupInfo.getBackupDetailStr2());
+                        mLastBackupInfoL3.setText(backupInfo.getBackupDetailStr3());
                         mLastBackupInfoContainer.setVisibility(View.VISIBLE);
                         break;
 
