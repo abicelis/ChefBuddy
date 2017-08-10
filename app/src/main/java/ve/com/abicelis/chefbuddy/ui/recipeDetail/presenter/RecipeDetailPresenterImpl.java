@@ -70,7 +70,7 @@ public class RecipeDetailPresenterImpl implements RecipeDetailPresenter {
             for (Bitmap b : mCachedImages) {
                 String imageFilename = UUID.randomUUID().toString() + Constants.IMAGE_FILE_EXTENSION;
                 File file = new File(imageDir, imageFilename);
-                ImageUtil.saveBitmapAsJpeg(file, b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
+                FileUtil.saveBitmapAsJpeg(file, b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
 
                 //Save the filename into the recipe
                 mRecipe.getImages().add(imageFilename);
