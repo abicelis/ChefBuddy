@@ -3,13 +3,17 @@ package ve.com.abicelis.chefbuddy.app;
 
 import android.os.Environment;
 
+import ve.com.abicelis.chefbuddy.util.FileUtil;
+
 /**
  * Created by abicelis on 8/7/2017.
  */
 
 public class Constants {
     public static final String  CHEFF_BUDDY = " - Chef Buddy";
-    public static final String DATABASE_NAME = "ChefBuddy.db";
+    public static final String  DATABASE_NAME = "ChefBuddy.db";
+    public static final int     BUFFER_SIZE = 8192;
+
 
     public static final String  IMAGE_FILE_EXTENSION = ".jpg";
     public static final String  PDF_FILE_EXTENSION = ".pdf";
@@ -90,8 +94,10 @@ public class Constants {
     public static final String BACKUP_SERVICE_BROADCAST_BACKUP_PROGRESS = "BACKUP_SERVICE_BROADCAST_BACKUP_PROGRESS";
     public static final String  BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE = "BACKUP_SERVICE_BROADCAST_INTENT_EXTRA_MESSAGE";
 
-    public static final String  BACKUP_SERVICE_BACKUP_DIR = Environment.getExternalStorageDirectory().getPath() + "/Chef Buddy";
+    public static final String  BACKUP_SERVICE_BACKUP_DIR = "/Chef Buddy";
+    public static final String  BACKUP_SERVICE_BACKUP_TEMP_DIR = "/Chef Buddy/temp";
     public static final String  BACKUP_SERVICE_BACKUP_FILE_FORMAT = "%1$s/%2$d_%3$d_%4$d.zip";
+    public static final String  BACKUP_SERVICE_BACKUP_TEMP_FILE_FORMAT = "%1$s/temp_%2$d.zip";
     public static final String  BACKUP_SERVICE_ZIP_IMAGES_DIR = "images/";
     public static final int     BACKUP_SERVICE_MAXIMUM_BACKUPS = 5;
 

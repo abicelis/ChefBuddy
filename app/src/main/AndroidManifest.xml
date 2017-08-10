@@ -48,7 +48,6 @@
 
         <!--SERVICES-->
         <service android:name=".service.BackupService"/>
-        <service android:name=".service.BackupServiceV2"/>
 
 
         <!--BROADCAST RECEIVERS-->

@@ -25,6 +25,7 @@ public enum Message implements Serializable {
     ERROR_REQUESTING_CAMERA(R.string.error_requesting_camera, MessageType.ERROR),
     ERROR_SAVING_PDF(R.string.error_saving_pdf, MessageType.ERROR),
     ERROR_LOADING_ONLINE_RECIPES(R.string.error_loading_online_recipes, MessageType.ERROR),
+    ERROR_INVALID_BACKUP_SELECTED(R.string.error_invalid_backup_selected, MessageType.ERROR),
 
     NOTICE_LOADING_RECIPE_DETAILS(R.string.notice_loading_recipes_details, MessageType.NOTICE),
 
@@ -52,6 +53,7 @@ public enum Message implements Serializable {
     SUCCESS_CREATING_LOCAL_AND_GOOGLE_DRIVE_BACKUP(R.string.success_creating_local_and_google_drive_backup, MessageType.SUCCESS),
     ERROR_DRIVE_LISTING_FILES(R.string.error_drive_listing_files, MessageType.ERROR),
     ERROR_DRIVE_DELETING_OLD_BACKUPS(R.string.error_drive_deleting_old_backups, MessageType.ERROR),
+    ERROR_RESTORING_BACKUP(R.string.error_restoring_backup, MessageType.ERROR),
 
 
     ;
