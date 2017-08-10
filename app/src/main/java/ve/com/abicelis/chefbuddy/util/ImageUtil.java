@@ -105,17 +105,6 @@ public class ImageUtil {
     }
 
 
-    /**
-     * Saves a JPEG at the given quality to disk at the specified path of the given File
-     * @param file The file where the JPEG will be saved
-     * @param bitmapToSave The Bitmap to save into the file
-     * @param quality The percentage of JPEG compression
-     */
-    public static void saveBitmapAsJpeg(File file, Bitmap bitmapToSave, int quality) throws IOException {
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(toCompressedByteArray(bitmapToSave, quality));
-        fos.close();
-    }
 
 
 
