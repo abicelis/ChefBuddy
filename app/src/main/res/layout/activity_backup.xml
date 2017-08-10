@@ -87,6 +87,14 @@
                             android:textSize="16sp"
                             />
 
+                        <TextView
+                            android:id="@+id/activity_backup_last_backup_info_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/backup_info_detail_string_3"
+                            android:textSize="16sp"
+                            />
+
                     </LinearLayout>
 
                     <!--NO_BACKUPS STATE-->
