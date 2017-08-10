@@ -45,15 +45,9 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 16;    // If you change the database schema, you must increment the database version.
     private static final String COMMA_SEP = ", ";
 
-    private String mAppDbFilepath;
-    private String mDbExternalBackupFilepath;
-
 
     public ChefBuddyDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        mAppDbFilepath =  context.getDatabasePath(DATABASE_NAME).getPath();
-        mDbExternalBackupFilepath = Environment.getExternalStorageDirectory().getPath() + "/" + DATABASE_NAME;
     }
 
     @Override
@@ -71,48 +65,6 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
         // to simply to discard the data and start over
         deleteDatabase(sqLiteDatabase);
         onCreate(sqLiteDatabase);
-    }
-
-
-    /**
-     * Copies the database file at the specified location over the current
-     * internal application database.
-     * */
-    public boolean exportDatabase() throws IOException {
-
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
-        close();
-        File appDatabase = new File(mAppDbFilepath);
-        File backupDatabase = new File(mDbExternalBackupFilepath);
-
-        if (appDatabase.exists()) {
-            FileUtil.copyFile(new FileInputStream(appDatabase), new FileOutputStream(backupDatabase));
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Copies the database file at the specified location over the current
-     * internal application database.
-     * */
-    public boolean importDatabase() throws IOException {
-
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
-        close();
-        File appDatabase = new File(mAppDbFilepath);
-        File backupDatabase = new File(mDbExternalBackupFilepath);
-
-        if (backupDatabase.exists()) {
-            FileUtil.copyFile(new FileInputStream(backupDatabase), new FileOutputStream(appDatabase));
-            // Access the copied database so SQLiteHelper will cache it and mark
-            // it as created.
-            getWritableDatabase().close();
-            return true;
-        }
-        return false;
     }
 
     private void insertMockData(SQLiteDatabase sqLiteDatabase) {
@@ -396,6 +348,6 @@ public class ChefBuddyDbHelper extends SQLiteOpenHelper {
     private void saveDrawableAsImage(File imageDir, String filename, @DrawableRes int drawable) throws IOException {
         Drawable d = ContextCompat.getDrawable(ChefBuddyApplication.getContext(), drawable);
         Bitmap b = ImageUtil.getBitmap(d);
-        ImageUtil.saveBitmapAsJpeg(new File(imageDir, filename), b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
+        FileUtil.saveBitmapAsJpeg(new File(imageDir, filename), b, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
     }
 }
