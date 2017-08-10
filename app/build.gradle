@@ -13,8 +13,8 @@ android {
         applicationId "ve.com.abicelis.chefbuddy"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
