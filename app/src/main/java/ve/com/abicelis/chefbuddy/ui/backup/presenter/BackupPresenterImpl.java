@@ -1,6 +1,7 @@
 package ve.com.abicelis.chefbuddy.ui.backup.presenter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +14,8 @@ import ve.com.abicelis.chefbuddy.model.BackupFrequencyType;
 import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.model.BackupType;
 import ve.com.abicelis.chefbuddy.ui.backup.view.BackupView;
+import ve.com.abicelis.chefbuddy.util.BackupUtil;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 import ve.com.abicelis.chefbuddy.util.SharedPreferenceUtil;
 
 /**
@@ -129,9 +132,7 @@ public class BackupPresenterImpl implements BackupPresenter {
 
     private void updateLastBackupFileAndInfo() {
         //Get local files
-        File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
-        final File[] backupZipFiles = backupDir.listFiles();
-        if(backupZipFiles != null) Arrays.sort(backupZipFiles);
+        final List<File> backupZipFiles = FileUtil.getLocalBackupList(false);
 
         if(mGoogleApiClientEnabled) {
 
@@ -143,8 +144,8 @@ public class BackupPresenterImpl implements BackupPresenter {
                     //Get files from remote
                     List<String> remoteFiles = mView.getGoogleDriveFileList();
 
-                    if(remoteFiles.size() > 0 && backupZipFiles!= null && backupZipFiles.length > 0) {
-                        String localFile = backupZipFiles[backupZipFiles.length-1].getName();
+                    if(remoteFiles.size() > 0 && backupZipFiles.size() > 0) {
+                        String localFile = backupZipFiles.get(0).getName();
                         String remoteFile = remoteFiles.get(remoteFiles.size()-1);
 
                         int result = localFile.compareTo(remoteFile);
@@ -157,8 +158,8 @@ public class BackupPresenterImpl implements BackupPresenter {
                             mLastBackupFileInfo = new BackupInfo(localFile, BackupType.GOOGLE_DRIVE);
 
 
-                    } else if(backupZipFiles != null && backupZipFiles.length > 0) {
-                        mLastBackupFileInfo = new BackupInfo(backupZipFiles[backupZipFiles.length-1].getName(), BackupType.LOCAL);
+                    } else if(backupZipFiles.size() > 0) {
+                        mLastBackupFileInfo = new BackupInfo(backupZipFiles.get(0).getName(), BackupType.LOCAL);
 
                     } else if (remoteFiles.size() > 0) {
                         mLastBackupFileInfo = new BackupInfo(remoteFiles.get(0), BackupType.GOOGLE_DRIVE);
@@ -176,15 +177,10 @@ public class BackupPresenterImpl implements BackupPresenter {
                 }
             }.start();
 
-
-
-
-
         } else {
 
-            if(backupZipFiles != null && backupZipFiles.length > 0) {
-                Arrays.sort(backupZipFiles);
-                mLastBackupFileInfo = new BackupInfo(backupZipFiles[backupZipFiles.length-1].getName(), BackupType.LOCAL);
+            if(backupZipFiles.size() > 0) {
+                mLastBackupFileInfo = new BackupInfo(backupZipFiles.get(0).getName(), BackupType.LOCAL);
                 mView.updateLastBackupSection(BackupView.LastBackupState.SHOW_BACKUP_INFO, mLastBackupFileInfo);
             } else {
                 mLastBackupFileInfo = null;
