@@ -94,7 +94,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.C
 
                     OutputStream outputStream = result.getDriveContents().getOutputStream();
 
-                    File backupDir = new File(Constants.BACKUP_SERVICE_BACKUP_DIR);
+                    File backupDir = FileUtil.getBackupDir();
                     File[] backupFiles = backupDir.listFiles();
 
                     if (backupFiles != null && backupFiles.length > 0) {
