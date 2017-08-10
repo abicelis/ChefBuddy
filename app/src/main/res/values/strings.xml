@@ -5,8 +5,9 @@
 
 
     <!--Backup info model-->
-    <string name="backup_info_detail_string">%1$s backup. Done %2$s</string>                  <!--Local backup. Done 5 minutes ago-->
-    <string name="backup_info_detail_string_2">Backed up %1$d recipes, %2$d images.</string>
+    <string name="backup_info_detail_string">%1$s backup</string>                    <!--Local backup -->
+    <string name="backup_info_detail_string_2">Done %1$s</string>                    <!-- Done 5 minutes ago -->
+    <string name="backup_info_detail_string_3">%1$d recipes, %2$d images</string>
 
 
     <!-- About Activity -->
@@ -225,9 +226,25 @@
     <string name="activity_intro_slider_storage_permission_title">We need your permission&#8230;</string>
     <string name="activity_intro_slider_storage_permission_description">Please allow storage permissions to back up/restore Recipes</string>
 
-    <string name="activity_intro_slider_restore_backup_title">Restore a backup</string>
-    <string name="activity_intro_slider_restore_backup_description">Are you reinstalling Chef Buddy or installing Chef Buddy on a new phone? Restore a previously-made backup here</string>
+    <string name="fragment_restore_backup_title">Restore a backup</string>
+    <string name="fragment_restore_backup_no_permissions_description">Chef Buddy has no permission to check for backups. To restore a backup, go back to the previous slide and grant storage permissions</string>
+    <string name="fragment_restore_backup_choose_restore_source_description">Are you reinstalling Chef Buddy or installing Chef Buddy on a new phone? Restore a previously-made backup here</string>
+    <string name="fragment_restore_backup_choose_restore_source_google_drive">Connect to Google Drive</string>
+    <string name="fragment_restore_backup_choose_restore_source_local">Just show me local backups</string>
+    <string name="fragment_restore_backup_choose_backup_description">Choose a backup to restore</string>
+    <string name="fragment_restore_backup_choose_backup_restore">RESTORE</string>
+
+    <string name="fragment_restore_backup_no_backups_found_description">Chef Buddy found no backups</string>
+    <string name="fragment_restore_backup_restore_done_description">Chef Buddy data successfully restored!</string>
+    <string name="fragment_restore_backup_restore_canceled_description">Restore was canceled</string>
     <string name="activity_intro_slider_all_set_title">"All set!"</string>
+
+        <!--Discard backup restore Dialog-->
+        <string name="dialog_skip_restore_title">Skip backup restore</string>
+        <string name="dialog_skip_restore_message">You haven\'t finished restoring your backup, are you sure you want to skip this step?</string>
+
+
+
 
 
     <!--Dialog-->
@@ -235,6 +252,7 @@
     <string name="dialog_done">DONE</string>
     <string name="dialog_set">SET</string>
     <string name="dialog_agree">AGREE</string>
+    <string name="dialog_skip">SKIP</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="dialog_discard">DISCARD</string>
@@ -258,6 +276,7 @@
     <string name="error_exporting_recipe_to_pdf">Unexpected error exporting the recipe to pdf</string>
     <string name="error_saving_pdf">Unexpected error saving the pdf</string>
     <string name="error_loading_online_recipes">Error loading online recipe list</string>
+    <string name="error_invalid_backup_selected">Please select a backup</string>
 
     <string name="notice_loading_recipes_details">Loading recipe details</string>
 
@@ -274,7 +293,7 @@
 
     <string name="error_creating_backup_directory">Error creating backup directory</string>
     <string name="error_creating_zip_file">Error creating zip file</string>
-    <string name="error_unknown_creating_backup">Unexpected error creating backup</string>
+    <string name="error_unknown_creating_backup">Unknown error creating backup</string>
     <string name="success_creating_local_backup">Local backup created successfully</string>
     <string name="error_connecting_google_api">Error connecting to Google Drive</string>
     <string name="error_drive_creating_file_contents">Drive: Error creating new file contents</string>
@@ -283,6 +302,7 @@
     <string name="success_creating_local_and_google_drive_backup">Local and Google Drive backup created successfully</string>
     <string name="error_drive_listing_files">Drive: Error listing drive files</string>
     <string name="error_drive_deleting_old_backups">Drive: Error deleting old backups</string>
+    <string name="error_restoring_backup">Error restoring backup</string>
 
 
     <!--Backup Frecuency Type enum-->
