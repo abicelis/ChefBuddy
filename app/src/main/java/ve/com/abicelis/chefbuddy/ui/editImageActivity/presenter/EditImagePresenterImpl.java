@@ -76,7 +76,7 @@ public class EditImagePresenterImpl implements EditImagePresenter {
     public void saveImage() {
         try {
             File file = new File(FileUtil.getImageFilesDir(), mImageFilename);
-            ImageUtil.saveBitmapAsJpeg(file, mImage, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
+            FileUtil.saveBitmapAsJpeg(file, mImage, Constants.IMAGE_JPEG_COMPRESSION_PERCENTAGE);
             if(mView != null)
                 mView.imageSavedSoFinish();
         }catch (IOException e) {
