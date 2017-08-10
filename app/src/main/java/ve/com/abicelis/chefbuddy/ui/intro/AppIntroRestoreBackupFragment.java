@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -21,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.ISlidePolicy;
@@ -33,10 +33,17 @@ import com.google.android.gms.drive.Drive;
 import com.google.android.gms.drive.DriveApi;
 import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.Metadata;
+import com.google.android.gms.drive.query.Filters;
 import com.google.android.gms.drive.query.Query;
+import com.google.android.gms.drive.query.SearchableField;
 import com.google.android.gms.drive.query.SortOrder;
 import com.google.android.gms.drive.query.SortableField;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +58,7 @@ import ve.com.abicelis.chefbuddy.app.Message;
 import ve.com.abicelis.chefbuddy.model.BackupInfo;
 import ve.com.abicelis.chefbuddy.ui.intro.presenter.AppIntroRestoreBackupPresenter;
 import ve.com.abicelis.chefbuddy.ui.intro.view.AppIntroRestoreBackupView;
+import ve.com.abicelis.chefbuddy.util.FileUtil;
 import ve.com.abicelis.chefbuddy.util.SnackbarUtil;
 
 import static android.app.Activity.RESULT_OK;
@@ -151,7 +159,7 @@ public class AppIntroRestoreBackupFragment extends Fragment implements AppIntroR
         mRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mPresenter.restoreBackup(mBackupAdapter.getSelectedBackup());
+                mPresenter.restoreBackup(mBackupAdapter.getSelectedBackup());
             }
         });
 
@@ -263,15 +271,79 @@ public class AppIntroRestoreBackupFragment extends Fragment implements AppIntroR
 
     @Override
     public void downloadGoogleDriveBackupFile(BackupInfo backupInfo) {
+
+
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+
+                //Create local file
+                File localFile = new File(FileUtil.getBackupDir(), params[0]);
+                if (!localFile.exists()) {
+                    try {
+                        localFile.createNewFile();
+                    } catch (IOException e) {
+                        //Handle error
+                    }
+                }
+
+                //Query the file
+                Query query = new Query.Builder()
+                        .addFilter(Filters.eq(SearchableField.TITLE, params[0]))
+                        .build();
+
+                DriveApi.MetadataBufferResult result = Drive.DriveApi.query(mGoogleApiClient, query).await();
+
+                if (!result.getStatus().isSuccess()) {
+                    //Handle error
+                }
+
+                if(result.getMetadataBuffer().getCount() > 0) {
+                    //File exists
+                    DriveFile driveFile = result.getMetadataBuffer().get(0).getDriveId().asDriveFile();
+                    DriveApi.DriveContentsResult driveContentsResult = driveFile.open(mGoogleApiClient, DriveFile.MODE_READ_ONLY, null).await();
+
+                    if (!result.getStatus().isSuccess()) {
+                        //Handle error
+                    }
+
+                    //File read successfully
+                    int count;
+                    byte data[] = new byte[Constants.BUFFER_SIZE];
+                    try {
+                        BufferedInputStream in = new BufferedInputStream(driveContentsResult.getDriveContents().getInputStream());
+                        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(localFile));
+                        try {
+                            while ((count = in.read(data, 0, Constants.BUFFER_SIZE)) != -1)
+                                out.write(data, 0, count);
+                        }
+                        finally {
+                            out.close();
+                        }
+                    } catch (Exception e) {
+                        //Handle error
+                    }
+
+                }
+
+                return params[0];
+            }
+
+            @Override
+            protected void onPostExecute(String backupFileName) {
+                super.onPostExecute(backupFileName);
+                mPresenter.backupReadyToRestore(backupFileName);
+            }
+        }.execute(backupInfo.getFilename());
+
+
     }
+
 
     @Override
     public void showErrorMessage(Message message) {
         SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, message.getFriendlyNameRes(), SnackbarUtil.SnackbarDuration.SHORT, null);
     }
-
-
-
 
 
     /* Google API Client Callbacks */

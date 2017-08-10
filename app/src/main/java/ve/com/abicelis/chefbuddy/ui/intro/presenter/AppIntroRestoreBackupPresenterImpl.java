@@ -84,29 +84,30 @@ public class AppIntroRestoreBackupPresenterImpl implements AppIntroRestoreBackup
         if (backupInfo == null) {
             mView.showErrorMessage(Message.ERROR_INVALID_BACKUP_SELECTED);
         } else {
+            //Force SQLite to create database.
             try {
-                //Force SQLite to create database.
-                try {
-                    int fakeRecipeCount = mDao.getRecipeCount();
-                } catch (CouldNotGetDataException e) {
-                    mView.showErrorMessage(Message.ERROR_RESTORING_BACKUP);
-                    return;
-                }
-
-                //If backup is in google only, download zip first
-                if(backupInfo.getBackupType().equals(BackupType.GOOGLE_DRIVE)) {
-                    mView.showErrorMessage(Message.ERROR_CREATING_ZIP_FILE);
-                    // TODO
-                    // mView.downloadGoogleDriveBackupFile(backupInfo);
-                }
-
-                BackupUtil.restoreZipBackup(new File(FileUtil.getBackupDir(), backupInfo.getFilename()).getPath());
-                mView.changeStatus(AppIntroRestoreBackupView.RestoreBackupState.RESTORE_DONE);
-
-            } catch (IOException e) {
+                int fakeRecipeCount = mDao.getRecipeCount();
+            } catch (CouldNotGetDataException e) {
                 mView.showErrorMessage(Message.ERROR_RESTORING_BACKUP);
-                mView.changeStatus(AppIntroRestoreBackupView.RestoreBackupState.RESTORE_CANCELED);
+                return;
             }
+
+            //If backup is in google only, download zip first
+            if(backupInfo.getBackupType().equals(BackupType.GOOGLE_DRIVE))
+                mView.downloadGoogleDriveBackupFile(backupInfo);
+            else
+                backupReadyToRestore(backupInfo.getFilename());
+        }
+    }
+
+    @Override
+    public void backupReadyToRestore(String backupFilename) {
+        try {
+            BackupUtil.restoreZipBackup(new File(FileUtil.getBackupDir(), backupFilename).getPath());
+        mView.changeStatus(AppIntroRestoreBackupView.RestoreBackupState.RESTORE_DONE);
+        } catch (IOException e) {
+            mView.showErrorMessage(Message.ERROR_RESTORING_BACKUP);
+            mView.changeStatus(AppIntroRestoreBackupView.RestoreBackupState.RESTORE_CANCELED);
         }
     }
 

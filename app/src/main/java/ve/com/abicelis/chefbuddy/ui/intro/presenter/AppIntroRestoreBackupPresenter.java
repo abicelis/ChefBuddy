@@ -16,6 +16,7 @@ public interface AppIntroRestoreBackupPresenter {
 
     void restoreTypeChosen(boolean localOnly);
     void restoreBackup(BackupInfo backupInfo);
+    void backupReadyToRestore(String backupFilename);
 
     void googleApiClientConnected();
     void googleApiClientNotConnected();
