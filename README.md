@@ -1,7 +1,5 @@
 # Chef Buddy #
 
-## About the app
-
 Are you one of those people that **can't seem to decide** on what to cook? 
 
 Chef Buddy is an Android app which helps you **manage your recipes and help you decide**! Chef buddy also allows you to **keep track of meals** you've cooked in the past, so that you dont repeat them! 
