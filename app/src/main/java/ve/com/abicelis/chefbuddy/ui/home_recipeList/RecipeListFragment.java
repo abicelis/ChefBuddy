@@ -90,7 +90,7 @@ public class RecipeListFragment extends Fragment implements RecipeListView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+        //presenter.detachView();
     }
 
     @Override

@@ -256,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, SearchV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+        //presenter.detachView();
     }
 
     @Override

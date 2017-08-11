@@ -181,7 +181,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements AppBarLay
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        //mPresenter.detachView();
     }
 
 

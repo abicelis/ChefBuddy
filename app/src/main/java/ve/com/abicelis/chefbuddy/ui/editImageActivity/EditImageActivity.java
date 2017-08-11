@@ -19,6 +19,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -246,7 +247,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constants.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            checkExifAndFixImageRotation();
+            //checkExifAndFixImageRotation();
             Bitmap newBitmap = ImageUtil.getBitmap(FileUtil.getImageFilesDir(), mPresenter.getImageFilename());
             mImage.setImageBitmap(newBitmap);
             mPresenter.setTempImage(newBitmap);
@@ -266,7 +267,14 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
 
     private void checkExifAndFixImageRotation() {
         try {
-            ExifInterface ei = new ExifInterface(new File(FileUtil.getImageFilesDir(), mPresenter.getImageFilename()).getAbsolutePath());
+
+            String imageFilename = mPresenter.getImageFilename();
+            File imageFilesDir = FileUtil.getImageFilesDir();
+            Log.d("checkExif", imageFilename);
+            Log.d("checkExif", imageFilesDir.toString());
+
+            String imageFilePath = new File(imageFilesDir, imageFilename).getAbsolutePath();
+            ExifInterface ei = new ExifInterface(imageFilePath);
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
             switch (orientation) {

@@ -266,7 +266,7 @@ public class AddEditRecipeActivity extends AppCompatActivity implements AddEditR
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachViews();
+       //mPresenter.detachViews();
     }
 
     @Override
