@@ -18,6 +18,7 @@ import com.github.paolorotolo.appintro.model.SliderPage;
 import ve.com.abicelis.chefbuddy.R;
 import ve.com.abicelis.chefbuddy.app.Constants;
 import ve.com.abicelis.chefbuddy.ui.home.HomeActivity;
+import ve.com.abicelis.chefbuddy.util.SharedPreferenceUtil;
 
 /**
  * Created by abicelis on 7/8/2017.
@@ -32,8 +33,7 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
 
-        //if(SharedPreferenceUtil.isFirstTimeLaunchingApp()) {
-        if(true) {
+        if(SharedPreferenceUtil.isFirstTimeLaunchingApp()) {
             //Hide StatusBar
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
