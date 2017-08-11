@@ -4,6 +4,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +66,17 @@ public class SelectImageSourceDialogFragment extends DialogFragment implements V
         mGallery.setOnClickListener(this);
         mCancel.setOnClickListener(this);
         return dialogView;
+    }
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+
+        //Workaround for fixing "IllegalStateException: Can not perform this action after onSaveInstanceState"
+        //when executing dialog.show();
+        //Fix is running same code as super, only replacing commit() with commitAllowingStateLoss()
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.add(this, tag);
+        ft.commitAllowingStateLoss();
     }
 
     @Override
