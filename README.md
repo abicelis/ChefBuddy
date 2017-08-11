@@ -1,8 +1,5 @@
 # Chef Buddy #
 
-THIS SOFTWARE IS CURRENTLY IN DEVELOPMENT
-
-
 ## About the app
 
 Are you one of those people that **can't seem to decide** on what to cook? 
@@ -11,14 +8,7 @@ Chef Buddy is an Android app which helps you **manage your recipes and help you 
 
 Please check out the prototype by clicking [right here!](https://abicelis.github.io/ChefBuddyPrototype/ "Chef Buddy Prototype")
 
-<!--<a target="_blank" href='https://play.google.com/store/apps/details?id=ve.com.abicelis.chefbuddy&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="240px"/></a>
-
-This app features:
-
-- Beautiful Material design!
-- Ad-free-->
-
-
+<a target="_blank" href='https://play.google.com/store/apps/details?id=ve.com.abicelis.chefbuddy&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="240px"/></a>
 
 ## Screenshots
 
