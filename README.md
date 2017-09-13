@@ -4,6 +4,13 @@ Are you one of those people that **can't seem to decide** on what to cook?
 
 Chef Buddy is an Android app which helps you **manage your recipes and help you decide**! Chef buddy also allows you to **keep track of meals** you've cooked in the past, so that you dont repeat them! 
 
+Use Chef Buddy to organize your recipes:
+
+- Create recipes, add a description, ingredients, servings, preparation and images.
+- Log your daily cooking and see what you've had for lunch or dinner!
+- Search for recipes online using multiple recipe sources
+- Don't know what to cook? Chef Buddy includes a configurable Spin Wheel that randomly selects meals
+
 Please check out the prototype by clicking [right here!](https://abicelis.github.io/ChefBuddyPrototype/ "Chef Buddy Prototype")
 
 <a target="_blank" href='https://play.google.com/store/apps/details?id=ve.com.abicelis.chefbuddy&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="240px"/></a>
