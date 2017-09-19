@@ -82,7 +82,8 @@ public class EditRecipeIngredientViewHolder extends RecyclerView.ViewHolder impl
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
                     dragStartListener.onDragStarted(EditRecipeIngredientViewHolder.this);
                 }
-                return false;            }
+                return false;
+            }
         });
     }
 
