@@ -6,8 +6,8 @@ android {
         applicationId "ve.com.abicelis.chefbuddy"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.0.6"
+        versionCode 9
+        versionName "1.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.takisoft.fix:preference-v7:27.1.1.2'
 
     //Google drive API
-    implementation 'com.google.android.gms:play-services-drive:15.0.1'
+    implementation 'com.google.android.gms:play-services-drive:16.0.0'
 
     //Transitions
     implementation 'com.andkulikov:transitionseverywhere:1.7.0'
